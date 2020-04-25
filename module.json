@@ -1,0 +1,39 @@
+{
+  "name": "pathfinder1-fr",
+  "title": "Pathfinder 1 - Improvements for french",
+  "description": "Improves the system for french language",
+  "version": "0.1",
+  "author": "Sven Werlen",
+  "packs": [{
+      "name": "classesfr",
+      "label": "Classes",
+      "system": "pf1",
+      "path": "./packs/classes-fr.db",
+      "entity": "Item"
+    },
+    {
+      "name": "spellsfr",
+      "label": "Sorts",
+      "system": "pf1",
+      "path": "./packs/spells-fr.db",
+      "entity": "Item"
+    },
+    {
+      "name": "featsfr",
+      "label": "Dons",
+      "system": "pf1",
+      "path": "./packs/feats-fr.db",
+      "entity": "Item"
+    },
+    {
+      "name": "itemsfr",
+      "label": "Équipement",
+      "system": "pf1",
+      "path": "./packs/items-fr.db",
+      "entity": "Item"
+    },
+  ],
+  "url": "https://github.com/SvenWerlen/foundryvtt-pathfinder-fr",
+  "minimumCoreVersion": "0.5.5",
+  "compatibleCoreVersion": "0.5.5"
+}
