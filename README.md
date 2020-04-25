@@ -14,7 +14,7 @@ Compendiums supportés:
 
 ## Pré-requis
 
-This module requires:
+Ce module assume que les extensions suivantes sont installées:
 * Pathfinder 1 (system): https://foundryvtt.com/packages/pf1/
 * Translation French (Core): https://foundryvtt.com/packages/fr-FR/
 
