@@ -72,12 +72,12 @@ async function pf1frLoadCharacter() {
         land: {
           base: pj['Vitesse'],
         },
-        //climb: {
-        //  base: pj['Vitesse'] / 4,
-        //},
-        //swim: {
-        //  base: null,
-        //},
+        climb: {
+          base: pj['Vitesse'] / 4,
+        },
+        swim: {
+          base: pj['Vitesse'] / 4,
+        },
         burrow: {
           base: pj['VitesseCreusement'],
         },
@@ -111,11 +111,28 @@ async function pf1frLoadCharacter() {
     cdata.data.skills[SK_MAP[sk['Nom']]] = { 'rank': sk['Rang'] }
   });
   
-  if(0) {
+  
+  if(1) {
     let actor = await Actor.create(cdata)
     await game.actors.insert(actor)
-    game.actors.get(actor.id).update({}) // force update!
+    actor = game.actors.get(actor.id);
+    actor.update({}) // force update!
+    
+    // add class(es)
+    const packClasses = game.packs.find(p => p.collection === "pf1-fr.classesfr");
+    packClasses.getIndex().then(function(idx) {
+      console.log(idx);
+      pj['Classes'].forEach(function(cl) {
+        const cla = packClasses.index.find(c => c.name === cl['Nom']);
+        packClasses.getEntity(cla._id).then(function(c) {
+          c.data.data.levels = cl['Niveau']
+          actor.createEmbeddedEntity("OwnedItem",c)
+        });
+      });
+    });
+    
     console.log(`PF1 | Actor Added!`);
+    
   } else {
     console.log(cdata);
   }
