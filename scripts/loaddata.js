@@ -106,8 +106,9 @@ async function pf1frLoadCharacter() {
     'Connaissances (folklore local)': "klo", 'Connaissances (nature)': "kna", 'Connaissances (noblesse)': "kno", 'Connaissances (plans)': "kpl",
     'Connaissances (religion)': "kre", 'Linguistique': "lin", 'Perception': "per", 'Représentation': "prf", 'Profession': "pro", 'Équitation': "rid",
     'Psychologie': "sen", 'Escamotage': "slt", 'Art de la magie': "spl", 'Discrétion': "ste", 'Survie': "sur", 'Natation': "swm", 'Utilisation d\'objets magiques': "umd"
-  }  
-  
+  }
+  const CL_ABBR = { "Barbare": "Brb", "Prêtre combattant": "Prc", "Archer mage": "ArM", "Champion occultiste": "Chp", "Magus": "Mgs", "Chaman": "Chm" }
+    
   pj['Caracs'].forEach(function(c) {
     const key = Object.keys(c)[0]
     cdata.data.abilities[AB_MAP[key]] = { 'value': c[key] }
@@ -120,9 +121,10 @@ async function pf1frLoadCharacter() {
     } else {
       cdata.data.skills[key] = { 'rank': sk['Rang'] }
     }
-    
   });
   
+  // class abbreviation
+  let classAbbr = []
   
   if(1) {
     let actor = await Actor.create(cdata)
@@ -139,6 +141,13 @@ async function pf1frLoadCharacter() {
           c.data.data.levels = cl['Niveau']
           actor.createEmbeddedEntity("OwnedItem",c)
         });
+        // generate abbr
+        let abbr = cl['Nom'].substring(0,3)
+        if(cl['Nom'] in CL_ABBR) {
+          abbr = CL_ABBR[cl['Nom']]
+        }
+        console.log(abbr)
+        classAbbr.push(abbr)
       });
     });
     // add feat(s)
@@ -149,6 +158,24 @@ async function pf1frLoadCharacter() {
         packFeats.getEntity(fea._id).then(function(f) {
           actor.createEmbeddedEntity("OwnedItem",f)
         });
+      });
+    });
+    // add feature(s)
+    const packFeatures = game.packs.find(p => p.collection === "pf1-fr.classfeaturesfr");
+    packFeatures.getIndex().then(function(idx) {
+      pj['Aptitudes'].forEach(function(feature) {
+        // search feature in dict
+        const fea = packFeatures.index.find(function(f) {
+          let name = f.name.substring(f.name.indexOf(":")+2)
+          return name === feature['Nom'] && (classAbbr.includes(f.name.substring(0,3)));
+        });
+        if (typeof fea != "undefined") {
+          packFeatures.getEntity(fea._id).then(function(f) {
+            actor.createEmbeddedEntity("OwnedItem",f)
+          });
+        } else {
+          console.log("NOT FOUND: " + feature['Nom'])
+        }
       });
     });
     
