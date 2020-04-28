@@ -28,6 +28,13 @@
       "entity": "Item"
     },
     {
+      "name": "classfeaturesfr",
+      "label": "Aptitudes",
+      "system": "pf1",
+      "path": "./packs/classfeatures-fr.db",
+      "entity": "Item"
+    },
+    {
       "name": "itemsfr",
       "label": "Équipement",
       "system": "pf1",
