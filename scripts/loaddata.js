@@ -178,6 +178,16 @@ async function pf1frLoadCharacter() {
         }
       });
     });
+    // add spells
+    const packSpells = game.packs.find(p => p.collection === "pf1-fr.spellsfr");
+    packSpells.getIndex().then(function(idx) {
+      pj['Sorts'].forEach(function(feat) {
+        const fea = packSpells.index.find(f => f.name === feat['Nom']);
+        packSpells.getEntity(fea._id).then(function(f) {
+          actor.createEmbeddedEntity("OwnedItem",f)
+        });
+      });
+    });
     
     console.log(`PF1 | Actor Added!`);
     
