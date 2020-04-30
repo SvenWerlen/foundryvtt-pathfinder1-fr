@@ -4,7 +4,7 @@
   "description": "Improves the system for french language",
   "version": "0.3.0",
   "author": "Sven Werlen",
-  "scripts": ["scripts/loaddata.js"],
+  "scripts": ["scripts/importer.js", "scripts/loaddata.js"],
   "packs": [
     {
       "name": "classesfr",
