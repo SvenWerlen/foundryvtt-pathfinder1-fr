@@ -12,6 +12,13 @@ Compendiums supportés:
 ![Compendiums](/doc/img/compendiums.jpg)
 ![Spells](/doc/img/spells.jpg)
 
+(beta) Le module permet également l'import de personnages qui ont été créés à partir
+de l'application Android (https://github.com/SvenWerlen/pathfinderfr-android). 
+
+![Profil](/doc/img/character-profile.jpg)
+
+Voir documentation: [Importer un personnage](doc/importer-personnage.md)
+
 ## Pré-requis
 
 Ce module assume que les extensions suivantes sont installées:
@@ -38,5 +45,3 @@ Ce module assume que les extensions suivantes sont installées:
 
 * Onglet "Compendiums"
 * Changer la visibilité de chaque pack d'origine (pf1)
-
-
