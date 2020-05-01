@@ -43,12 +43,19 @@ async function pf1frLoadData() {
   console.log(`PF1-FR | Done`);
 }
 
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
+
 /**
  * Hidden function to import a character from JSON file
  */
-async function pf1frLoadCharacter() {
-  //const pj = await fetch("/personnage.pfc").then(r => r.json()) // Load your JSON data
-  const pj = await fetch("/pjs/cassandre.json").then(r => r.json()) // Load your JSON data
+async function pf1frLoadCharacter(path) {
+  
+  const yamlData = await fetch(path).then(content => content.text()) // Load your YAML data
+  pj = YAML.parse(yamlData)
+  console.log(pj)
+  //const pj = await fetch(path).then(r => r.json()) // Load your JSON data
 
   let cdata = {
     name: pj['Nom'],
@@ -118,141 +125,159 @@ async function pf1frLoadCharacter() {
     actor = game.actors.get(actor.id);
     actor.update({}) // force update!
     
+    let items = []
+    
+    // add class(es)
+    const packClasses = game.packs.find(p => p.collection === "pf1-fr.classesfr");
+    await packClasses.getIndex()
+    for(var i = 0; i < pj['Classes'].length; i++) {
+      const idx = packClasses.index.find(f => f.name === pj['Classes'][i]['Nom']);
+      if(idx) {
+        const cl = await packClasses.getEntity(idx._id);
+        cl.data.data.levels = pj['Classes'][i]['Niveau']
+        //await actor.createEmbeddedEntity("OwnedItem", [cl])
+        items.push(cl)
+        // generate abbr
+        let abbr = cl.data.name.substring(0,3)
+        if(cl.data.name in Importer.CL_ABBR) {
+          abbr = Importer.CL_ABBR[cl.data.name]
+        }
+        classAbbr.push(abbr)
+      } else {
+        console.log("PF1-FR | WARNING: class '" + pj['Classes'][i]['Nom'] + "' not found in compendium")
+      }
+    }
+    
+    // add feat(s)
+    const packFeats = game.packs.find(p => p.collection === "pf1-fr.featsfr");
+    await packFeats.getIndex()
+    for(var i = 0; i < pj['Dons'].length; i++) {
+      const idx = packFeats.index.find(f => f.name === pj['Dons'][i]['Nom']);
+      if(idx) {
+        const feat = await packFeats.getEntity(idx._id);
+        //await actor.createEmbeddedEntity("OwnedItem", feat)
+        items.push(feat)
+      } else {
+        console.log("PF1-FR | WARNING: feat '" + pj['Dons'][i]['Nom'] + "' not found in compendium")
+      }
+    }
 
-//     // add class(es)
-//     const packClasses = game.packs.find(p => p.collection === "pf1-fr.classesfr");
-//     packClasses.getIndex().then(function(idx) {
-//       pj['Classes'].forEach(function(cl) {
-//         const cla = packClasses.index.find(c => c.name === cl['Nom']);
-//         packClasses.getEntity(cla._id).then(function(c) {
-//           c.data.data.levels = cl['Niveau']
-//           actor.createEmbeddedEntity("OwnedItem",c)
-//         });
-//         // generate abbr
-//         let abbr = cl['Nom'].substring(0,3)
-//         if(cl['Nom'] in Importer.CL_ABBR) {
-//           abbr = Importer.CL_ABBR[cl['Nom']]
-//         }
-//         classAbbr.push(abbr)
-//       });
-//     });
-//     // add feat(s)
-//     const packFeats = game.packs.find(p => p.collection === "pf1-fr.featsfr");
-//     packFeats.getIndex().then(function(idx) {
-//       pj['Dons'].forEach(function(feat) {
-//         const fea = packFeats.index.find(f => f.name === feat['Nom']);
-//         packFeats.getEntity(fea._id).then(function(f) {
-//           actor.createEmbeddedEntity("OwnedItem",f)
-//         });
-//       });
-//     });
-//     // add feature(s)
-//     const packFeatures = game.packs.find(p => p.collection === "pf1-fr.classfeaturesfr");
-//     packFeatures.getIndex().then(function(idx) {
-//       pj['Aptitudes'].forEach(function(feature) {
-//         // search feature in dict
-//         const fea = packFeatures.index.find(function(f) {
-//           let name = f.name.substring(f.name.indexOf(":")+2)
-//           return name === feature['Nom'] && (classAbbr.includes(f.name.substring(0,3)));
-//         });
-//         if (typeof fea != "undefined") {
-//           packFeatures.getEntity(fea._id).then(function(f) {
-//             actor.createEmbeddedEntity("OwnedItem",f)
-//           });
-//         } else {
-//           console.log("NOT FOUND: " + feature['Nom'])
-//         }
-//       });
-//     });
-//     // add spells
-//     const packSpells = game.packs.find(p => p.collection === "pf1-fr.spellsfr");
-//     packSpells.getIndex().then(function(idx) {
-//       pj['Sorts'].forEach(function(spell) {
-//         const sp = packSpells.index.find(f => f.name === spell['Nom']);
-//         packSpells.getEntity(sp._id).then(function(f) {
-//           actor.createEmbeddedEntity("OwnedItem",f)
-//         });
-//       });
-//     });
+    // add feature(s)
+    const packFeatures = game.packs.find(p => p.collection === "pf1-fr.classfeaturesfr");
+    await packFeatures.getIndex()
+    for(var i = 0; i < pj['Aptitudes'].length; i++) {
+      // search feature in dict
+      const idx = packFeatures.index.find(function(f) {
+        let name = f.name.substring(f.name.indexOf(":")+2)
+        return name === pj['Aptitudes'][i]['Nom'] && (classAbbr.includes(f.name.substring(0,3)));
+      });
+      if(idx) {
+        const feature = await packFeatures.getEntity(idx._id);
+        //await actor.createEmbeddedEntity("OwnedItem", feature)
+        items.push(feature)
+      } else {
+        console.log("PF1-FR | WARNING: class feature '" + pj['Aptitudes'][i]['Nom'] + "' not found in compendium")
+      }
+    }
+
+    // add spell(s)
+    const packSpells = game.packs.find(p => p.collection === "pf1-fr.spellsfr");
+    await packSpells.getIndex()
+    for(var i = 0; i < pj['Sorts'].length; i++) {
+      const idx = packSpells.index.find(f => f.name === pj['Sorts'][i]['Nom']);
+      if(idx) {
+        const spell = await packSpells.getEntity(idx._id);
+        //await actor.createEmbeddedEntity("OwnedItem", spell)
+        items.push(spell)
+      } else {
+        console.log("PF1-FR | WARNING: spell '" + pj['Sorts'][i]['Nom'] + "' not found in compendium")
+      }
+    }
+    
     // add items, attacks, ...
     const packItems = game.packs.find(p => p.collection === "pf1-fr.itemsfr");
-    packItems.getIndex().then(function(idx) {
-      pj['Inventaire'].forEach(function(item) {
-        let name = item['Référence']
-        if( name ) {
-          const itemName = Importer.getItemReferenceName(name)
-          const i = packItems.index.find(f => f.name === itemName);
-          if(!i) {
-            console.log( "PF1-FR | WARNING: no item with name '" + itemName + "' found!" )
-            return
-          }
-          packItems.getEntity(i._id).then(function(item) {
-            // add as equipment
-            actor.createEmbeddedEntity("OwnedItem",item)
-            
-            if( name && name.startsWith('Arme')) {
-              let ismelee = item.data.data.weaponData.isMelee
-              let data = {
-                name: item.name,
-                type: "attack",
-                data: {
-                  description: {
-                    value: item.data.data.description.value,
-                  },
-                  source: item.data.data.source,
-                  activation: {
-                    cost: 1,
-                    type: "attack"
-                  },
-                  actionType: ismelee ? "mwak" : "rwak",
-                  damage: {
-                    parts: [
-                      [
-                        item.data.data.weaponData.damageRoll,
-                        item.data.data.weaponData.damageType
-                      ]
-                    ]
-                  },
-                  ability: {
-                    attack: ismelee ? "str" : "dex",
-                    damage: "",
-                    damageMult: 1,
-                    critRange: Number(item.data.data.weaponData.critRange),
-                    critMult: Number(item.data.data.weaponData.critMult)
-                  },
-                  range: {
-                    value: ismelee ? null : item.data.data.weaponData.range,
-                    units: ismelee ? "touch" : "ft"
-                  },
-                  attackType: "weapon",
-                  proficient: true,
-                  primaryAttack: true
+    await packItems.getIndex()
+    for(var i = 0; i < pj['Inventaire'].length; i++) {
+      let name = pj['Inventaire'][i]['Référence']
+      if( name ) {
+        const itemName = Importer.getItemReferenceName(name)
+        const idx = packItems.index.find(f => f.name === itemName);
+        if(idx) {
+          const item = await packItems.getEntity(idx._id);
+          Importer.updateEquipmentWithBonus(item, pj['Inventaire'][i]['Modifs'])
+          // add as equipment
+          //await actor.createEmbeddedEntity("OwnedItem", item)
+          items.push(item)
+          // add as attack (if weapon)
+          if( name && name.startsWith('Arme')) {
+            let ismelee = item.data.data.weaponData.isMelee
+            let data = {
+              name: item.name,
+              type: "attack",
+              data: {
+                description: {
+                  value: item.data.data.description.value,
                 },
-                img: item.img,
-              }
-              actor.createEmbeddedEntity("OwnedItem",data)
+                source: item.data.data.source,
+                activation: {
+                  cost: 1,
+                  type: "attack"
+                },
+                actionType: ismelee ? "mwak" : "rwak",
+                damage: {
+                  parts: [
+                    [
+                      item.data.data.weaponData.damageRoll,
+                      item.data.data.weaponData.damageType
+                    ]
+                  ]
+                },
+                ability: {
+                  attack: ismelee ? "str" : "dex",
+                  damage: "",
+                  damageMult: 1,
+                  critRange: Number(item.data.data.weaponData.critRange),
+                  critMult: Number(item.data.data.weaponData.critMult)
+                },
+                range: {
+                  value: ismelee ? null : item.data.data.weaponData.range,
+                  units: ismelee ? "touch" : "ft"
+                },
+                attackType: "weapon",
+                proficient: true,
+                primaryAttack: true
+              },
+              img: item.img,
             }
-          });
+            //Importer.updateWeaponWithBonus(data, pj['Inventaire'][i]['Modifs'])
+            //await actor.createEmbeddedEntity("OwnedItem", data)
+            items.push(data)
+          }
+        } else {
+          console.log("PF1-FR | WARNING: item '" + name + "' not found in compendium")
         }
+      }
+    }
+    
+    // add buff(s)
+    for(var i = 0; i < pj['Modifs'].length; i++) {
+      buff = {
+        name: pj['Modifs'][i]['Nom'],
+        type: "buff",
+        data: { changes: [], buffType: "perm", active: pj['Modifs'][i]['Activé'] == "Oui" }
+      }
+      
+      pj['Modifs'][i]['Bonus'].forEach(function(bon) {
+        Importer.addBuff(buff.data.changes, bon['Id'], bon['Valeur'])       
       });
-    });
-//     
-//     // buffs
-//     pj['Modifs'].forEach(function(mod) {
-//     
-//       buff = {
-//         name: mod['Nom'],
-//         type: "buff",
-//         data: { changes: [], buffType: "perm", active: mod['Activé'] == "Oui" }
-//       }
-//       
-//       mod['Bonus'].forEach(function(bon) {
-//         Importer.addBuff(buff.data.changes, bon['Id'], bon['Valeur'])       
-//       });
-//       
-//       actor.createEmbeddedEntity("OwnedItem",buff)
-//     });
-        
+      
+      //await actor.createEmbeddedEntity("OwnedItem",buff)
+      items.push(buff)
+    }
+    
+    actor.createEmbeddedEntity("OwnedItem", items)
+    
+    //actor.update({}) // force update!
     console.log(`PF1 | Actor Added!`);
     
   } else {

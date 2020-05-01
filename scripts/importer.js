@@ -138,4 +138,21 @@ Importer.addBuff = function (list, bonId, bonus) {
   }
 };
 
+/**
+ * Updates item data with information about modifs
+ */
+Importer.updateEquipmentWithBonus = function(item, modifs) {
+  if(!Array.isArray(modifs)) {
+    return;
+  }
+  item.data.data.changes = []
+  modifs.forEach(function(mod) {
+    mod.Bonus.forEach(function(bon) {
+      // armors & weapons
+      if(item.data.type == "weapon" || item.data.type == "equipment") {
+        Importer.addBuff(item.data.data.changes, bon.Id, bon.Valeur)
+      }
+    });
+  });
+}
 
