@@ -139,6 +139,29 @@ Importer.addBuff = function (list, bonId, bonus) {
 };
 
 /**
+ * Adds buffs
+ */
+Importer.addBuffs = function(items, modifs, prefix) {
+  if(!Array.isArray(modifs)) {
+    return;
+  }
+  modifs.forEach(function(modif) {
+    buff = {
+      name: prefix + modif['Nom'],
+      type: "buff",
+      data: { changes: [], buffType: "perm", active: modif['Activé'] == "Oui" },
+      img: "modules/pf1-fr/icons/buffs/" + modif['Icône'] + ".png"
+    }
+    
+    modif['Bonus'].forEach(function(bon) {
+      Importer.addBuff(buff.data.changes, bon['Id'], bon['Valeur'])       
+    });
+    
+    items.push(buff)
+  });
+}
+
+/**
  * Updates item data with information about modifs
  */
 Importer.updateEquipmentWithBonus = function(item, modifs) {
@@ -154,5 +177,30 @@ Importer.updateEquipmentWithBonus = function(item, modifs) {
       }
     });
   });
+}
+
+/**
+ * Updates attack data with information about modifs
+ */
+Importer.updateAttackWithBonus = function(attack, modifs) {
+  if(!Array.isArray(modifs)) {
+    return;
+  }
+  let attBonus = 0
+  let damBonus = 0
+  modifs.forEach(function(mod) {
+    mod.Bonus.forEach(function(bon) {
+      // attack
+      if(bon.Id >= 31 && bon.Id <= 32 ) { attBonus += bon.Valeur }
+      // damages
+      if(bon.Id >= 35 && bon.Id <= 36 ) { damBonus += bon.Valeur }
+    });
+  });
+  if(attBonus != 0) {
+    attack.data.attackBonus = attack.data.attackBonus ? attack.data.attackBonus + attBonus : attBonus
+  }
+  if(damBonus != 0) {
+    attack.data.damage.parts[0][0] = attack.data.damage.parts[0][0] + (damBonus > 0 ? "+" : "-") + damBonus
+  }
 }
 

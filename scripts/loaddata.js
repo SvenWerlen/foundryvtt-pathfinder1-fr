@@ -54,7 +54,7 @@ async function pf1frLoadCharacter(path) {
   
   const yamlData = await fetch(path).then(content => content.text()) // Load your YAML data
   pj = YAML.parse(yamlData)
-  console.log(pj)
+  //console.log(pj)
   //const pj = await fetch(path).then(r => r.json()) // Load your JSON data
 
   let cdata = {
@@ -82,22 +82,13 @@ async function pf1frLoadCharacter(path) {
       hp: {
         value: pj['PointsVie'],
       },
-      speed: {
-        land: {
-          base: pj['Vitesse'],
-        },
-        climb: {
-          base: pj['Vitesse'] / 4,
-        },
-        swim: {
-          base: pj['Vitesse'] / 4,
-        },
-        burrow: {
-          base: pj['VitesseCreusement'],
-        },
-        fly: {
-          base: pj['VitesseVol'],
-          //maneuverability: "average"
+      attributes: {
+        speed: { 
+          land:   { base: pj['Vitesse'] },
+          climb:  { base: pj['Vitesse'] / 4 },
+          swim:   { base: pj['Vitesse'] / 4 },
+          burrow: { base: pj['VitesseCreusement'] },
+          fly:    { base: pj['VitesseVol'] }
         }
       },
       skills: {},
@@ -135,7 +126,6 @@ async function pf1frLoadCharacter(path) {
       if(idx) {
         const cl = await packClasses.getEntity(idx._id);
         cl.data.data.levels = pj['Classes'][i]['Niveau']
-        //await actor.createEmbeddedEntity("OwnedItem", [cl])
         items.push(cl)
         // generate abbr
         let abbr = cl.data.name.substring(0,3)
@@ -155,7 +145,6 @@ async function pf1frLoadCharacter(path) {
       const idx = packFeats.index.find(f => f.name === pj['Dons'][i]['Nom']);
       if(idx) {
         const feat = await packFeats.getEntity(idx._id);
-        //await actor.createEmbeddedEntity("OwnedItem", feat)
         items.push(feat)
       } else {
         console.log("PF1-FR | WARNING: feat '" + pj['Dons'][i]['Nom'] + "' not found in compendium")
@@ -173,7 +162,6 @@ async function pf1frLoadCharacter(path) {
       });
       if(idx) {
         const feature = await packFeatures.getEntity(idx._id);
-        //await actor.createEmbeddedEntity("OwnedItem", feature)
         items.push(feature)
       } else {
         console.log("PF1-FR | WARNING: class feature '" + pj['Aptitudes'][i]['Nom'] + "' not found in compendium")
@@ -187,12 +175,14 @@ async function pf1frLoadCharacter(path) {
       const idx = packSpells.index.find(f => f.name === pj['Sorts'][i]['Nom']);
       if(idx) {
         const spell = await packSpells.getEntity(idx._id);
-        //await actor.createEmbeddedEntity("OwnedItem", spell)
         items.push(spell)
       } else {
         console.log("PF1-FR | WARNING: spell '" + pj['Sorts'][i]['Nom'] + "' not found in compendium")
       }
     }
+    
+    // add global buff(s)
+    Importer.addBuffs(items, pj['Modifs'], "")
     
     // add items, attacks, ...
     const packItems = game.packs.find(p => p.collection === "pf1-fr.itemsfr");
@@ -204,9 +194,16 @@ async function pf1frLoadCharacter(path) {
         const idx = packItems.index.find(f => f.name === itemName);
         if(idx) {
           const item = await packItems.getEntity(idx._id);
-          Importer.updateEquipmentWithBonus(item, pj['Inventaire'][i]['Modifs'])
+          // buff specific to a weapon / equipment
+          if(item.data.type == "weapon" || item.data.type == "equipment") {
+            Importer.updateEquipmentWithBonus(item, pj['Inventaire'][i]['Modifs'])
+          } 
+          // generic buff
+          else {
+            Importer.addBuffs(items, pj['Inventaire'][i]['Modifs'], pj['Inventaire'][i]['Nom'] + ": ")
+          }
           // add as equipment
-          //await actor.createEmbeddedEntity("OwnedItem", item)
+          item.data.name = pj['Inventaire'][i]['Nom']
           items.push(item)
           // add as attack (if weapon)
           if( name && name.startsWith('Arme')) {
@@ -249,8 +246,7 @@ async function pf1frLoadCharacter(path) {
               },
               img: item.img,
             }
-            //Importer.updateWeaponWithBonus(data, pj['Inventaire'][i]['Modifs'])
-            //await actor.createEmbeddedEntity("OwnedItem", data)
+            Importer.updateAttackWithBonus(data, pj['Inventaire'][i]['Modifs'])
             items.push(data)
           }
         } else {
@@ -259,25 +255,8 @@ async function pf1frLoadCharacter(path) {
       }
     }
     
-    // add buff(s)
-    for(var i = 0; i < pj['Modifs'].length; i++) {
-      buff = {
-        name: pj['Modifs'][i]['Nom'],
-        type: "buff",
-        data: { changes: [], buffType: "perm", active: pj['Modifs'][i]['Activé'] == "Oui" }
-      }
-      
-      pj['Modifs'][i]['Bonus'].forEach(function(bon) {
-        Importer.addBuff(buff.data.changes, bon['Id'], bon['Valeur'])       
-      });
-      
-      //await actor.createEmbeddedEntity("OwnedItem",buff)
-      items.push(buff)
-    }
-    
     actor.createEmbeddedEntity("OwnedItem", items)
     
-    //actor.update({}) // force update!
     console.log(`PF1 | Actor Added!`);
     
   } else {
