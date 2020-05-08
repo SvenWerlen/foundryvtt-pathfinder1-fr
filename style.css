@@ -1,0 +1,31 @@
+.pf1notes {
+  margin: 3px;
+}
+
+.pf1notes .titre {
+  background-color: #4b3124;
+  color: #fff;
+  font-weight: bold;
+  padding: 1px 3px 1px 3px;
+  text-indent: 0;
+  font-size: large;
+}
+
+.pf1notes .titre .fp {
+  float: right;
+}
+
+.pf1notes .soustitre {
+  background-color: #f3efe2;
+  padding: 0 1px 0 1px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  text-indent: 0;
+  margin-top: 5px;
+}
+
+.pf1notes .texte {
+  padding: 0 1px 0 1px;
+}

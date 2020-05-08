@@ -15,30 +15,34 @@ async function pf1frLoadData() {
   const dArmors    = await fetch("/data/armors.json").then(r => r.json()) 
   const dMagic     = await fetch("/data/magic.json").then(r => r.json()) 
   const dEquipment = await fetch("/data/equipment.json").then(r => r.json()) 
+  const dBeastiary = await fetch("/data/beastiary.json").then(r => r.json()) 
   
   // create compendiums
-  let pClasses = await Compendium.create({label: "ImportClasses", entity: "Item"})
-  let pFeats = await Compendium.create({label: "ImportFeats", entity: "Item"})
-  let pFeatures = await Compendium.create({label: "ImportClassFeatures", entity: "Item"})
-  let pItems = await Compendium.create({label: "ImportItems", entity: "Item"})
-  let pSpells = await Compendium.create({label: "ImportSpells", entity: "Item"})
-  
-  // retrieve compendiums
-  const packClasses = game.packs.find(p => p.metadata.label === "ImportClasses"); 
-  const packFeats = game.packs.find(p => p.metadata.label === "ImportFeats");
-  const packFeatures = game.packs.find(p => p.metadata.label === "ImportClassFeatures"); 
-  const packItems = game.packs.find(p => p.metadata.label === "ImportItems"); 
-  const packSpells = game.packs.find(p => p.metadata.label === "ImportSpells"); 
+//   let pClasses = await Compendium.create({label: "ImportClasses", entity: "Item"})
+//   let pFeats = await Compendium.create({label: "ImportFeats", entity: "Item"})
+//   let pFeatures = await Compendium.create({label: "ImportClassFeatures", entity: "Item"})
+//   let pItems = await Compendium.create({label: "ImportItems", entity: "Item"})
+//   let pSpells = await Compendium.create({label: "ImportSpells", entity: "Item"})
+   let pBeastiary = await Compendium.create({label: "ImportBeastiary", entity: "Actor"})
+//   
+//   // retrieve compendiums
+//   const packClasses = game.packs.find(p => p.metadata.label === "ImportClasses"); 
+//   const packFeats = game.packs.find(p => p.metadata.label === "ImportFeats");
+//   const packFeatures = game.packs.find(p => p.metadata.label === "ImportClassFeatures"); 
+//   const packItems = game.packs.find(p => p.metadata.label === "ImportItems"); 
+//   const packSpells = game.packs.find(p => p.metadata.label === "ImportSpells"); 
+  const packBeastiary = game.packs.find(p => p.metadata.label === "ImportBeastiary"); 
   
   // import data
-  await packClasses.createEntity(dClasses);
-  await packFeats.createEntity(dFeats);
-  await packFeatures.createEntity(dFeatures);
-  await packItems.createEntity(dWeapons);
-  await packItems.createEntity(dArmors);
-  await packItems.createEntity(dMagic);
-  await packItems.createEntity(dEquipment);
-  await packSpells.createEntity(dSpells);
+//   await packClasses.createEntity(dClasses);
+//   await packFeats.createEntity(dFeats);
+//   await packFeatures.createEntity(dFeatures);
+//   await packItems.createEntity(dWeapons);
+//   await packItems.createEntity(dArmors);
+//   await packItems.createEntity(dMagic);
+//   await packItems.createEntity(dEquipment);
+//   await packSpells.createEntity(dSpells);
+  await packBeastiary.createEntity(dBeastiary);
   
   console.log(`PF1-FR | Done`);
 }
@@ -252,6 +256,23 @@ async function pf1frLoadCharacter(path) {
         } else {
           console.log("PF1-FR | WARNING: item '" + name + "' not found in compendium")
         }
+      } 
+      // items (manually created)
+      else {
+        item = { 
+          name: pj['Inventaire'][i]['Nom'],
+          type: "loot",
+          data: { 
+            description: { value: "-" },
+            weight: pj['Inventaire'][i]["Poids"]/1000,
+            price: pj['Inventaire'][i]["Prix"]/1000
+          },
+          source: "-",
+          identified: true,
+          img: "modules/pf1-fr/icons/other-equip.png"
+        }
+        Importer.addBuffs(items, pj['Inventaire'][i]['Modifs'], pj['Inventaire'][i]['Nom'] + ": ")
+        items.push(item)
       }
     }
     
