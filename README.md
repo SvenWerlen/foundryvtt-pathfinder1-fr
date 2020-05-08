@@ -8,6 +8,7 @@ Compendiums supportés:
 * dons
 * sorts
 * équipements
+* bestiaire (en cours)
 
 ![Compendiums](/doc/img/compendiums.jpg)
 ![Spells](/doc/img/spells.jpg)
