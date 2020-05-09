@@ -218,13 +218,55 @@ Importer.getMod = function(caracName, pj) {
   return undefined;
 }
 
-Importer.createAttackParts = function(bab) {
+Importer.createAttackParts = function(bonus) {
   let parts = []
-  let count = 1
-  for(var i = bab; i>5; i++) {
-    parts.push( ["-" + (count*5), "Attaque #" + (count+1) ] );
+  count = 1
+  for(var i = 1; i<bonus.length; i++) {
+    parts.push( ["-" + (bonus[0]-bonus[i]), "Attaque #" + (count+1) ] );
     count++;
-    i-=5;
   }
   return parts;
+}
+
+Importer.createAttack = function(name, description, source, ismelee, stat, damageRoll, damageType, bonus, critRange, critMult, range) {
+  return {
+    name: name,
+    type: "attack",
+    data: {
+      description: {
+        value: description,
+      },
+      source: source,
+      activation: {
+        cost: 1,
+        type: "attack"
+      },
+      actionType: ismelee ? "mwak" : "rwak",
+      attackBonus: bonus[0].toString(),
+      damage: {
+        parts: [
+          [
+            damageRoll,
+            damageType
+          ]
+        ]
+      },
+      attackParts: Importer.createAttackParts(bonus),
+      ability: {
+        attack: stat,
+        damage: "",
+        damageMult: 1,
+        critRange: Number(critRange),
+        critMult: Number(critMult)
+      },
+      range: {
+        value: ismelee ? null : range,
+        units: ismelee ? "touch" : "ft"
+      },
+      attackType: "weapon",
+      proficient: true,
+      primaryAttack: true
+    },
+    img: "modules/pf1-fr/icons/actions/" + (ismelee ? "melee-attack.svg" : "ranged-attack.svg")
+  }
 }

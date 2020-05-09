@@ -47,10 +47,6 @@ async function pf1frLoadData() {
   console.log(`PF1-FR | Done`);
 }
 
-function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
-
 /**
  * Hidden function to import a character from JSON file
  */
@@ -225,45 +221,26 @@ async function pf1frLoadCharacter(path) {
           // add as attack (if weapon)
           if( name && name.startsWith('Arme')) {
             let ismelee = item.data.data.weaponData.isMelee
-            let data = {
-              name: item.name,
-              type: "attack",
-              data: {
-                description: {
-                  value: item.data.data.description.value,
-                },
-                source: item.data.data.source,
-                activation: {
-                  cost: 1,
-                  type: "attack"
-                },
-                actionType: ismelee ? "mwak" : "rwak",
-                damage: {
-                  parts: [
-                    [
-                      item.data.data.weaponData.damageRoll,
-                      item.data.data.weaponData.damageType
-                    ]
-                  ]
-                },
-                attackParts: Importer.createAttackParts(actor.data.data.attributes.bab.total),
-                ability: {
-                  attack: ismelee ? "str" : "dex",
-                  damage: "",
-                  damageMult: 1,
-                  critRange: Number(item.data.data.weaponData.critRange),
-                  critMult: Number(item.data.data.weaponData.critMult)
-                },
-                range: {
-                  value: ismelee ? null : item.data.data.weaponData.range,
-                  units: ismelee ? "touch" : "ft"
-                },
-                attackType: "weapon",
-                proficient: true,
-                primaryAttack: true
-              },
-              img: "modules/pf1-fr/icons/actions/" + (ismelee ? "melee-attack.svg" : "ranged-attack.svg"),
+            // (name, description, source, ismelee, stat, damageRoll, damageType, bonus, critRange, critMult, range) {
+            let bonus = [0]
+            let bab = actor.data.data.attributes.bab.total
+            console.log(bab)
+            while(bab > 5) {
+              bonus.push(-5 * bonus.length)
+              bab -= 5
             }
+            let data = Importer.createAttack(
+              item.name, 
+              item.data.data.description.value, 
+              item.data.data.source, 
+              item.data.data.weaponData.isMelee, 
+              item.data.data.weaponData.isMelee ? "for" : "dex",
+              item.data.data.weaponData.damageRoll, 
+              item.data.data.weaponData.damageType,
+              bonus, 
+              item.data.data.weaponData.critRange, 
+              item.data.data.weaponData.critMult,
+              item.data.data.weaponData.range);
             Importer.updateAttackWithBonus(data, pj['Inventaire'][i]['Modifs'])
             items.push(data)
           }
@@ -298,3 +275,107 @@ async function pf1frLoadCharacter(path) {
     console.log(cdata);
   }
 }
+
+
+/**
+ * Once the entire VTT framework is initialized, overwrite existing functions
+ */
+Hooks.on("renderActorSheet", async function( context, html, data) {
+  let sheetClass = CONFIG.Actor.sheetClasses.character["PF1.Personnage"].cls.prototype
+  if(!sheetClass.pf1fr) {
+    sheetClass.pf1fr = true;
+    sheetClass.__proto__._onItemCreate = function(event) {
+      event.preventDefault();
+      const header = event.currentTarget;
+      const type = header.dataset.type;
+      const actor = this.actor;
+      if(type == "attack") {
+        
+        // Show dialog
+        renderTemplate("modules/pf1-fr/templates/attack-create-dialog.html", {}).then(dlg => {
+          new Dialog({
+            title: "Initialiser l'attaque",
+            content: dlg,
+            buttons: {
+              create: {
+                label: "Créer",
+                callback: async function(html) {
+                  let attack = html.find('#attack').val()
+                  let ismelee = html.find('#cac')[0].checked
+                  let attackType = header.dataset.attackType
+                  let itemData = {
+                    name: `New ${type.capitalize()}`,
+                    type: type,
+                    data: duplicate(header.dataset)
+                  };
+                  delete itemData.data["type"];
+                  
+                  if(attack.length == 0) {
+                    return actor.createOwnedItem(itemData);
+                  }
+                  else {
+                    let attackStr = attack
+                    let attackList = []
+                    let count = 0;
+                    while(count++ < 10) {
+                      const data = attackStr.match(/^(.*?) ([\+-][\+0-9/]+) (contact )?\((.*?)\)/)
+                      if(data) {
+                        attackStr = attackStr.substring(data[0].length)
+                        const name = data[1].replace(/,/g, '').trim()
+                        const dmg = data[4].match(/([\d\+d]+)(\/\d+-20)?(\/x\d)?/)
+                        let bonusStr = data[2]
+                        
+                        // convert bonus +13/+8 into [13,8]
+                        let bonusList = []
+                        let countB = 0;
+                        while(countB++ < 10) {
+                          bonus = bonusStr.match(/^\/?([\+\d]+)/)
+                          if(bonus) {
+                            bonusStr = bonusStr.substring(bonus[0].length)
+                            bonusList.push(Number(bonus[1]))
+                          } else { break; }
+                        }
+                        console.log(bonusList)
+                        
+                        if(bonusList.length > 0 && dmg) {
+                          const damages = dmg[1]
+                          const crit = dmg[2] ? dmg[2].match(/\/(\d+)-20/)[1] : 20
+                          const mult = dmg[3] ? Number(dmg[3].match(/\/x(\d)/)[1]) : 2
+                          itemData = Importer.createAttack(
+                            name, 
+                            attack, 
+                            "",     // no source
+                            ismelee, 
+                            "",     // no stat
+                            damages, 
+                            "?",
+                            bonusList, 
+                            crit, 
+                            mult,
+                            0);
+                          itemData.data.attackType = attackType
+                          await actor.createOwnedItem(itemData)
+                        }
+                      } else { break; }
+                    }
+                    return true
+                  }
+                }
+              },
+            },
+          }).render(true);
+        });
+        
+        return true;
+      }
+      // default behaviour (from system)
+      const itemData = {
+        name: `New ${type.capitalize()}`,
+        type: type,
+        data: duplicate(header.dataset)
+      };
+      delete itemData.data["type"];
+      return this.actor.createOwnedItem(itemData);
+    }
+  }
+});
