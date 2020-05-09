@@ -18,30 +18,30 @@ async function pf1frLoadData() {
   const dBeastiary = await fetch("/data/beastiary.json").then(r => r.json()) 
   
   // create compendiums
-//   let pClasses = await Compendium.create({label: "ImportClasses", entity: "Item"})
-//   let pFeats = await Compendium.create({label: "ImportFeats", entity: "Item"})
-//   let pFeatures = await Compendium.create({label: "ImportClassFeatures", entity: "Item"})
-//   let pItems = await Compendium.create({label: "ImportItems", entity: "Item"})
-//   let pSpells = await Compendium.create({label: "ImportSpells", entity: "Item"})
+  let pClasses = await Compendium.create({label: "ImportClasses", entity: "Item"})
+  let pFeats = await Compendium.create({label: "ImportFeats", entity: "Item"})
+  let pFeatures = await Compendium.create({label: "ImportClassFeatures", entity: "Item"})
+  let pItems = await Compendium.create({label: "ImportItems", entity: "Item"})
+  let pSpells = await Compendium.create({label: "ImportSpells", entity: "Item"})
    let pBeastiary = await Compendium.create({label: "ImportBeastiary", entity: "Actor"})
-//   
-//   // retrieve compendiums
-//   const packClasses = game.packs.find(p => p.metadata.label === "ImportClasses"); 
-//   const packFeats = game.packs.find(p => p.metadata.label === "ImportFeats");
-//   const packFeatures = game.packs.find(p => p.metadata.label === "ImportClassFeatures"); 
-//   const packItems = game.packs.find(p => p.metadata.label === "ImportItems"); 
-//   const packSpells = game.packs.find(p => p.metadata.label === "ImportSpells"); 
+  
+  // retrieve compendiums
+  const packClasses = game.packs.find(p => p.metadata.label === "ImportClasses"); 
+  const packFeats = game.packs.find(p => p.metadata.label === "ImportFeats");
+  const packFeatures = game.packs.find(p => p.metadata.label === "ImportClassFeatures"); 
+  const packItems = game.packs.find(p => p.metadata.label === "ImportItems"); 
+  const packSpells = game.packs.find(p => p.metadata.label === "ImportSpells"); 
   const packBeastiary = game.packs.find(p => p.metadata.label === "ImportBeastiary"); 
   
   // import data
-//   await packClasses.createEntity(dClasses);
-//   await packFeats.createEntity(dFeats);
-//   await packFeatures.createEntity(dFeatures);
-//   await packItems.createEntity(dWeapons);
-//   await packItems.createEntity(dArmors);
-//   await packItems.createEntity(dMagic);
-//   await packItems.createEntity(dEquipment);
-//   await packSpells.createEntity(dSpells);
+  await packClasses.createEntity(dClasses);
+  await packFeats.createEntity(dFeats);
+  await packFeatures.createEntity(dFeatures);
+  await packItems.createEntity(dWeapons);
+  await packItems.createEntity(dArmors);
+  await packItems.createEntity(dMagic);
+  await packItems.createEntity(dEquipment);
+  await packSpells.createEntity(dSpells);
   await packBeastiary.createEntity(dBeastiary);
   
   console.log(`PF1-FR | Done`);
@@ -89,10 +89,10 @@ async function pf1frLoadCharacter(path) {
       attributes: {
         speed: { 
           land:   { base: pj['Vitesse'] },
-          climb:  { base: pj['Vitesse'] / 4 },
-          swim:   { base: pj['Vitesse'] / 4 },
-          burrow: { base: pj['VitesseCreusement'] },
-          fly:    { base: pj['VitesseVol'] }
+//           climb:  { base: pj['Vitesse'] / 4 },
+//           swim:   { base: pj['Vitesse'] / 4 },
+//           burrow: { base: pj['VitesseCreusement'] },
+//           fly:    { base: pj['VitesseVol'] }
         }
       },
       skills: {},
@@ -117,10 +117,11 @@ async function pf1frLoadCharacter(path) {
   if(1) {
     let actor = await Actor.create(cdata)
     await game.actors.insert(actor)
-    actor = game.actors.get(actor.id);
+    actor = await game.actors.get(actor.id);
     actor.update({}) // force update!
     
     let items = []
+    let totalLevel = 0
     
     // add class(es)
     const packClasses = game.packs.find(p => p.collection === "pf1-fr.classesfr");
@@ -130,6 +131,8 @@ async function pf1frLoadCharacter(path) {
       if(idx) {
         const cl = await packClasses.getEntity(idx._id);
         cl.data.data.levels = pj['Classes'][i]['Niveau']
+        cl.data.data.hp = 0
+        totalLevel += pj['Classes'][i]['Niveau']
         items.push(cl)
         // generate abbr
         let abbr = cl.data.name.substring(0,3)
@@ -141,6 +144,16 @@ async function pf1frLoadCharacter(path) {
         console.log("PF1-FR | WARNING: class '" + pj['Classes'][i]['Nom'] + "' not found in compendium")
       }
     }
+    
+    // update hitpoints on classes to reflect the correct total HP
+    if(totalLevel > 0) {
+      const hpConst = Importer.getMod('Constitution', pj) * totalLevel;  // number of HP based on Con mod and total level
+      const hpRolled = pj['PointsVie'] - hpConst
+      items[items.length - 1].data.data.hp = hpRolled
+    }
+    
+    actor.createEmbeddedEntity("OwnedItem", items)
+    items = []
     
     // add feat(s)
     const packFeats = game.packs.find(p => p.collection === "pf1-fr.featsfr");
@@ -233,6 +246,7 @@ async function pf1frLoadCharacter(path) {
                     ]
                   ]
                 },
+                attackParts: Importer.createAttackParts(actor.data.data.attributes.bab.total),
                 ability: {
                   attack: ismelee ? "str" : "dex",
                   damage: "",
@@ -248,7 +262,7 @@ async function pf1frLoadCharacter(path) {
                 proficient: true,
                 primaryAttack: true
               },
-              img: item.img,
+              img: "modules/pf1-fr/icons/actions/" + (ismelee ? "melee-attack.svg" : "ranged-attack.svg"),
             }
             Importer.updateAttackWithBonus(data, pj['Inventaire'][i]['Modifs'])
             items.push(data)

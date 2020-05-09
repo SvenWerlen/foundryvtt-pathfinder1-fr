@@ -197,10 +197,34 @@ Importer.updateAttackWithBonus = function(attack, modifs) {
     });
   });
   if(attBonus != 0) {
-    attack.data.attackBonus = attack.data.attackBonus ? attack.data.attackBonus + attBonus : attBonus
+    attack.data.attackBonus = attBonus.toString()
   }
   if(damBonus != 0) {
     attack.data.damage.parts[0][0] = attack.data.damage.parts[0][0] + (damBonus > 0 ? "+" : "-") + damBonus
   }
+  
 }
 
+/**
+ * Computes the mod for a caracteristic
+ */
+Importer.getMod = function(caracName, pj) {
+  for(var i = 0; i < pj['Caracs'].length; i++) {
+    if( caracName in pj['Caracs'][i]) {
+      return Math.floor((pj['Caracs'][i][caracName]-10)/2)
+    }
+  }
+  // not found
+  return undefined;
+}
+
+Importer.createAttackParts = function(bab) {
+  let parts = []
+  let count = 1
+  for(var i = bab; i>5; i++) {
+    parts.push( ["-" + (count*5), "Attaque #" + (count+1) ] );
+    count++;
+    i-=5;
+  }
+  return parts;
+}
