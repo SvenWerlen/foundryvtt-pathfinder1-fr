@@ -6,46 +6,59 @@ async function pf1frLoadData() {
   
   console.log(`PF1-FR | Updating Data`);
   
-//   // classes
-//   const dClasses   = await fetch("/data/classes.json").then(r => r.json()) 
-//   let pClasses = await Compendium.create({label: "ImportClasses", entity: "Item"})
-//   const packClasses = game.packs.find(p => p.metadata.label === "ImportClasses"); 
-//   await packClasses.createEntity(dClasses);
-// 
-//   // feats
-//   const dFeats     = await fetch("/data/feats.json").then(r => r.json()) 
-//   let pFeats = await Compendium.create({label: "ImportFeats", entity: "Item"})
-//   const packFeats = game.packs.find(p => p.metadata.label === "ImportFeats");
-//   await packFeats.createEntity(dFeats);
-// 
-//   // features
-//   const dFeatures  = await fetch("/data/classfeatures.json").then(r => r.json()) 
-//   let pFeatures = await Compendium.create({label: "ImportClassFeatures", entity: "Item"})
-//   const packFeatures = game.packs.find(p => p.metadata.label === "ImportClassFeatures"); 
-//   await packFeatures.createEntity(dFeatures);
-//   
-//   // spells
-//   const dSpells    = await fetch("/data/spells.json").then(r => r.json()) 
-//   let pSpells = await Compendium.create({label: "ImportSpells", entity: "Item"})
-//   const packSpells = game.packs.find(p => p.metadata.label === "ImportSpells"); 
-//   await packSpells.createEntity(dSpells);
-//   
-//   // items
-//   const dWeapons   = await fetch("/data/weapons.json").then(r => r.json()) 
-//   const dArmors    = await fetch("/data/armors.json").then(r => r.json()) 
-//   const dMagic     = await fetch("/data/magic.json").then(r => r.json()) 
-//   const dEquipment = await fetch("/data/equipment.json").then(r => r.json()) 
-//   let pItems = await Compendium.create({label: "ImportItems", entity: "Item"})
-//   const packItems = game.packs.find(p => p.metadata.label === "ImportItems"); 
-//   await packItems.createEntity(dArmors);
-//   await packItems.createEntity(dMagic);
-//   await packItems.createEntity(dEquipment);
+  //   // classes
+  //   const dClasses   = await fetch("/data/classes.json").then(r => r.json()) 
+  //   let pClasses = await Compendium.create({label: "ImportClasses", entity: "Item"})
+  //   const packClasses = game.packs.find(p => p.metadata.label === "ImportClasses"); 
+  //   await packClasses.createEntity(dClasses);
+  // 
+  //   // feats
+  //   const dFeats     = await fetch("/data/feats.json").then(r => r.json()) 
+  //   let pFeats = await Compendium.create({label: "ImportFeats", entity: "Item"})
+  //   const packFeats = game.packs.find(p => p.metadata.label === "ImportFeats");
+  //   await packFeats.createEntity(dFeats);
+  // 
+  //   // features
+  //   const dFeatures  = await fetch("/data/classfeatures.json").then(r => r.json()) 
+  //   let pFeatures = await Compendium.create({label: "ImportClassFeatures", entity: "Item"})
+  //   const packFeatures = game.packs.find(p => p.metadata.label === "ImportClassFeatures"); 
+  //   await packFeatures.createEntity(dFeatures);
+  //   
+//     // spells
+//     const dSpells    = await fetch("/data/spells.json").then(r => r.json()) 
+//     let pSpells = await Compendium.create({label: "ImportSpells", entity: "Item"})
+//     const packSpells = game.packs.find(p => p.metadata.label === "ImportSpells"); 
+//     await packSpells.createEntity(dSpells);
   
-  // beastiary  
-  const dBeastiary = await fetch("/data/beastiary.json").then(r => r.json()) 
-  let pBeastiary = await Compendium.create({label: "ImportBeastiary", entity: "Actor"})
-  const packBeastiary = game.packs.find(p => p.metadata.label === "ImportBeastiary"); 
-  await packBeastiary.createEntity(dBeastiary);
+  // weapons
+//   const dWeapons = await fetch("/data/weapons.json").then(r => r.json()) 
+//   let pWeapons = await Compendium.create({label: "ImportWeapons", entity: "Item"})
+//   const packWeapons = game.packs.find(p => p.metadata.label === "ImportWeapons"); 
+//   await packWeapons.createEntity(dWeapons);
+  
+  // armors
+//   const dArmors = await fetch("/data/armors.json").then(r => r.json()) 
+//   let pArmors = await Compendium.create({label: "ImportArmors", entity: "Item"})
+//   const packArmors = game.packs.find(p => p.metadata.label === "ImportArmors"); 
+//   await packArmors.createEntity(dArmors);
+   
+//   // magic items
+//   const dMagic = await fetch("/data/magic.json").then(r => r.json()) 
+//   let pMagic = await Compendium.create({label: "ImportMagic", entity: "Item"})
+//   const packMagic = game.packs.find(p => p.metadata.label === "ImportMagic"); 
+//   await packMagic.createEntity(dMagic);
+//   
+  //equipment
+  const dEquipment = await fetch("/data/equipment.json").then(r => r.json()) 
+  let pEquipment = await Compendium.create({label: "ImportEquipment", entity: "Item"})
+  const packEquipment = game.packs.find(p => p.metadata.label === "ImportEquipment"); 
+  await packEquipment.createEntity(dEquipment);
+    
+//   // beastiary  
+//   const dBeastiary = await fetch("/data/beastiary.json").then(r => r.json()) 
+//   let pBeastiary = await Compendium.create({label: "ImportBeastiary", entity: "Actor"})
+//   const packBeastiary = game.packs.find(p => p.metadata.label === "ImportBeastiary"); 
+//   await packBeastiary.createEntity(dBeastiary);
   
   console.log(`PF1-FR | Done`);
 }
