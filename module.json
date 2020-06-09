@@ -58,6 +58,13 @@
       "entity": "Item"
     },
     {
+      "name": "tradegoodsfr",
+      "label": "Produits de consommation",
+      "system": "pf1",
+      "path": "./packs/tradegoods-fr.db",
+      "entity": "Item"
+    },
+    {
       "name": "magicfr",
       "label": "Objets magiques",
       "system": "pf1",
