@@ -46,3 +46,8 @@ Ce module assume que les extensions suivantes sont installées:
 
 * Onglet "Compendiums"
 * Changer la visibilité de chaque pack d'origine (pf1)
+
+### Supprimer les compendiums d'origine (en anglais)
+
+Si vous voulez ne plus voir les compendiums en anglais, il n'existe pas d'autres moyens que de modifier le fichier
+de configuration du système `systems/pf1/system.json`.
