@@ -1,8 +1,8 @@
 {
   "name": "pf1-fr",
   "title": "Pathfinder 1 - Improvements for french",
-  "description": "Improves the system for french language",
-  "version": "1.0.0",
+  "description": "Improves the system for french speakers",
+  "version": "1.0.1",
   "author": "Sven Werlen",
   "scripts": ["scripts/yaml.min.js", "scripts/importer.js", "scripts/loaddata.js"],
   "systems": ["pf1"],
@@ -87,8 +87,8 @@
     }
   ],
   "url": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr",
-  "download": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr/archive/v-1.0.0.zip",
+  "download": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr/archive/v-1.0.1.zip",
   "manifest": "https://raw.githubusercontent.com/SvenWerlen/foundryvtt-pathfinder1-fr/master/module.json",
   "minimumCoreVersion": "0.6.0",
-  "compatibleCoreVersion": "0.6.2"
+  "compatibleCoreVersion": "1.0.0"
 }

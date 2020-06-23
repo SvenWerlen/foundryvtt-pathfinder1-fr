@@ -11,7 +11,7 @@ Compendiums supportés:
 * bestiaire (en cours)
 
 ![Compendiums](/doc/img/compendiums.jpg)
-![Spells](/doc/img/spells.jpg)
+![Armors](/doc/img/armors.jpg)
 
 (beta) Le module permet également l'import de personnages qui ont été créés à partir
 de l'application Android (https://github.com/SvenWerlen/pathfinderfr-android). 
