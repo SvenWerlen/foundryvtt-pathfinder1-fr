@@ -2,64 +2,36 @@
 /**
  * Hidden function to update compendium data from JSON files
  */
-async function pf1frLoadData() {
+async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
   
   console.log(`PF1-FR | Updating Data`);
+  ui.notifications.info("Import started ... please wait!!")
   
-  //   // classes
-    const dClasses   = await fetch("/data/classes.json").then(r => r.json()) 
-    let pClasses = await Compendium.create({label: "ImportClasses", entity: "Item"})
-    const packClasses = game.packs.find(p => p.metadata.label === "ImportClasses"); 
-    await packClasses.createEntity(dClasses);
-  // 
-  //   // feats
-  //   const dFeats     = await fetch("/data/feats.json").then(r => r.json()) 
-  //   let pFeats = await Compendium.create({label: "ImportFeats", entity: "Item"})
-  //   const packFeats = game.packs.find(p => p.metadata.label === "ImportFeats");
-  //   await packFeats.createEntity(dFeats);
-  // 
-    // features
-//     const dFeatures  = await fetch("/data/classfeatures.json").then(r => r.json()) 
-//     let pFeatures = await Compendium.create({label: "ImportClassFeatures", entity: "Item"})
-//     const packFeatures = game.packs.find(p => p.metadata.label === "ImportClassFeatures"); 
-//     await packFeatures.createEntity(dFeatures);
-  //   
-//     // spells
-//     const dSpells    = await fetch("/data/spells.json").then(r => r.json()) 
-//     let pSpells = await Compendium.create({label: "ImportSpells", entity: "Item"})
-//     const packSpells = game.packs.find(p => p.metadata.label === "ImportSpells"); 
-//     await packSpells.createEntity(dSpells);
+  const DATA = { 
+    classes: "Item", feats: "Item", featsBuffs: "Item", classfeatures: "Item", spells: "Item", 
+    weapons: "Item", armors: "Item", magic: "Item", equipment: "Item", beastiary: "Actor" 
+  }
   
-  // weapons
-//   const dWeapons = await fetch("/data/weapons.json").then(r => r.json()) 
-//   let pWeapons = await Compendium.create({label: "ImportWeapons", entity: "Item"})
-//   const packWeapons = game.packs.find(p => p.metadata.label === "ImportWeapons"); 
-//   await packWeapons.createEntity(dWeapons);
+  let packs = {}
+  game.packs.entries.forEach( e => packs[e.title] = e );
   
-  // armors
-//   const dArmors = await fetch("/data/armors.json").then(r => r.json()) 
-//   let pArmors = await Compendium.create({label: "ImportArmors", entity: "Item"})
-//   const packArmors = game.packs.find(p => p.metadata.label === "ImportArmors"); 
-//   await packArmors.createEntity(dArmors);
-   
-//   // magic items
-//   const dMagic = await fetch("/data/magic.json").then(r => r.json()) 
-//   let pMagic = await Compendium.create({label: "ImportMagic", entity: "Item"})
-//   const packMagic = game.packs.find(p => p.metadata.label === "ImportMagic"); 
-//   await packMagic.createEntity(dMagic);
-//   
-//   //equipment
-//   const dEquipment = await fetch("/data/equipment.json").then(r => r.json()) 
-//   let pEquipment = await Compendium.create({label: "ImportEquipment", entity: "Item"})
-//   const packEquipment = game.packs.find(p => p.metadata.label === "ImportEquipment"); 
-//   await packEquipment.createEntity(dEquipment);
-    
-//   // beastiary  
-//   const dBeastiary = await fetch("/data/beastiary.json").then(r => r.json()) 
-//   let pBeastiary = await Compendium.create({label: "ImportBeastiary", entity: "Actor"})
-//   const packBeastiary = game.packs.find(p => p.metadata.label === "ImportBeastiary"); 
-//   await packBeastiary.createEntity(dBeastiary);
+  for (let d in DATA) {
+    if( filter.length == 0 || filter.includes(d) ) {
+      const packName = `Imported (${d})`
+      // delete compendium if already exists
+      if( packName in packs ) {
+        await packs[packName].delete()
+      }
+      if( deleteOnly ) { continue }
+      await Compendium.create({label: packName, entity: DATA[d]})
+      const jsonData   = await fetch(`${path}/${d}.json`).then(r => r.json()) 
+      const pack = game.packs.find(p => p.metadata.label === packName); 
+      await pack.createEntity(jsonData);
+      ui.notifications.info(`${d} imported!`)
+    }
+  }
   
+  ui.notifications.info("Import successfully completed!!")
   console.log(`PF1-FR | Done`);
 }
 
