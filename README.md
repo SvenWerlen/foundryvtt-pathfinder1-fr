@@ -8,7 +8,10 @@ Compendiums supportés:
 * dons
 * sorts
 * équipements
-* bestiaire (en cours)
+* bestiaire
+* modifications
+
+_(Voir le projet [pathfinderfr-data](https://github.com/SvenWerlen/pathfinderfr-data/blob/master/foundryvtt/README.md) pour plus de détails)_
 
 ![Compendiums](/doc/img/compendiums.jpg)
 ![Armors](/doc/img/armors.jpg)
