@@ -8,7 +8,7 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
   ui.notifications.info("Import started ... please wait!!")
   
   const DATA = { 
-    classes: "Item", feats: "Item", featsBuffs: "Item", classfeatures: "Item", spells: "Item", 
+    classes: "Item", feats: "Item", classfeatures: "Item", spells: "Item", 
     weapons: "Item", armors: "Item", magic: "Item", equipment: "Item", beastiary: "Actor" 
   }
   
