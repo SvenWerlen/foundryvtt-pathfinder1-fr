@@ -9,7 +9,16 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
   
   const DATA = { 
     classes: "Item", feats: "Item", classfeatures: "Item", spells: "Item", 
-    weapons: "Item", armors: "Item", magic: "Item", equipment: "Item", beastiary: "Actor" 
+    weapons: "Item", armors: "Item", magic: "Item", beastiary: "Actor",
+    equip_transport: "Item",
+    equip_alchTools: "Item",
+    equip_adventurer: "Item",
+    equip_food: "Item",
+    equip_alchCures: "Item",
+    equip_clothes: "Item",
+    equip_animals: "Item",
+    equip_tools: "Item",
+    equip_games: "Item"
   }
   
   let packs = {}

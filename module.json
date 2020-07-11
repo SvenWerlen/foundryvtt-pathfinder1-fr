@@ -1,10 +1,10 @@
 {
   "name": "pf1-fr",
-  "title": "Pathfinder 1 - Improvements for french (BETA)",
-  "description": "(BETA) Improves the system for french speakers. Provides compendiums in French. <p> *** Rejoignez la communauté Discord FR :<a href='https://discord.gg/pPSDNJk'> https://discord.gg/pPSDNJk </a></p>",
-  "version": "1.2.7",
+  "title": "Pathfinder 1 - Improvements for french",
+  "description": "Improves the system for french speakers. Provides compendiums in French. <p> *** Rejoignez la communauté Discord FR :<a href='https://discord.gg/pPSDNJk'> https://discord.gg/pPSDNJk </a></p>",
+  "version": "1.3.0",
   "author": "Sven Werlen",
-  "scripts": ["scripts/yaml.min.js", "scripts/importer.js", "scripts/loaddata.js"],
+  "scripts": ["scripts/yaml.min.js", "scripts/importer.js", "scripts/loaddata.js", "pf1-fr.js"],
   "systems": ["pf1"],
   "styles": ["style.css"],
   "packs": [
@@ -51,10 +51,66 @@
       "entity": "Item"
     },
     {
-      "name": "equipmentfr",
-      "label": "Marchandises et services",
+      "name": "equAdventurerfr",
+      "label": "Équipement d'aventurier",
       "system": "pf1",
-      "path": "./packs/equipment-fr.db",
+      "path": "./packs/equAdventurer-fr.db",
+      "entity": "Item"
+    },
+    {
+      "name": "equAlchCuresfr",
+      "label": "Remèdes alchimiques",
+      "system": "pf1",
+      "path": "./packs/equAlchCures-fr.db",
+      "entity": "Item"
+    },
+    {
+      "name": "equAlchToolsfr",
+      "label": "Outils alchimiques",
+      "system": "pf1",
+      "path": "./packs/equAlchTools-fr.db",
+      "entity": "Item"
+    },
+    {
+      "name": "equAnimalsfr",
+      "label": "Animaux, montures et leur équipement",
+      "system": "pf1",
+      "path": "./packs/equAnimals-fr.db",
+      "entity": "Item"
+    },
+    {
+      "name": "equClothesfr",
+      "label": "Vêtements",
+      "system": "pf1",
+      "path": "./packs/equClothes-fr.db",
+      "entity": "Item"
+    },
+    {
+      "name": "equFoodfr",
+      "label": "Nourriture et Boissons",
+      "system": "pf1",
+      "path": "./packs/equFood-fr.db",
+      "entity": "Item"
+    },
+    {
+      "name": "equGamesfr",
+      "label": "Jeux",
+      "system": "pf1",
+      "path": "./packs/equGames-fr.db",
+      "entity": "Item"
+    },
+    {
+      "name": "equToolsfr",
+      "label": "Trousses d’outils et de compétences",
+      "system": "pf1",
+      "path": "./packs/equTools-fr.db",
+      "entity": "Item"
+    },
+    {
+      "name": "equTransportfr",
+      "label": "Moyens de transport",
+      "system": "pf1",
+      "path": "./packs/equTransport-fr.db",
       "entity": "Item"
     },
     {
@@ -65,7 +121,7 @@
       "entity": "Item"
     },
     {
-      "name": "potions",
+      "name": "potionsfr",
       "label": "Potions",
       "system": "pf1",
       "path": "./packs/potions-fr.db",
@@ -87,7 +143,7 @@
     }
   ],
   "url": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr",
-  "download": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr/archive/v-1.2.7.zip",
+  "download": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr/archive/v-1.3.0.zip",
   "manifest": "https://raw.githubusercontent.com/SvenWerlen/foundryvtt-pathfinder1-fr/master/module.json",
   "minimumCoreVersion": "0.6.0",
   "compatibleCoreVersion": "1.0.0"
