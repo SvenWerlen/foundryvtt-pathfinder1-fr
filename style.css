@@ -29,3 +29,51 @@
 .pf1notes .texte {
   padding: 0 1px 0 1px;
 }
+
+
+.pf2frDescr {
+  padding: 3px;
+  text-align: justify;
+}
+
+.pf2frDescr table {
+  margin: 10px;
+  width: -webkit-calc(100% - 30px);
+  width:    -moz-calc(100% - 30px);
+  width:         calc(100% - 30px);
+}
+
+.pf2frDescr tr {
+  background-color: rgba(155, 155, 155, 0.3);
+}
+
+.pf2frDescr tr:nth-child(2n+1) {
+  background-color: rgba(210, 210, 210, 0.3);
+}
+
+.pf2frDescr table caption {
+  font-weight: bold;
+  color: #FFF;
+  background-color: #666;
+  text-transform: uppercase;
+}
+
+.pf2frDescr tr.title {
+  font-weight: bold;
+  border-bottom: 2px solid #000;
+}
+
+.pf2frDescr td.note {
+  font-size: smaller;
+  font-style: italic;
+}
+
+.pf2frDescr td {
+  max-width: 300px;
+  text-align: center;
+  padding: 2px 5px 2px 5px;
+}
+
+.pf2frDescr td:first-child {
+  text-align: left;
+}
