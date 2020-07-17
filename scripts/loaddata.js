@@ -20,7 +20,8 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
     equip_tools: "Item",
     equip_games: "Item",
     skills: "JournalEntry",
-    magic_weapons: "JournalEntry"
+    magic_weapons: "JournalEntry",
+    magic_armors: "JournalEntry"
   }
   
   let packs = {}
