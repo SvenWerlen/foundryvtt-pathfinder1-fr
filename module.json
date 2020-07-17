@@ -161,6 +161,13 @@
       "system": "pf1",
       "path": "./packs/magicarmors-fr.db",
       "entity": "JournalEntry"
+    },
+    {
+      "name": "racesfr",
+      "label": "Races",
+      "system": "pf1",
+      "path": "./packs/races-fr.db",
+      "entity": "Item"
     }
   ],
   "url": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr",
