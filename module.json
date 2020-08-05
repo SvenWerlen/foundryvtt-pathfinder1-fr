@@ -163,6 +163,13 @@
       "entity": "JournalEntry"
     },
     {
+      "name": "conditionsfr",
+      "label": "Conditions",
+      "system": "pf1",
+      "path": "./packs/conditions-fr.db",
+      "entity": "JournalEntry"
+    },
+    {
       "name": "racesfr",
       "label": "Races",
       "system": "pf1",
