@@ -23,11 +23,21 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
     magic_weapons: "JournalEntry",
     magic_armors: "JournalEntry",
     conditions: "JournalEntry",
-    races: "Item"
+    races: "Item",
+    traits: "Item"
   }
   
+  const DATA_LOAD = ["pf1-fr.racesfr"]
+  
   let packs = {}
-  game.packs.entries.forEach( e => packs[e.title] = e );
+  let packIndexes = {}
+  for(let p = 0; p < game.packs.entries.length; p++) {
+    const e = game.packs.entries[p]
+    packs[e.title] = e
+    if( DATA_LOAD.includes(e.collection) ) {
+      packIndexes[e.collection] = await e.getIndex()
+    }
+  }
   
   for (let d in DATA) {
     if( filter.length == 0 || filter.includes(d) ) {
@@ -39,6 +49,28 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
       if( deleteOnly ) { continue }
       await Compendium.create({label: packName, entity: DATA[d]})
       const jsonData   = await fetch(`${path}/${d}.json`).then(r => r.json()) 
+      // replace refereces (##Compendium|Name##)
+      jsonData.forEach( d => {
+        if( d.data && d.data.description ) {
+          const array = [...d.data.description.value.matchAll(/##(.*?)##/g)];
+          array.forEach( e => {
+            const str = e[0]
+            const collection = "pf1-fr." + e[1].split('|')[0]
+            const name = e[1].split('|')[1]
+            if( collection in packIndexes ) {
+              const entry = packIndexes[collection].find(f => f.name === name)
+              if(entry) {
+                d.data.description.value = d.data.description.value.replace(str, `@Compendium[${collection}.${entry._id}]`)
+              }
+              else {
+                console.log(`PF1-FR | ${name} couldn't be found in compendium ${collection}!`)
+              }
+            } else {
+              console.log(`PF1-FR | ${collection} couldn't be found!`)
+            }
+          });
+        }
+      });
       const pack = game.packs.find(p => p.metadata.label === packName); 
       await pack.createEntity(jsonData);
       ui.notifications.info(`${d} imported!`)

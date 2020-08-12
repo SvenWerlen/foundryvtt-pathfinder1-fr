@@ -30,6 +30,13 @@
       "entity": "Item"
     },
     {
+      "name": "traitsfr",
+      "label": "Traits",
+      "system": "pf1",
+      "path": "./packs/traits-fr.db",
+      "entity": "Item"
+    },
+    {
       "name": "classfeaturesfr",
       "label": "Aptitudes",
       "system": "pf1",
