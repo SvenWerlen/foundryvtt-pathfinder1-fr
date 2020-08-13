@@ -9,7 +9,7 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
   
   const DATA = { 
     classes: "Item", feats: "Item", classfeatures: "Item", spells: "Item", 
-    weapons: "Item", armors: "Item", magic: "Item", beastiary: "Actor",
+    weapons: "Item", armors: "Item", magic: "Item", bestiary: "Actor",
     equip_transport: "Item",
     equip_alchTools: "Item",
     equip_adventurer: "Item",
