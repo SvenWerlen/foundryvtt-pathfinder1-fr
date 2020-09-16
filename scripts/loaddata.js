@@ -24,7 +24,8 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
     magic_armors: "JournalEntry",
     conditions: "JournalEntry",
     races: "Item",
-    traits: "Item"
+    traits: "Item",
+    weaponsAlch: "Item"
   }
   
   const DATA_LOAD = ["pf1-fr.racesfr"]

@@ -51,6 +51,13 @@
       "entity": "Item"
     },
     {
+      "name": "weaponsAlchfr",
+      "label": "Armes alchimiques",
+      "system": "pf1",
+      "path": "./packs/weaponsalch-fr.db",
+      "entity": "Item"
+    },
+    {
       "name": "armorsfr",
       "label": "Armures et boucliers",
       "system": "pf1",
