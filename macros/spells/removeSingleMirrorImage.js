@@ -2,19 +2,18 @@ Id: xkoqViB0HUTEIPHC
 Name: Retirer une image miroir
 Icon: systems/pf1/icons/spells/explosion-orange-1.jpg
 ------------
-
-///// CONFIGURATION
-const heroName = "Anton Haralamb";
-
 ///// INFORMATIONS
+//
+// Cette macro permet de retirer une image miroir (à utiliser après la macro d'incantation!)
+//
 // Base : Foundry VTT (0.6.6)
 // Système : Pathfinder 1 (0.73.7)
 // Module(s) nécessaire(s) : Magic Token FX (0.4.2b)
 // Modules(s) optionnel(s) : -
 // Auteur(s) : Alexandre Nizoux (deurk#5568), Sven Werlen (Dorgendubal#3348)
 
-///// NOTES
-// Si l'acteur configuré à plusieurs jetons sur la scène, seul le premier jeton retourné sera affecté.
+///// CONFIGURATION
+const heroName = "Anton Haralamb";
 
 ///// SCRIPT
 function removeSingleMirrorImage() {

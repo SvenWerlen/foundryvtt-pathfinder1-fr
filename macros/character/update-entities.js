@@ -2,16 +2,17 @@ Id: UN955S6O6dX0xzmM
 Name: Mettre à jour les aptitudes
 Icon: systems/pf1/icons/skills/blue_18.jpg
 ------------
-
-// SCRIPT
-// Do NOT change unless you know what you're doing!
-
 ///// INFORMATIONS
+//
+// Cette macro ajoute les aptitudes sur un PJ (basé sur ses classes) 
+// À utiliser typiquement après un passage de niveau ou à la création.
+//
 // Base : Foundry VTT (0.6.6)
 // Système : Pathfinder 1 (0.73.7)
 // Module(s) nécessaire(s) : -
 // Auteur(s) : Sven Werlen (Dorgendubal#3348)
 
+// SCRIPT
 
 function getAbbr(name) {
   if(name == "Barbare") { return "Brb" }

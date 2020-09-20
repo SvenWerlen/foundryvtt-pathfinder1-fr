@@ -5,17 +5,19 @@ MarkerTooltip: Sort "Image miroir" actif!
 MarkerIcon: systems/pf1/icons/feats/improved-feint.jpg
 MarkerColor: #edc412
 ------------
-
-///// CONFIGURATION
-const spellName = "Image miroir";
-const messagePrefix = "Nombre d'images miroir générées: ";
-
 ///// INFORMATIONS
+//
+// Cette macro permet de lancer le sort "Image miroir" et d'activer les effets sur le token.
+//
 // Base : Foundry VTT (0.6.6)
 // Système : Pathfinder 1 (0.73.7)
 // Module(s) nécessaire(s) : Magic Token FX (0.4.2b)
 // Modules(s) optionnel(s) : Macro Marker (voir NOTES)
 // Auteur(s) : Alexandre Nizoux (deurk#5568), Sven Werlen (Dorgendubal#3348), Noon
+
+///// CONFIGURATION
+const spellName = "Image miroir";
+const messagePrefix = "Nombre d'images miroir générées: ";
 
 ///// SCRIPT
 function macroCastMirrorImages() {
