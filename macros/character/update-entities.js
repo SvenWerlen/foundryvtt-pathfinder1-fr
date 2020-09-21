@@ -17,7 +17,6 @@ Icon: systems/pf1/icons/skills/blue_18.jpg
 function getAbbr(name) {
   if(name == "Barbare") { return "Brb" }
   else if(name == "Prêtre combattant") { return "Prc" }
-  else if(name == "Prêtre combattant") { return "Prc" }
   else if(name == "Archer-mage") { return "ArM" }
   else if(name == "Champion occultiste") { return "Chp" }
   else if(name == "Magus") { return "Mgs" }
@@ -58,7 +57,7 @@ if (actors.length != 1) {
               for(let lvl=1; lvl<=level; lvl++) {
                 for(const i in index) { 
                   const f = index[i]
-                  if(f.name.startsWith(`${abbr} ${lvl}:`) && classfeatures.indexOf(f.name) < 0) {
+                  if(f.name.startsWith(`${abbr} ${lvl<10?" ":""}${lvl} :`) && classfeatures.indexOf(f.name) < 0) {
                     features.push(pack.getEntity(f._id))
                   }
                 }

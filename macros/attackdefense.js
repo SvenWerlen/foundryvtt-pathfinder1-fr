@@ -18,7 +18,16 @@ MarkerColor: #bba8a8
 const BUFFNAME = "Combattre sur la défensive"
 
 ///// SCRIPT
-async function macroToggleTotalDefense() {
+function macroToggle(buff) {
+  if( !buff ) { return ui.notifications.error("Modification non-disponible. Quelquechose ne fonctionne pas comme prévu.") }
+  let active = getProperty(buff.data, "data.active");
+  if (active == null) active = false;
+  buff.update({ "data.active": !active });
+  if( !active ) { buff.roll(); }
+}
+
+///// SCRIPT
+async function macroToggleAttackOnDefense() {
 
   // Récupérer l'acteur sélectionné
   const actors = MacrosPF1.getActors()
@@ -69,18 +78,22 @@ async function macroToggleTotalDefense() {
       "img": "systems/pf1/icons/feats/improved-shield-bash.jpg"
     }
 
-    const created = await hero.createEmbeddedEntity("OwnedItem", buff);
-    buff = hero.items.find( i => i.type === "buff" && i.name === BUFFNAME )
+    Dialog.confirm({
+      title: "Ajouter un effet",
+      content: `Cette macro tente d'activer l'effet <i>${BUFFNAME}</i> qui n'existe pour le PJ <i>${actor.name}</i>. Voulez-vous que la macro crée automatiquement cet effet (-4 Att/+2 CA)? Répondez <i>oui</i> pour ajouter l'effet et l'activer. Répondez <i>non</i> pour annuler l'action.`,
+        yes: async function() {
+          const created = await hero.createEmbeddedEntity("OwnedItem", buff);
+          buff = hero.items.find( i => i.type === "buff" && i.name === BUFFNAME )
+          macroToggle(buff)
+        },
+        no: () => {}
+    });
+  } else {
+    macroToggle(buff)
   }
-
-  if( !buff ) { return ui.notifications.error("Modification non-disponible. Quelquechose ne fonctionne pas comme prévu.") }
-  let active = getProperty(buff.data, "data.active");
-  if (active == null) active = false;
-  buff.update({ "data.active": !active });
-  if( !active ) { buff.roll(); }
 }
 
-macroToggleTotalDefense();
+macroToggleAttackOnDefense();
 
 ------------
 
