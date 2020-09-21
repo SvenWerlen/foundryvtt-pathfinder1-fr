@@ -7,7 +7,7 @@ MarkerColor: #bba8a8
 ------------
 ///// INFORMATIONS
 //
-// Cette macro permet d'activer ou de désactiver la défense totale sur un personnage
+// Cette macro permet d'activer ou de désactiver l'attaque sur la défensive
 //
 // Base : Foundry VTT (0.6.6)
 // Système : Pathfinder 1 (0.73.7)
