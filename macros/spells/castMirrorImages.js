@@ -22,6 +22,8 @@ const messagePrefix = "Nombre d'images miroir générées: ";
 ///// SCRIPT
 function macroCastMirrorImages() {
     
+    if( !MacrosPF1.hasModule("tokenmagic") ) return ui.notifications.error("Cette macro requiert le module <i>Magic Token FX</i>.");
+  
     // Récupérer l'acteur sélectionné
     const actors = MacrosPF1.getActors()
    

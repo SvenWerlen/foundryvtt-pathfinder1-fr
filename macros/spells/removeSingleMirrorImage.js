@@ -18,6 +18,8 @@ const heroName = "Anton Haralamb";
 ///// SCRIPT
 function removeSingleMirrorImage() {
     
+    if( !MacrosPF1.hasModule("tokenmagic") ) return ui.notifications.error("Cette macro requiert le module <i>Magic Token FX</i>.");
+  
     // Récupérer l'acteur sélectionné
     const actors = MacrosPF1.getActors()
    

@@ -3,7 +3,7 @@ Name: Activer Défense Totale
 Icon: systems/pf1/icons/feats/shield-slam.jpg
 MarkerTooltip: Désactiver Défense Totale
 MarkerIcon: systems/pf1/icons/feats/shield-slam.jpg
-MarkerColor: #edc412
+MarkerColor: #bba8a8
 ------------
 ///// INFORMATIONS
 //
@@ -25,7 +25,6 @@ async function macroToggleTotalDefense() {
   // Vérifier que l'acteur existe
   if (!actors.length) return ui.notifications.error("Vous ne possédez aucun acteur! Veuillez contacter votre MJ.");
   const hero = actors[0];
-  console.log(hero)
 
   let buff = hero.items.find( i => i.type === "buff" && i.name === "Défense totale" )
   if( !buff ) {
@@ -59,10 +58,20 @@ async function macroToggleTotalDefense() {
   }
 
   if( !buff ) { return ui.notifications.error("Modification non-disponible. Quelquechose ne fonctionne pas comme prévu.") }
-  console.log(buff)
   let active = getProperty(buff.data, "data.active");
   if (active == null) active = false;
   buff.update({ "data.active": !active });
+  if( !active ) { buff.roll(); }
 }
 
 macroToggleTotalDefense();
+
+------------
+
+const actors = MacrosPF1.getActors()
+if( actors.length > 0 ) {
+  const hero = actors[0];
+  const buff = hero.items.find( i => i.type === "buff" && i.name === "Défense totale" )
+  return buff && getProperty(buff.data, "data.active")
+} 
+return false

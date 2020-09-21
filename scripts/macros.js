@@ -16,3 +16,9 @@ MacrosPF1.getActors = function () {
   return actors
 }
 
+/**
+ * Checks that required modules are available
+ */
+MacrosPF1.hasModule = function (moduleName) {
+  return game.modules.has(moduleName) && game.modules.get(moduleName).active
+}
