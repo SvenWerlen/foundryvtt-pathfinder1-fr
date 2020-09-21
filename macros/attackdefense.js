@@ -1,8 +1,8 @@
-Id: Tta2l2WwXVnBObxA
-Name: Activer Défense Totale
-Icon: systems/pf1/icons/feats/shield-slam.jpg
-MarkerTooltip: Désactiver Défense Totale
-MarkerIcon: systems/pf1/icons/feats/shield-slam.jpg
+Id: 1IqmhS75L8bVcNqp
+Name: Combattre sur la défensive
+Icon: systems/pf1/icons/feats/improved-shield-bash.jpg
+MarkerTooltip: Combattre normalement
+MarkerIcon: systems/pf1/icons/feats/improved-shield-bash.jpg
 MarkerColor: #bba8a8
 ------------
 ///// INFORMATIONS
@@ -15,7 +15,7 @@ MarkerColor: #bba8a8
 // Auteur(s) : Sven Werlen (Dorgendubal#3348)
 
 ///// CONFIGURATION
-const BUFFNAME = "Défense totale"
+const BUFFNAME = "Combattre sur la défensive"
 
 ///// SCRIPT
 async function macroToggleTotalDefense() {
@@ -34,11 +34,20 @@ async function macroToggleTotalDefense() {
       "type": "buff",
       "data": {
         "description": {
-          "value": "Un personnage peut consacrer une action simple à sa défense, ce qui lui confère un bonus d'esquive de +4 à la CA pendant 1 round. Sa CA s’améliore dès le début de son action. Le personnage ne peut pas cumuler une défense totale avec un combat sur la défensive ou avec le don Expertise du combat. Un personnage en défense totale ne peut pas faire d’attaques d’opportunité.",
+          "value": "Un personnage peut choisir de combattre sur la défensive lorsqu'il attaque. Dans ce cas, il subit un malus de -4 sur toutes ses attaques du round mais bénéficie alors d’un bonus d’esquive de +2 à la CA jusqu'au début de son prochain tour.",
         },
         "changes": [
           {
-            "formula": "4",
+            "formula": "-4",
+            "operator": "add",
+            "target": "attack",
+            "subTarget": "attack",
+            "modifier": "penalty",
+            "priority": 0,
+            "value": 0
+          },
+          {
+            "formula": "2",
             "operator": "add",
             "target": "ac",
             "subTarget": "ac",
@@ -47,10 +56,17 @@ async function macroToggleTotalDefense() {
             "value": 0
           }
         ],
+        "contextNotes": [
+          { 
+            "text" : "Sur la défensive",
+            "target" : "attacks",
+            "subTarget" : "attack"
+          }
+        ],
         "buffType": "temp",
         "active": false,
       },
-      "img": "systems/pf1/icons/feats/shield-slam.jpg"
+      "img": "systems/pf1/icons/feats/improved-shield-bash.jpg"
     }
 
     const created = await hero.createEmbeddedEntity("OwnedItem", buff);
@@ -71,7 +87,7 @@ macroToggleTotalDefense();
 const actors = MacrosPF1.getActors()
 if( actors.length > 0 ) {
   const hero = actors[0];
-  const buff = hero.items.find( i => i.type === "buff" && i.name === "Défense totale" )
+  const buff = hero.items.find( i => i.type === "buff" && i.name === "Combattre sur la défensive" )
   return buff && getProperty(buff.data, "data.active")
 } 
 return false
