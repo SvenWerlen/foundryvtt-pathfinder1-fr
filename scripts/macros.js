@@ -22,3 +22,15 @@ MacrosPF1.getActors = function () {
 MacrosPF1.hasModule = function (moduleName) {
   return game.modules.has(moduleName) && game.modules.get(moduleName).active
 }
+
+/**
+ * Checks that required modules are available
+ */
+MacrosPF1.applyBuff = function (command) {
+  window.macroChain = [command]
+  const macro = game.macros.find(o => o.name == "effet");
+  if( !macro ) {
+    return ui.notifications.warn("La macro <i>effet</i> n'a pas été importée ou vous ne disposez pas des permissions pour l'exécuter.");
+  }
+  macro.execute();
+}

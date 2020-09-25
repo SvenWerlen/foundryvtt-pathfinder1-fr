@@ -198,6 +198,13 @@
       "entity": "Item"
     },
     {
+      "name": "buffsfr",
+      "label": "Effets",
+      "system": "pf1",
+      "path": "./packs/buffs-fr.db",
+      "entity": "Item"
+    },
+    {
       "name": "macrosfr",
       "label": "Macros PF1",
       "system": "pf1",
