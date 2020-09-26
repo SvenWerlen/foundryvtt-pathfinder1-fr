@@ -70,8 +70,7 @@ class MacrosPF1SkillTestDialog extends FormApplication {
     data.actor = this.actor
     data.skillbonus = this.actor.data.data.skills[this.skill].mod
     data.tests = this.tests
-    
-    console.log(this.actor.getContextNotesParsed("@Compendium[pf1-fr.skillsfr.QpgRsB4cDWDbeaeP]{Art de la magie}"))
+
     return data
   }
 
