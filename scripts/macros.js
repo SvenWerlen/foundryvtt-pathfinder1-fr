@@ -53,7 +53,6 @@ class MacrosPF1SkillTestDialog extends FormApplication {
   }
   
   static get defaultOptions() {
-    console.log(super.defaultOptions)
     return mergeObject(super.defaultOptions, {
       id: "skilltest",
       title: "Test de compétence",
@@ -70,7 +69,15 @@ class MacrosPF1SkillTestDialog extends FormApplication {
     data.actor = this.actor
     data.skillbonus = this.actor.data.data.skills[this.skill].mod
     data.tests = this.tests
-
+    
+    const pack = game.packs.get("pf1-fr.skillsfr");
+    await pack.getIndex()
+    
+    const skillName = game.i18n.localize("PF1.Skill" + this.skill.charAt(0).toUpperCase() + this.skill.slice(1))
+    let skillIdx = pack.index.find(e => e.name.toLowerCase() === skillName.toLowerCase());
+    if( skillIdx ) {
+      data.skillRef = TextEditor.enrichHTML(`@Compendium[pf1-fr.skillsfr.${skillIdx._id}]{${skillIdx.name}}`)
+    }
     return data
   }
 
