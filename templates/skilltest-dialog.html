@@ -1,0 +1,22 @@
+<ul>
+  <li><b>Acteur sélectionné :</b> {{actor.name}}</li>
+  <li><b>Bonus :</b> {{skillbonus}}</li>
+</ul>
+<p><em>
+  Choisissez une des options ci-dessous. @Compendium[pf1-fr.skillsfr.QpgRsB4cDWDbeaeP]{Art de la magie}
+</em></p>
+<table id="skills">
+<tr><th>Tâche</th><th>DD du test</th></tr>
+{{#each tests as |t i|}}
+<tr class="test" data-idx="{{i}}"><td>{{t.name}}</td><td>{{t.dd}}</td></tr>
+{{/each}}
+</table>
+
+<style>
+  #skills th, #stats td { width: 150px }
+  #skills tr:first-child { background-color: #333; color: #fff }
+  #skills tr:not(:first-child):hover { cursor: pointer; background-color: #555; color: #fff }
+  #skills td { padding-left: 5px }
+  #skills td:nth-child(2) { text-align: center}
+  #skills tr:nth-child(even) { background-color: rgba(170, 170, 170, 0.3) }
+</style>

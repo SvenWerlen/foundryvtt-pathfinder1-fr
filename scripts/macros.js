@@ -34,3 +34,72 @@ MacrosPF1.applyBuff = function (command) {
   }
   macro.execute();
 }
+
+/************************************************
+ * Spellcaster utility for casting prepared spells
+ ************************************************/
+
+class MacrosPF1SkillTestDialog extends FormApplication {
+  
+  constructor(object, options) {
+    super(object, options);
+    
+    if(options) {
+      this.skill = options.skillId
+      this.tests = options.tests
+      this.actor = game.actors.find( a => a._id == options.actorId )
+      this.rollMode = options.rollMode
+    }
+  }
+  
+  static get defaultOptions() {
+    console.log(super.defaultOptions)
+    return mergeObject(super.defaultOptions, {
+      id: "skilltest",
+      title: "Test de compétence",
+      template: "modules/pf1-fr/templates/skilltest-dialog.html",
+      width: 650,
+      height: "auto",
+      closeOnSubmit: false,
+      submitOnClose: false,
+    });
+  }
+  
+  async getData() {
+    let data = {}
+    data.actor = this.actor
+    data.skillbonus = this.actor.data.data.skills[this.skill].mod
+    data.tests = this.tests
+    
+    console.log(this.actor.getContextNotesParsed("@Compendium[pf1-fr.skillsfr.QpgRsB4cDWDbeaeP]{Art de la magie}"))
+    return data
+  }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    html.find('.test').click(event => this._onTest(event));
+  }
+  
+  async _onTest(event) {
+    event.preventDefault();
+    const idx = event.currentTarget.closest(".test").dataset.idx;
+    if( idx >= 0 && idx < this.tests.length ) {
+      const test = this.tests[idx]
+      // changer le template de traduction et le mode de lancer par défaut
+      const oldTransl = game.i18n.translations.PF1.SkillCheck
+      const oldRollMode = this.rollMode && game.settings.get("core", "rollMode") != this.rollMode ? game.settings.get("core", "rollMode") : null
+      if( oldRollMode ) {
+        await game.settings.set("core", "rollMode", this.rollMode)
+      }
+      game.i18n.translations.PF1.SkillCheck = `<b>{0}</b> <i>${test.name}</i><br/>DD : ${test.dd}`
+      this.actor.rollSkill(this.skill, {event: event, skipDialog: true});
+      game.i18n.translations.PF1.SkillCheck = oldTransl
+      if( oldRollMode ) {
+        await game.settings.set("core", "rollMode", oldRollMode)
+      }
+    }
+    this.close()
+  }  
+  
+}
+
