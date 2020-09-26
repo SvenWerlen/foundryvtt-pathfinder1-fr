@@ -22,7 +22,7 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
     skills: "JournalEntry",
     magic_weapons: "JournalEntry",
     magic_armors: "JournalEntry",
-    conditions: "JournalEntry",
+    conditions: "Item",
     races: "Item",
     traits: "Item",
     weaponsAlch: "Item"

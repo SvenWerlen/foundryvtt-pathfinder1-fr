@@ -188,7 +188,7 @@
       "label": "États préjudiciables",
       "system": "pf1",
       "path": "./packs/conditions-fr.db",
-      "entity": "JournalEntry"
+      "entity": "Item"
     },
     {
       "name": "racesfr",
