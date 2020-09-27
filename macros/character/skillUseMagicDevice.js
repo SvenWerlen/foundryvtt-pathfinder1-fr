@@ -13,8 +13,10 @@ Icon: systems/pf1/icons/items/inventory/wand-star.jpg
 
 const CHECKS = [
   { name: "Effectuer un test d'utilisation d'objets magiques", dd: "-" },
+  { name: "" },
   { name: "Activer un objet par chance", dd: "25" },
   { name: "Déchiffrer un sort écrit", dd: "25 + niveau du sort" },
+  { name: "" },
   { name: "Simuler une aptitude de classe", dd: "20" },
   { name: "Simuler une valeur de caractéristique", dd: "voir description" },
   { name: "Simuler une race", dd: "25" },

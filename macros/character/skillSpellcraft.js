@@ -13,6 +13,7 @@ Icon: systems/pf1/icons/spells/evil-eye-eerie-2.jpg
 
 const CHECKS = [
   { name: "Effectuer un test d'art de la magie", dd: "-" },
+  { name: "" },
   { name: "Identifier un sort lorsqu'il est lancé", dd: "15 + niveau du sort" },
   { name: "Apprendre un sort à partir d'un grimoire ou d'un parchemin", dd: "15 + niveau du sort" },
   { name: "Préparer un sort à partir d'un grimoire emprunté", dd: "15 + niveau du sort" },

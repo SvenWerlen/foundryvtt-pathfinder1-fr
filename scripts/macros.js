@@ -61,6 +61,7 @@ class MacrosPF1SkillCheckDialog extends FormApplication {
     
     if(options) {
       this.skill = options.skillId
+      this.subskill = options.subSkillId
       this.checks = options.checks
       this.actor = game.actors.find( a => a._id == options.actorId )
       this.rollMode = options.rollMode
@@ -82,7 +83,14 @@ class MacrosPF1SkillCheckDialog extends FormApplication {
   async getData() {
     let data = {}
     data.actor = this.actor
-    data.skillbonus = this.actor.data.data.skills[this.skill].mod
+    // sélectionner le bon bonus basé sur la spécialité
+    if( this.subskill ) {
+      data.skillbonus = this.actor.data.data.skills[this.skill].subSkills[this.subskill].mod
+      data.subSkillName = this.actor.data.data.skills[this.skill].subSkills[this.subskill].name
+    } else {
+      data.skillbonus = this.actor.data.data.skills[this.skill].mod
+    }
+    
     data.checks = this.checks
     
     const pack = game.packs.get("pf1-fr.skillsfr");
@@ -113,7 +121,12 @@ class MacrosPF1SkillCheckDialog extends FormApplication {
         await game.settings.set("core", "rollMode", this.rollMode)
       }
       game.i18n.translations.PF1.SkillCheck = `<b>{0}</b> <i>${check.name}</i><br/>DD : ${check.dd}`
-      this.actor.rollSkill(this.skill, {event: event, skipDialog: true});
+      // sélectionner la bonne spécialité
+      if( this.subskill ) {
+        this.actor.rollSkill(`${this.skill}.subSkills.${this.subskill}`, {event: event, skipDialog: true});
+      } else {
+        this.actor.rollSkill(this.skill, {event: event, skipDialog: true});
+      }
       game.i18n.translations.PF1.SkillCheck = oldTransl
       if( oldRollMode ) {
         await game.settings.set("core", "rollMode", oldRollMode)
@@ -130,13 +143,15 @@ class MacrosPF1SkillCheckDialog extends FormApplication {
 
 class MacrosPF1SkillChecksDialog extends FormApplication {
   
+  static skillSpecialty = null
+  
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       id: "skillchecks",
       title: "Test de compétence",
       template: "modules/pf1-fr/templates/skillchecks-dialog.html",
       width: 720,
-      height: "auto",
+      height: 685,
       closeOnSubmit: false,
       submitOnClose: false,
     });
@@ -146,19 +161,40 @@ class MacrosPF1SkillChecksDialog extends FormApplication {
     let data = {}
     data.checks = []
     data.checksknow = []
+    data.checksspec = []
     const pack = game.packs.get("pf1-fr.macrosfr");
     await pack.getIndex()
     let promises = []
+    
+    const actors = MacrosPF1.getActors()
+    const actor = actors.length > 0 ? actors[0] : null
+    
     for( let i = 0; i < pack.index.length; i++ ) {
       if( pack.index[i].name.startsWith("Test : ") ) {
         const macro = await pack.getEntry(pack.index[i]._id)
         const abbr = pack.index[i].name.slice(7)
+        const skill = Object.keys(CONFIG.PF1.skills).find(key => abbr.toLowerCase().startsWith(CONFIG.PF1.skills[key].toLowerCase()))
+        const bonus = skill && actor ? actor.data.data.skills[skill].mod : 0
+        
         if( abbr.startsWith("Connaissance") ) {
           var regExp = /\(([^)]+)\)/;
           var matches = regExp.exec(abbr);
-          data.checksknow.push( { name: pack.index[i].name, abbr: matches[1], icon: macro.img } )
+          data.checksknow.push( { name: pack.index[i].name, abbr: matches[1], icon: macro.img, bonus: bonus } )
+        } else if( abbr.endsWith("*") ) {
+          if( skill && actor ) {
+            let hasSubSkill = false
+            Object.keys(actor.data.data.skills[skill].subSkills).forEach( sk => {
+              const subskill = actor.data.data.skills[skill].subSkills[sk]
+              data.checksspec.push( { name: pack.index[i].name, abbr: `${abbr.slice(0, -1)} : ${subskill.name}`, icon: macro.img, bonus: subskill.mod, specialty: sk } )
+              hasSubSkill = true
+            });
+            if( !hasSubSkill ) {
+              data.checksspec.push( { name: pack.index[i].name, abbr: `Aucune spécialité en ${abbr.slice(0, -1)}`, icon: macro.img, bonus: bonus } )
+            }
+          }
+          
         } else {
-          data.checks.push( { name: pack.index[i].name, abbr: abbr, icon: macro.img } )
+          data.checks.push( { name: pack.index[i].name, abbr: abbr, icon: macro.img, bonus: bonus } )
         }
       }
     }
@@ -173,8 +209,16 @@ class MacrosPF1SkillChecksDialog extends FormApplication {
   async _onTest(event) {
     event.preventDefault();
     const name = event.currentTarget.closest(".check").dataset.name;
+    const specialty = event.currentTarget.closest(".check").dataset.specialty;
     this.close()
     if( name ) {
+      // keep choice in storage
+      if (typeof(Storage) !== "undefined") {
+        localStorage.skillSpecialty = specialty
+      } else {
+        MacrosPF1SkillChecksDialog.skillSpecialty = specialty
+      }
+      
       MacrosPF1.macroExec(name)
     }
   }  

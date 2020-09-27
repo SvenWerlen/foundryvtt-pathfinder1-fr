@@ -13,6 +13,7 @@ Icon: systems/pf1/icons/skills/yellow_17.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de bluff", dd: "-" },
+  { name: "" },
   { name: "Convaincre de dire la vérité", dd: "vs Psychologie de l'ennemi" },
   { name: "Feinter en combat (CA sans Dex)", dd: "10 + BBA (ennemi) + Sag (ennemi)" },
   { name: "Feinter en combat (CA sans Dex)", dd: "10 + Psychologie (ennemi)" },

@@ -13,11 +13,13 @@ Icon: systems/pf1/icons/skills/red_25.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de connaissances (plans)", dd: "-" },
+  { name: "" },
   { name: "Répondre à une question ayant trait à sa spécialité", dd: "10 (basique), 15 (facile), 20 (difficile) ou 30 (très difficile)" },
   { name: "Reconnaître un monstre et identifier ses particularités ou points faibles", dd: "5 (commun), 10 (normal) ou 15+ (rare) + FP du monstre" },
+  { name: "" },
   { name: "Connaître le nom des plans", dd: "10" },
   { name: "Reconnaître le plan sur lequel le personnage se trouve", dd: "15" },
-  { name: "identifier l'origine d'une créature provenant d'un autre plan", dd: "20" },
+  { name: "Identifier l'origine d'une créature provenant d'un autre plan", dd: "20" },
 ]
 
 const actors = MacrosPF1.getActors()

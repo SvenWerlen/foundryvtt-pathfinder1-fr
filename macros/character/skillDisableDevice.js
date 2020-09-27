@@ -13,11 +13,13 @@ Icon: systems/pf1/icons/items/inventory/lockpick.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de sabotage", dd: "-" },
+  { name: "" },
   { name: "Coincer un serrure (1 rd)", dd: "10" },
   { name: "Saboter une roue de chariot (1d4 rds)", dd: "15" },
   { name: "Désarmer/réarmer un piège (2d4 rds)", dd: "20" },
   { name: "Désarmer/réarmer un piège complexe (2d4 rds)", dd: "25" },
   { name: "Saboter un mécanisme à engrenages complexes (2d4 rds)", dd: "25" },
+  { name: "" },
   { name: "Crocheter une serrure simple", dd: "20" },
   { name: "Crocheter une serrure moyenne", dd: "25" },
   { name: "Crocheter une serrure bonne", dd: "30" },

@@ -13,6 +13,7 @@ Icon: systems/pf1/icons/skills/red_09.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de psychologie", dd: "-" },
+  { name: "" },
   { name: "Sentir si quelque-chose cloche (pressentiment)", dd: "20" },
   { name: "Percevoir un enchantement", dd: "25 ou 15 (domination)" },
   { name: "Intercepter un message secret", dd: "vs Bluff de celui qui émet le message" },

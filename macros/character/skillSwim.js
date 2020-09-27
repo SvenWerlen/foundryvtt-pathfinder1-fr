@@ -13,6 +13,7 @@ Icon: systems/pf1/icons/skills/emerald_05.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de natation", dd: "-" },
+  { name: "" },
   { name: "Nager dans eaux calmes", dd: "10" },
   { name: "Nager dans eaux agitées", dd: "15" },
   { name: "Nager dans eaux très agitées (par tempête par exemple)", dd: "20" },  

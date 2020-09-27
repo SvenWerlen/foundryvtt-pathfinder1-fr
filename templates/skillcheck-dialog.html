@@ -1,24 +1,28 @@
 {{{skillRef}}}
 <ul>
   <li><b>Acteur sélectionné :</b> {{actor.name}}</li>
+  {{#if subSkillName}}
+    <li><b>Spécialité :</b> {{subSkillName}}</li>
+  {{/if}}
   <li><b>Bonus :</b> {{skillbonus}}</li>
 </ul>
 <p><em>
   Choisissez une des options ci-dessous. 
 </em></p>
-<table id="skills">
+<table class="skills">
 <tr><th>Tâche</th><th>DD du test</th></tr>
 {{#each checks as |c i|}}
-<tr class="check" data-idx="{{i}}"><td>{{c.name}}</td><td>{{c.dd}}</td></tr>
+  {{#if c.name}} <tr class="check" data-idx="{{i}}"><td>{{c.name}}</td><td>{{c.dd}}</td></tr> {{/if}}
+  {{#unless c.name}} <tr class="break"><td colspan="2">&nbsp;</td></tr> {{/unless}}
 {{/each}}
 </table>
 
 <style>
-  #skills th, #stats td { width: 150px }
-  #skills tr:first-child { background-color: #333; color: #fff }
-  #skills tr:not(:first-child):hover { cursor: pointer; background-color: #555; color: #fff }
-  #skills td { padding-left: 5px }
-  #skills td:nth-child(2) { text-align: center; width: 120px; padding: 0 15px }
-  #skills tr:nth-child(even) { background-color: rgba(170, 170, 170, 0.3) }
-  #skills tr:nth-child(2) { font-size: larger }
+  #skillcheck .skills th { width: 150px }
+  #skillcheck .skills tr:first-child { background-color: #333; color: #fff }
+  #skillcheck .skills tr.check:not(:first-child):hover { cursor: pointer; background-color: #555; color: #fff }
+  #skillcheck .skills tr:nth-child(even) { background-color: rgba(170, 170, 170, 0.3) }
+  #skillcheck .skills tr:nth-child(2) { font-size: larger }
+  #skillcheck .skills td { padding-left: 5px }
+  #skillcheck .skills td:nth-child(2) { text-align: center; width: 120px; padding: 0 15px }
 </style>

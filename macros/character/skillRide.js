@@ -13,6 +13,7 @@ Icon: systems/pf1/icons/feats/animal-affinity.jpg
 
 const CHECKS = [
   { name: "Effectuer un test d'équitation", dd: "-" },
+  { name: "" },
   { name: "Guider sa monture avec les genoux", dd: "5" },
   { name: "Rester en selle", dd: "5" },
   { name: "Combattre sur une monture entraînée au combat", dd: "10" },

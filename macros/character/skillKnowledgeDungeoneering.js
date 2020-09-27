@@ -13,8 +13,10 @@ Icon: systems/pf1/icons/skills/red_25.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de connaissances (exploration souterraine)", dd: "-" },
+  { name: "" },
   { name: "Répondre à une question ayant trait à sa spécialité", dd: "10 (basique), 15 (facile), 20 (difficile) ou 30 (très difficile)" },
   { name: "Reconnaître un monstre et identifier ses particularités ou points faibles", dd: "5 (commun), 10 (normal) ou 15+ (rare) + FP du monstre" },
+  { name: "" },
   { name: "Identifier un danger souterrain", dd: "15 + FP du danger" },
   { name: "Identifier un minerai, une roche ou un métal", dd: "10" },
   { name: "Déterminer l'inclinaison d'une pente", dd: "15" },

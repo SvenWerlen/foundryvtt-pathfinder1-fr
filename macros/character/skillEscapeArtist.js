@@ -13,6 +13,7 @@ Icon: systems/pf1/icons/skills/red_06.jpg
 
 const CHECKS = [
   { name: "Effectuer un test d'évasion", dd: "-" },
+  { name: "" },
   { name: "Se libérer de cordes", dd: "20 + BMO de celui qui a ligoté" },
   { name: "Se libérer d'un filet", dd: "20" },
   { name: "Se libérer de contrôle des plantes", dd: "20" },

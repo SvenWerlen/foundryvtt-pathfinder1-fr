@@ -13,8 +13,10 @@ Icon: systems/pf1/icons/skills/blue_29.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de dressage", dd: "-" },
+  { name: "" },
   { name: "Diriger un animal", dd: "10" },
   { name: "Pousser un animal", dd: "25" },
+  { name: "" },
   { name: "Enseigner \"Arrête !\" à un animal", dd: "15" },
   { name: "Enseigner \"Attaque !\" à un animal", dd: "20" },
   { name: "Enseigner \"Attends !\" à un animal", dd: "15" },
@@ -27,6 +29,7 @@ const CHECKS = [
   { name: "Enseigner \"Travaille !\" à un animal", dd: "15" },
   { name: "Enseigner \"Va chercher !\" à un animal", dd: "15" },
   { name: "Enseigner \"Viens !\" à un animal", dd: "15" },
+  { name: "" },
   { name: "Enseigner la fonction \"Animal de chasse\"", dd: "20" },
   { name: "Enseigner la fonction \"Animal de combat\"", dd: "20" },
   { name: "Enseigner la fonction \"Animal de foire\"", dd: "15" },
@@ -34,6 +37,7 @@ const CHECKS = [
   { name: "Enseigner la fonction \"Monture\"", dd: "15" },
   { name: "Enseigner la fonction \"Monture de combat\"", dd: "20" },
   { name: "Enseigner la fonction \"Travailleur de force\"", dd: "15" },
+  { name: "" },
   { name: "Élever un animal sauvage", dd: "15 + DV de l'animal" },
 ]
 

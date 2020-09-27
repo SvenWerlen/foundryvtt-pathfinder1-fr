@@ -13,8 +13,10 @@ Icon: systems/pf1/icons/skills/red_25.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de connaissances (noblesse)", dd: "-" },
+  { name: "" },
   { name: "Répondre à une question ayant trait à sa spécialité", dd: "10 (basique), 15 (facile), 20 (difficile) ou 30 (très difficile)" },
   { name: "Reconnaître un monstre et identifier ses particularités ou points faibles", dd: "5 (commun), 10 (normal) ou 15+ (rare) + FP du monstre" },
+  { name: "" },
   { name: "Connaître les dirigeants actuels et leurs blasons", dd: "10" },
   { name: "Connaître les règles de l'étiquette", dd: "15" },
   { name: "Connaître les prétendants au trône", dd: "20" },

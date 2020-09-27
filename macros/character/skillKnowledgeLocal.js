@@ -13,8 +13,10 @@ Icon: systems/pf1/icons/skills/red_25.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de connaissances (folklore local)", dd: "-" },
+  { name: "" },
   { name: "Répondre à une question ayant trait à sa spécialité", dd: "10 (basique), 15 (facile), 20 (difficile) ou 30 (très difficile)" },
   { name: "Reconnaître un monstre et identifier ses particularités ou points faibles", dd: "5 (commun), 10 (normal) ou 15+ (rare) + FP du monstre" },
+  { name: "" },
   { name: "Connaître les lois, les dirigeants et les endroits poplulaires de la région", dd: "10" },
   { name: "Connaître une rumeur assez répandue ou une tradition locale", dd: "15" },
   { name: "Connaître une organisation secrète, ses dirigeants et savoir comment les rencontrer", dd: "20" },

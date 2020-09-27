@@ -13,8 +13,10 @@ Icon: systems/pf1/icons/skills/red_25.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de connaissances (géographie)", dd: "-" },
+  { name: "" },
   { name: "Répondre à une question ayant trait à sa spécialité", dd: "10 (basique), 15 (facile), 20 (difficile) ou 30 (très difficile)" },
   { name: "Reconnaître un monstre et identifier ses particularités ou points faibles", dd: "5 (commun), 10 (normal) ou 15+ (rare) + FP du monstre" },
+  { name: "" },
   { name: "Reconnaître l'ethnie ou l'accent d'une créature", dd: "10" },
   { name: "Connaître les caractéristiques géographiques d'une région", dd: "15" },
   { name: "Connaître l'emplacement du lieu d'habitation ou du site important le plus proche d'un endroit donné", dd: "20" },

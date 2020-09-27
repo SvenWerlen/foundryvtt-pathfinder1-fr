@@ -13,11 +13,13 @@ Icon: systems/pf1/icons/skills/blue_02.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de vol", dd: "-" },
+  { name: "" },
   { name: "Se déplacer sur une distance inférieure à la moitié de sa vitesse et rester en vol", dd: "10" },
   { name: "Faire du surplace/vol stationnaire", dd: "15" },
   { name: "Virer de plus de 45° en sacrifiant 1,50 m de mouvement", dd: "15" },
   { name: "Virer à 180° en sacrifiant 3 m de mouvement", dd: "20" },
   { name: "Voler vers le haut selon un angle de plus de 45°", dd: "20" },
+  { name: "" },
   { name: "Éviter une chute vers le sol suite à une collision", dd: "25" },
   { name: "Éviter les dégâts d'une chute", dd: "10" },
   { name: "Éviter de perdre 3 m d'altitude suite à des dégâts", dd: "10" },

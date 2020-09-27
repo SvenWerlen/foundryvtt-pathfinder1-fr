@@ -13,6 +13,7 @@ Icon: systems/pf1/icons/skills/green_18.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de discrétion", dd: "-" },
+  { name: "" },
   { name: "Rester discret ou passer inapercu", dd: "vs Perception de l'ennemi" },
   { name: "Tirer embusqué", dd: "vs Perception de l'ennemi (malus -20)" },
 ]

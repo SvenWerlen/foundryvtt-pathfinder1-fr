@@ -13,8 +13,10 @@ Icon: systems/pf1/icons/skills/red_25.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de connaissances (nature)", dd: "-" },
+  { name: "" },
   { name: "Répondre à une question ayant trait à sa spécialité", dd: "10 (basique), 15 (facile), 20 (difficile) ou 30 (très difficile)" },
   { name: "Reconnaître un monstre et identifier ses particularités ou points faibles", dd: "5 (commun), 10 (normal) ou 15+ (rare) + FP du monstre" },
+  { name: "" },
   { name: "Identifier un danger naturel", dd: "15 + FP du danger" },
   { name: "Identifier une plante ou un animal commun", dd: "10" },
   { name: "Identifier un phénomène climatique anormal", dd: "15" },

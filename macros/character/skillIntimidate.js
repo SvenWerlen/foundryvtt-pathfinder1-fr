@@ -13,6 +13,7 @@ Icon: systems/pf1/icons/skills/red_10.jpg
 
 const CHECKS = [
   { name: "Effectuer un test d'intimidation", dd: "-" },
+  { name: "" },
   { name: "Forcer un adversaire à se montrer amical (1d6 x 10 minutes)", dd: "10 + DV (cible) + Sag (cible)" },
   { name: "Démoraliser un adversaire (secoué 1rd)", dd: "10 + DV (cible) + Sag (cible)" },
   

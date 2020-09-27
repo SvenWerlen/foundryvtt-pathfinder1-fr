@@ -1,12 +1,9 @@
-<p><em>
-  Choisissez une compétence ci-dessous.
-</em></p>
 <div class="overview">
   <table class="skills">
   <tr><th>Compétences</th></tr>
   {{#each checks as |c i|}}
   <tr class="check" data-name="{{c.name}}">
-    <td><img class="profile" title="{{c.name}}" src="{{ c.icon }}"> {{c.abbr}}</td>
+    <td><img class="profile" title="{{c.name}}" src="{{ c.icon }}"> {{c.abbr}} <span class="bonus">{{c.bonus}}</span></td>
   </tr>
   {{/each}}
   </table>
@@ -14,19 +11,29 @@
   <tr><th>Connaissances</th></tr>
   {{#each checksknow as |c i|}}
   <tr class="check" data-name="{{c.name}}">
-    <td><img class="profile" title="{{c.name}}" src="{{ c.icon }}"> {{c.abbr}}</td>
+    <td><img class="profile" title="{{c.name}}" src="{{ c.icon }}"> {{c.abbr}} <span class="bonus">{{c.bonus}}</span></td>
+  </tr>
+  {{/each}}
+  </table>
+  
+  <table class="skills">
+  <tr><th>Spécialités</th></tr>
+  {{#each checksspec as |c i|}}
+  <tr class="check" data-name="{{c.name}}" data-specialty="{{c.specialty}}">
+    <td><img class="profile" title="{{c.name}}" src="{{ c.icon }}"> {{c.abbr}} <span class="bonus">{{c.bonus}}</span></td>
   </tr>
   {{/each}}
   </table>
 </div>
 
 <style>
-  .skills { float: left; width: 48%; margin: 5px }
-  .skills th { width: 150px }
-  .skills tr:first-child { background-color: #333; color: #fff }
-  .skills tr:not(:first-child):hover { cursor: pointer; background-color: #555; color: #fff }
-  .skills td { padding-left: 5px }
-  .skills tr:nth-child(even) { background-color: rgba(170, 170, 170, 0.3) }
-  .skills img { width: 30px; vertical-align: middle; }
-  .overview:after { content: ""; display: table; clear: both; }
+  #skillchecks .skills { float: left; width: 48%; margin: 5px }
+  #skillchecks .skills th { width: 150px }
+  #skillchecks .skills tr:first-child { background-color: #333; color: #fff }
+  #skillchecks .skills tr:not(:first-child):hover { cursor: pointer; background-color: #555; color: #fff }
+  #skillchecks .skills td { padding-left: 5px }
+  #skillchecks .skills tr:nth-child(even) { background-color: rgba(170, 170, 170, 0.3) }
+  #skillchecks .skills img { width: 25px; vertical-align: middle; }
+  #skillchecks .skills .bonus { float: right; padding: 0 10px }
+  #skillchecks .overview:after { content: ""; display: table; clear: both; }
 </style>

@@ -13,6 +13,7 @@ Icon: systems/pf1/icons/items/inventory/pouch-belt.jpg
 
 const CHECKS = [
   { name: "Effectuer un test d'escamotage", dd: "-" },
+  { name: "" },
   { name: "Se saisir discrètement d'un objet de la taille d'une pièce", dd: "10 (vs Perception si vigilence)" },
   { name: "Cacher un objet de taille réduite", dd: "variable" },
   { name: "Dérober un petit objet à une personne", dd: "20 vs Perception" },

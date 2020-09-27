@@ -13,8 +13,10 @@ Icon: systems/pf1/icons/skills/blood_04.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de premiers secours", dd: "-" },
+  { name: "" },
   { name: "Stabiliser une personne mourante", dd: "15" },
   { name: "Effectuer des soins suivis pendant un jour ou plus", dd: "15" },
+  { name: "" },
   { name: "Soigner une blessure de chausse-trappe, de croissance d'épines ou de pierres acérées", dd: "15" },
   { name: "Soigner des blessures mortelles", dd: "20" },
   { name: "Soigner un empoisonnement (+4 JdS)", dd: "DD du JS contre le poison" },

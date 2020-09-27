@@ -13,10 +13,12 @@ Icon: systems/pf1/icons/skills/green_10.jpg
 
 const CHECKS = [
   { name: "Effectuer un test de survie", dd: "-" },
+  { name: "" },
   { name: "Se débrouiller en pleine nature sauvage (chasse, cueillette, ...)", dd: "10" },
   { name: "Acquérir des bonus aux JdS contre les rigueurs du climat", dd: "15" },
   { name: "Ne pas se perdre et remarquer les dangers naturels", dd: "15" },
   { name: "Prédire les conditions climatiques pour les 24h à venir", dd: "15" },
+  { name: "" },
   { name: "Suivre les traces (sol très mou)", dd: "5" },
   { name: "Suivre les traces (mou)", dd: "10" },
   { name: "Suivre les traces (ferme)", dd: "15" },
