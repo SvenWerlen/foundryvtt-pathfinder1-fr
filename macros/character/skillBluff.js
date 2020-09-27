@@ -11,21 +11,22 @@ Icon: systems/pf1/icons/skills/yellow_17.jpg
 // Module(s) nécessaire(s) : -
 // Auteur(s) : Sven Werlen (Dorgendubal#3348)
 
-const TESTS = [
+const CHECKS = [
+  { name: "Effectuer un test de bluff", dd: "-" },
   { name: "Convaincre de dire la vérité", dd: "vs Psychologie de l'ennemi" },
   { name: "Feinter en combat (CA sans Dex)", dd: "10 + BBA (ennemi) + Sag (ennemi)" },
   { name: "Feinter en combat (CA sans Dex)", dd: "10 + Psychologie (ennemi)" },
   { name: "Transmettre un message secret", dd: "15 (simple) ou 20 (complexe)" },
-  
+  { name: "Créer une diversion pour se cacher", dd: "vs Psychologie de l'ennemi" },
 ]
 
 const actors = MacrosPF1.getActors()
 if( actors.length > 0 ) {
-  new MacrosPF1SkillTestDialog(null, {
+  new MacrosPF1SkillCheckDialog(null, {
     actorId: actors[0]._id,
     title: `Bluff : ${actors[0].name}`, 
     skillId: "blf",
-    tests: TESTS,
+    checks: CHECKS,
     rollMode: "blindroll" // commenter la ligne pour prendre la selection en cours
   }).render(true)
 }

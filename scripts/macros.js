@@ -35,18 +35,33 @@ MacrosPF1.applyBuff = function (command) {
   macro.execute();
 }
 
+/**
+ * Checks that required modules are available
+ */
+MacrosPF1.macroExec = function (macroName) {
+  const pack = game.packs.get("pf1-fr.macrosfr");
+  pack.getIndex().then( () => {
+    console.log(macroName)
+    const macro = pack.index.find(e => e.name === macroName);
+    if( macro ) {
+      console.log(macro._id)
+      pack.getEntity(macro._id).then( m => m.execute() );
+    }
+  })
+}
+
 /************************************************
- * Spellcaster utility for casting prepared spells
+ * Dialog for skill check
  ************************************************/
 
-class MacrosPF1SkillTestDialog extends FormApplication {
+class MacrosPF1SkillCheckDialog extends FormApplication {
   
   constructor(object, options) {
     super(object, options);
     
     if(options) {
       this.skill = options.skillId
-      this.tests = options.tests
+      this.checks = options.checks
       this.actor = game.actors.find( a => a._id == options.actorId )
       this.rollMode = options.rollMode
     }
@@ -54,9 +69,9 @@ class MacrosPF1SkillTestDialog extends FormApplication {
   
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      id: "skilltest",
+      id: "skillcheck",
       title: "Test de compétence",
-      template: "modules/pf1-fr/templates/skilltest-dialog.html",
+      template: "modules/pf1-fr/templates/skillcheck-dialog.html",
       width: 650,
       height: "auto",
       closeOnSubmit: false,
@@ -68,7 +83,7 @@ class MacrosPF1SkillTestDialog extends FormApplication {
     let data = {}
     data.actor = this.actor
     data.skillbonus = this.actor.data.data.skills[this.skill].mod
-    data.tests = this.tests
+    data.checks = this.checks
     
     const pack = game.packs.get("pf1-fr.skillsfr");
     await pack.getIndex()
@@ -83,21 +98,21 @@ class MacrosPF1SkillTestDialog extends FormApplication {
 
   activateListeners(html) {
     super.activateListeners(html);
-    html.find('.test').click(event => this._onTest(event));
+    html.find('.check').click(event => this._onTest(event));
   }
   
   async _onTest(event) {
     event.preventDefault();
-    const idx = event.currentTarget.closest(".test").dataset.idx;
-    if( idx >= 0 && idx < this.tests.length ) {
-      const test = this.tests[idx]
+    const idx = event.currentTarget.closest(".check").dataset.idx;
+    if( idx >= 0 && idx < this.checks.length ) {
+      const check = this.checks[idx]
       // changer le template de traduction et le mode de lancer par défaut
       const oldTransl = game.i18n.translations.PF1.SkillCheck
       const oldRollMode = this.rollMode && game.settings.get("core", "rollMode") != this.rollMode ? game.settings.get("core", "rollMode") : null
       if( oldRollMode ) {
         await game.settings.set("core", "rollMode", this.rollMode)
       }
-      game.i18n.translations.PF1.SkillCheck = `<b>{0}</b> <i>${test.name}</i><br/>DD : ${test.dd}`
+      game.i18n.translations.PF1.SkillCheck = `<b>{0}</b> <i>${check.name}</i><br/>DD : ${check.dd}`
       this.actor.rollSkill(this.skill, {event: event, skipDialog: true});
       game.i18n.translations.PF1.SkillCheck = oldTransl
       if( oldRollMode ) {
@@ -107,5 +122,54 @@ class MacrosPF1SkillTestDialog extends FormApplication {
     this.close()
   }  
   
+}
+
+/************************************************
+ * Dialog for selecting skill to check
+ ************************************************/
+
+class MacrosPF1SkillChecksDialog extends FormApplication {
+  
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      id: "skillchecks",
+      title: "Test de compétence",
+      template: "modules/pf1-fr/templates/skillchecks-dialog.html",
+      //width: 650,
+      height: "auto",
+      closeOnSubmit: false,
+      submitOnClose: false,
+    });
+  }
+  
+  async getData() {
+    let data = {}
+    data.checks = []
+    const pack = game.packs.get("pf1-fr.macrosfr");
+    await pack.getIndex()
+    let promises = []
+    for( let i = 0; i < pack.index.length; i++ ) {
+      if( pack.index[i].name.startsWith("Test d") && pack.index[i].name != "Test de compétence" ) {
+        const macro = await pack.getEntry(pack.index[i]._id)
+        data.checks.push( { name: macro.name, icon: macro.img } )
+      }
+    }
+    return data
+  }
+
+  activateListeners(html) {
+    super.activateListeners(html);
+    html.find('.check').click(event => this._onTest(event));
+  }
+  
+  async _onTest(event) {
+    event.preventDefault();
+    const name = event.currentTarget.closest(".check").dataset.name;
+    this.close()
+    if( name ) {
+      MacrosPF1.macroExec(name)
+    }
+  }  
+
 }
 
