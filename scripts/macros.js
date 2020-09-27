@@ -135,7 +135,7 @@ class MacrosPF1SkillChecksDialog extends FormApplication {
       id: "skillchecks",
       title: "Test de compétence",
       template: "modules/pf1-fr/templates/skillchecks-dialog.html",
-      width: 350,
+      width: 720,
       height: "auto",
       closeOnSubmit: false,
       submitOnClose: false,
@@ -145,13 +145,21 @@ class MacrosPF1SkillChecksDialog extends FormApplication {
   async getData() {
     let data = {}
     data.checks = []
+    data.checksknow = []
     const pack = game.packs.get("pf1-fr.macrosfr");
     await pack.getIndex()
     let promises = []
     for( let i = 0; i < pack.index.length; i++ ) {
       if( pack.index[i].name.startsWith("Test : ") ) {
         const macro = await pack.getEntry(pack.index[i]._id)
-        data.checks.push( { name: macro.name, icon: macro.img } )
+        const abbr = pack.index[i].name.slice(7)
+        if( abbr.startsWith("Connaissance") ) {
+          var regExp = /\(([^)]+)\)/;
+          var matches = regExp.exec(abbr);
+          data.checksknow.push( { name: pack.index[i].name, abbr: matches[1], icon: macro.img } )
+        } else {
+          data.checks.push( { name: pack.index[i].name, abbr: abbr, icon: macro.img } )
+        }
       }
     }
     return data

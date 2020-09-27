@@ -1,20 +1,32 @@
 <p><em>
   Choisissez une compétence ci-dessous.
 </em></p>
-<table id="skills">
-<tr><th>Compétence</th></tr>
-{{#each checks as |c i|}}
-<tr class="check" data-name="{{c.name}}">
-  <td><img class="profile" title="{{c.name}}" src="{{ c.icon }}"> {{c.name}}</td>
-</tr>
-{{/each}}
-</table>
+<div class="overview">
+  <table class="skills">
+  <tr><th>Compétences</th></tr>
+  {{#each checks as |c i|}}
+  <tr class="check" data-name="{{c.name}}">
+    <td><img class="profile" title="{{c.name}}" src="{{ c.icon }}"> {{c.abbr}}</td>
+  </tr>
+  {{/each}}
+  </table>
+  <table class="skills">
+  <tr><th>Connaissances</th></tr>
+  {{#each checksknow as |c i|}}
+  <tr class="check" data-name="{{c.name}}">
+    <td><img class="profile" title="{{c.name}}" src="{{ c.icon }}"> {{c.abbr}}</td>
+  </tr>
+  {{/each}}
+  </table>
+</div>
 
 <style>
-  #skills th, #stats td { width: 150px }
-  #skills tr:first-child { background-color: #333; color: #fff }
-  #skills tr:not(:first-child):hover { cursor: pointer; background-color: #555; color: #fff }
-  #skills td { padding-left: 5px }
-  #skills tr:nth-child(even) { background-color: rgba(170, 170, 170, 0.3) }
-  #skills img { width: 30px; vertical-align: middle; }
+  .skills { float: left; width: 48%; margin: 5px }
+  .skills th { width: 150px }
+  .skills tr:first-child { background-color: #333; color: #fff }
+  .skills tr:not(:first-child):hover { cursor: pointer; background-color: #555; color: #fff }
+  .skills td { padding-left: 5px }
+  .skills tr:nth-child(even) { background-color: rgba(170, 170, 170, 0.3) }
+  .skills img { width: 30px; vertical-align: middle; }
+  .overview:after { content: ""; display: table; clear: both; }
 </style>

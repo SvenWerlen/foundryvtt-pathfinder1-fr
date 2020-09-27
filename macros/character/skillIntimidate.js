@@ -1,5 +1,5 @@
 Id: chu1b7KWLKc3ddjv
-Name: Test : Intimiation
+Name: Test : Intimidation
 Icon: systems/pf1/icons/skills/red_10.jpg
 ------------
 ///// INFORMATIONS
