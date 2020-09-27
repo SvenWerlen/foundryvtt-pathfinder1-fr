@@ -1,5 +1,5 @@
 Id: itXZdskOnSbbsbMd
-Name: Test de Premiers secours
+Name: Test : Premiers secours
 Icon: systems/pf1/icons/skills/blood_04.jpg
 ------------
 ///// INFORMATIONS

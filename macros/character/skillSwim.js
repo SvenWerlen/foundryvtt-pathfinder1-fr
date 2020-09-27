@@ -1,5 +1,5 @@
 Id: ggs7CHiTtN6zzuMC
-Name: Test de Natation
+Name: Test : Natation
 Icon: systems/pf1/icons/skills/emerald_05.jpg
 ------------
 ///// INFORMATIONS

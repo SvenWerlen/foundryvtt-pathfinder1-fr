@@ -1,5 +1,5 @@
 Id: 6IQVIEXEIxvUbjgm
-Name: Test de Diplomatie
+Name: Test : Diplomatie
 Icon: systems/pf1/icons/skills/gray_05.jpg
 ------------
 ///// INFORMATIONS

@@ -1,5 +1,5 @@
 Id: ZYUak80DdjosNPFn
-Name: Test d'Escamotage
+Name: Test : Escamotage
 Icon: systems/pf1/icons/items/inventory/pouch-belt.jpg
 ------------
 ///// INFORMATIONS

@@ -135,7 +135,7 @@ class MacrosPF1SkillChecksDialog extends FormApplication {
       id: "skillchecks",
       title: "Test de compétence",
       template: "modules/pf1-fr/templates/skillchecks-dialog.html",
-      //width: 650,
+      width: 350,
       height: "auto",
       closeOnSubmit: false,
       submitOnClose: false,
@@ -149,7 +149,7 @@ class MacrosPF1SkillChecksDialog extends FormApplication {
     await pack.getIndex()
     let promises = []
     for( let i = 0; i < pack.index.length; i++ ) {
-      if( pack.index[i].name.startsWith("Test d") && pack.index[i].name != "Test de compétence" ) {
+      if( pack.index[i].name.startsWith("Test : ") ) {
         const macro = await pack.getEntry(pack.index[i]._id)
         data.checks.push( { name: macro.name, icon: macro.img } )
       }

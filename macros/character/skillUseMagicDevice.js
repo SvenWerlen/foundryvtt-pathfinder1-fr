@@ -1,6 +1,6 @@
 Id: URIhTJGymzETbG9S
-Name: Test d'utilisation d'objets magiques
-Icon: systems/pf1/icons/skills/green_10.jpg
+Name: Test : Utilisation d'objets magiques
+Icon: systems/pf1/icons/items/inventory/wand-star.jpg
 ------------
 ///// INFORMATIONS
 //

@@ -1,5 +1,5 @@
 Id: VYFOFwkdgiYJHQRI
-Name: Test d'Équitation
+Name: Test : Équitation
 Icon: systems/pf1/icons/feats/animal-affinity.jpg
 ------------
 ///// INFORMATIONS

@@ -1,5 +1,5 @@
 Id: DBTAPkbdPEMozG1a
-Name: Test de Dressage
+Name: Test : Dressage
 Icon: systems/pf1/icons/skills/blue_29.jpg
 ------------
 ///// INFORMATIONS

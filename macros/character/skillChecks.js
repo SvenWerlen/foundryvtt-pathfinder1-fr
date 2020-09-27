@@ -1,5 +1,5 @@
 Id: GuUAuptdWJhAXFVL
-Name: Test de compétence
+Name: Tests de compétence
 Icon: systems/pf1/icons/feats/skill-focus.jpg
 ------------
 ///// INFORMATIONS

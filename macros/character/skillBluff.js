@@ -1,5 +1,5 @@
 Id: hpSx1qbEoWjrcLqW
-Name: Test de Bluff
+Name: Test : Bluff
 Icon: systems/pf1/icons/skills/yellow_17.jpg
 ------------
 ///// INFORMATIONS

@@ -1,5 +1,5 @@
 Id: zFcfhb5acaDaVv7n
-Name: Test de Psychologie
+Name: Test : Psychologie
 Icon: systems/pf1/icons/skills/red_09.jpg
 ------------
 ///// INFORMATIONS

@@ -1,5 +1,5 @@
 Id: OLXazUWujj7D6Mj7
-Name: Test d'Art de la magie
+Name: Test : Art de la magie
 Icon: systems/pf1/icons/spells/evil-eye-eerie-2.jpg
 ------------
 ///// INFORMATIONS

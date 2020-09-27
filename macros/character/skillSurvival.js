@@ -1,5 +1,5 @@
 Id: FPkOj8fuJVNF02PG
-Name: Test de Survie
+Name: Test : Survie
 Icon: systems/pf1/icons/skills/green_10.jpg
 ------------
 ///// INFORMATIONS
