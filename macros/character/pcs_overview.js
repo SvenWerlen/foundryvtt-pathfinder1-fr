@@ -24,12 +24,12 @@ const DISPLAY = [
   { label: "XP", path: 'data.data.details.xp.value' },
   
   { label: game.i18n.localize("PF1.Attributes"), path: '', th: true },
-  { label: game.i18n.localize("AbilityShortStr"), path: ['data.data.abilities.str.total', 'data.data.abilities.str.mod'] },
-  { label: game.i18n.localize("AbilityShortDex"), path: ['data.data.abilities.dex.total', 'data.data.abilities.dex.mod'] },
-  { label: game.i18n.localize("AbilityShortCon"), path: ['data.data.abilities.con.total', 'data.data.abilities.con.mod'] },
-  { label: game.i18n.localize("AbilityShortInt"), path: ['data.data.abilities.int.total', 'data.data.abilities.int.mod'] },
-  { label: game.i18n.localize("AbilityShortWis"), path: ['data.data.abilities.wis.total', 'data.data.abilities.wis.mod'] },
-  { label: game.i18n.localize("AbilityShortCha"), path: ['data.data.abilities.cha.total', 'data.data.abilities.cha.mod'] },
+  { label: game.i18n.localize("PF1.AbilityShortStr"), path: ['data.data.abilities.str.total', 'data.data.abilities.str.mod'] },
+  { label: game.i18n.localize("PF1.AbilityShortDex"), path: ['data.data.abilities.dex.total', 'data.data.abilities.dex.mod'] },
+  { label: game.i18n.localize("PF1.AbilityShortCon"), path: ['data.data.abilities.con.total', 'data.data.abilities.con.mod'] },
+  { label: game.i18n.localize("PF1.AbilityShortInt"), path: ['data.data.abilities.int.total', 'data.data.abilities.int.mod'] },
+  { label: game.i18n.localize("PF1.AbilityShortWis"), path: ['data.data.abilities.wis.total', 'data.data.abilities.wis.mod'] },
+  { label: game.i18n.localize("PF1.AbilityShortCha"), path: ['data.data.abilities.cha.total', 'data.data.abilities.cha.mod'] },
 
   { label: game.i18n.localize("PF1.ItemTypeAttack"), path: '', th: true },
   { label: game.i18n.localize("PF1.Initiative"), path: 'data.data.attributes.init.total' },

@@ -23,6 +23,14 @@ const CHECKS = [
   { name: "Reconnître la main de l'homme dans un élément qui semble naturel", dd: "20" },
 ]
 
+// retrieve choice from storage
+let rollMode = null
+if (typeof(Storage) !== "undefined") {
+  rollMode = localStorage.rollMode
+} else {
+  rollMode = MacrosPF1SkillChecksDialog.rollMode
+}
+
 const actors = MacrosPF1.getActors()
 if( actors.length > 0 ) {
   new MacrosPF1SkillCheckDialog(null, {
@@ -30,6 +38,6 @@ if( actors.length > 0 ) {
     title: `Connaissances (Nature) : ${actors[0].name}`, 
     skillId: "kna",
     checks: CHECKS,
-    rollMode: "blindroll" // commenter la ligne pour prendre la selection en cours
+    rollMode: rollMode
   }).render(true)
 }

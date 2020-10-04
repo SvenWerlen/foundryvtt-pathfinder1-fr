@@ -17,12 +17,15 @@ const CHECKS = [
   { name: "Divertir son public et en vivre", dd: "voir détails" },
 ]
 
-// keep choice in storage
+// retrieve choice from storage
 let specialty = null
+let rollMode = null
 if (typeof(Storage) !== "undefined") {
   specialty = localStorage.skillSpecialty
+  rollMode = localStorage.rollMode
 } else {
   specialty = MacrosPF1SkillChecksDialog.skillSpecialty
+  rollMode = MacrosPF1SkillChecksDialog.rollMode
 }
 
 if( !specialty ) { ui.notifications.warn("Aucune spécialité spécifiée pour <i>Représentation</i> !") }
@@ -35,6 +38,6 @@ if( actors.length > 0 ) {
     skillId: "prf",
     subSkillId: specialty,
     checks: CHECKS,
-    rollMode: "blindroll" // commenter la ligne pour prendre la selection en cours
+    rollMode: rollMode
   }).render(true)
 }

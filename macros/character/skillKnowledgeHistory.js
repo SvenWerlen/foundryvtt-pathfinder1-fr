@@ -22,6 +22,14 @@ const CHECKS = [
   { name: "Connaître un événement historique ancien ou mal connu", dd: "20" },
 ]
 
+// retrieve choice from storage
+let rollMode = null
+if (typeof(Storage) !== "undefined") {
+  rollMode = localStorage.rollMode
+} else {
+  rollMode = MacrosPF1SkillChecksDialog.rollMode
+}
+
 const actors = MacrosPF1.getActors()
 if( actors.length > 0 ) {
   new MacrosPF1SkillCheckDialog(null, {
@@ -29,6 +37,6 @@ if( actors.length > 0 ) {
     title: `Connaissances (Histoire) : ${actors[0].name}`, 
     skillId: "khi",
     checks: CHECKS,
-    rollMode: "blindroll" // commenter la ligne pour prendre la selection en cours
+    rollMode: rollMode
   }).render(true)
 }

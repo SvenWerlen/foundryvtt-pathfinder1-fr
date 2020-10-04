@@ -18,12 +18,15 @@ const CHECKS = [
   { name: "Utiliser son métier pour vivre (moitié du résultat en p.o. / semaine)", dd: "spécial" },
 ]
 
-// keep choice in storage
+// retrieve choice from storage
 let specialty = null
+let rollMode = null
 if (typeof(Storage) !== "undefined") {
   specialty = localStorage.skillSpecialty
+  rollMode = localStorage.rollMode
 } else {
   specialty = MacrosPF1SkillChecksDialog.skillSpecialty
+  rollMode = MacrosPF1SkillChecksDialog.rollMode
 }
 
 if( !specialty ) { ui.notifications.warn("Aucune spécialité spécifiée pour <i>Profession</i> !") }
@@ -36,6 +39,6 @@ if( actors.length > 0 ) {
     skillId: "pro",
     subSkillId: specialty,
     checks: CHECKS,
-    rollMode: "blindroll" // commenter la ligne pour prendre la selection en cours
+    rollMode: rollMode
   }).render(true)
 }

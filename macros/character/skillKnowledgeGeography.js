@@ -22,6 +22,14 @@ const CHECKS = [
   { name: "Connaître l'emplacement du lieu d'habitation ou du site important le plus proche d'un endroit donné", dd: "20" },
 ]
 
+// retrieve choice from storage
+let rollMode = null
+if (typeof(Storage) !== "undefined") {
+  rollMode = localStorage.rollMode
+} else {
+  rollMode = MacrosPF1SkillChecksDialog.rollMode
+}
+
 const actors = MacrosPF1.getActors()
 if( actors.length > 0 ) {
   new MacrosPF1SkillCheckDialog(null, {
@@ -29,6 +37,6 @@ if( actors.length > 0 ) {
     title: `Connaissances (Géographie) : ${actors[0].name}`, 
     skillId: "kge",
     checks: CHECKS,
-    rollMode: "blindroll" // commenter la ligne pour prendre la selection en cours
+    rollMode: rollMode
   }).render(true)
 }

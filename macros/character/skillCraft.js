@@ -37,12 +37,15 @@ const CHECKS = [
   { name: "Objet complexe ou de qualité supérieure (ex: serrure)", dd: "20" },
 ]
 
-// keep choice in storage
+// retrieve choice from storage
 let specialty = null
+let rollMode = null
 if (typeof(Storage) !== "undefined") {
   specialty = localStorage.skillSpecialty
+  rollMode = localStorage.rollMode
 } else {
   specialty = MacrosPF1SkillChecksDialog.skillSpecialty
+  rollMode = MacrosPF1SkillChecksDialog.rollMode
 }
 
 if( !specialty ) { ui.notifications.warn("Aucune spécialité spécifiée pour <i>Artisanat</i> !") }
@@ -55,6 +58,6 @@ if( actors.length > 0 ) {
     skillId: "crf",
     subSkillId: specialty,
     checks: CHECKS,
-    rollMode: "blindroll" // commenter la ligne pour prendre la selection en cours
+    rollMode: rollMode
   }).render(true)
 }

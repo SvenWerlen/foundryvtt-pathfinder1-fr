@@ -30,6 +30,14 @@ const CHECKS = [
   { name: "Stopper la chute d'une autre personne", dd: "Att. de contact + DD de la surface + 10" },
 ]
 
+// retrieve choice from storage
+let rollMode = null
+if (typeof(Storage) !== "undefined") {
+  rollMode = localStorage.rollMode
+} else {
+  rollMode = MacrosPF1SkillChecksDialog.rollMode
+}
+
 const actors = MacrosPF1.getActors()
 if( actors.length > 0 ) {
   new MacrosPF1SkillCheckDialog(null, {
@@ -37,6 +45,6 @@ if( actors.length > 0 ) {
     title: `Escalade : ${actors[0].name}`, 
     skillId: "clm",
     checks: CHECKS,
-    rollMode: "blindroll" // commenter la ligne pour prendre la selection en cours
+    rollMode: rollMode
   }).render(true)
 }

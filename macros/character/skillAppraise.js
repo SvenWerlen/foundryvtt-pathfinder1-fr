@@ -18,6 +18,14 @@ const CHECKS = [
   { name: "Repérer l'objet le plus précieux au sein d'un trésor", dd: "20 ou plus" },
 ]
 
+// retrieve choice from storage
+let rollMode = null
+if (typeof(Storage) !== "undefined") {
+  rollMode = localStorage.rollMode
+} else {
+  rollMode = MacrosPF1SkillChecksDialog.rollMode
+}
+
 const actors = MacrosPF1.getActors()
 if( actors.length > 0 ) {
   new MacrosPF1SkillCheckDialog(null, {
@@ -25,6 +33,6 @@ if( actors.length > 0 ) {
     title: `Estimation : ${actors[0].name}`, 
     skillId: "apr",
     checks: CHECKS,
-    rollMode: "blindroll" // commenter la ligne pour prendre la selection en cours
+    rollMode: rollMode
   }).render(true)
 }

@@ -10,5 +10,10 @@ Icon: systems/pf1/icons/feats/skill-focus.jpg
 // Système : Pathfinder 1 (0.73.7)
 // Module(s) nécessaire(s) : -
 // Auteur(s) : Sven Werlen (Dorgendubal#3348)
+//
 
+// OPTION 1: mode basé sur la sélection dans le chat
 new MacrosPF1SkillChecksDialog().render(true)
+
+// OPTION 2: mode "à l'aveugle"
+// new MacrosPF1SkillChecksDialog(null, { rollMode: "blindroll" } ).render(true)

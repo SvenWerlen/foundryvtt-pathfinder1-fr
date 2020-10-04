@@ -144,6 +144,17 @@ class MacrosPF1SkillCheckDialog extends FormApplication {
 class MacrosPF1SkillChecksDialog extends FormApplication {
   
   static skillSpecialty = null
+  static rollMode = null
+  
+  constructor(object, options) {
+    super(object, options);
+    
+    this.rollMode = null
+    
+    if(options) {
+      this.rollMode = options.rollMode
+    }
+  }
   
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
@@ -215,8 +226,10 @@ class MacrosPF1SkillChecksDialog extends FormApplication {
       // keep choice in storage
       if (typeof(Storage) !== "undefined") {
         localStorage.skillSpecialty = specialty
+        localStorage.rollMode = this.rollMode
       } else {
         MacrosPF1SkillChecksDialog.skillSpecialty = specialty
+        MacrosPF1SkillChecksDialog.rollMode = this.rollMode
       }
       
       MacrosPF1.macroExec(name)
