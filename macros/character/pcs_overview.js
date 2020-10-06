@@ -79,13 +79,13 @@ DISPLAY.forEach( d => {
 template += "</table>"
 template += `<style>
   #stats th, #stats td { width: 150px; }
-  #stats tr:first-child { background-color: #d2691e; }
   #stats td { text-align: center}
   #stats td.label, #stats th.label { width: 350px; text-align: left; padding-left: 15px }
   #stats th.label { padding-left: 10px }
-  #stats tr:not(:first-child) th { background-color: #333; color: #fff; }
+  #stats tr th { background-color: #333; color: #fff; }
+  #stats tr:first-child th { background-color: #522; color: #fff }
   #stats tr:nth-child(even) { background-color: rgba(170, 170, 170, 0.3) }
-  #stats tr:hover { background-color: #555; color: #fff }
+  #stats tr:hover { background-color: #733; color: #fff }
 </style>`
 
 let buttons = {};
