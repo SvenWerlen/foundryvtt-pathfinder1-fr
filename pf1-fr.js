@@ -21,6 +21,19 @@ Hooks.once("init", () => {
     onChange: () => ui.compendium.render() });
 });
 
+/** Remplace les liens vers les compétences **/
+Hooks.once("ready", () => {
+  const pack = game.packs.get("pf1-fr.skillsfr");
+  pack.getIndex().then( () => {
+    Object.keys(CONFIG.PF1.skills).forEach( id => {
+      const skillName = game.i18n.localize(CONFIG.PF1.skills[id])
+      let skill = pack.index.find(e => e.name.toLowerCase() === skillName.toLowerCase());
+      if( skill ) {
+        CONFIG.PF1.skillCompendiumEntries[id] = `pf1-fr.skillsfr.${skill._id}`
+      }
+    });
+  })  
+});
 
 Hooks.on("canvasInit", async function() {
   if( game.settings.get("pf1-fr", "pf1frDisableENPacks") ) {

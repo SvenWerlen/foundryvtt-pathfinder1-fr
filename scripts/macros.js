@@ -105,7 +105,7 @@ class MacrosPF1SkillCheckDialog extends FormApplication {
   }
 
   activateListeners(html) {
-    super.activateListeners(html);
+    //super.activateListeners(html);
     html.find('.check').click(event => this._onTest(event));
   }
   
@@ -120,7 +120,7 @@ class MacrosPF1SkillCheckDialog extends FormApplication {
       if( oldRollMode ) {
         await game.settings.set("core", "rollMode", this.rollMode)
       }
-      game.i18n.translations.PF1.SkillCheck = `<b>{0}</b> <i>${check.name}</i><br/>DD : ${check.dd}`
+      game.i18n.translations.PF1.SkillCheck = `{0} - ${check.name} - DD : ${check.dd}`
       // sélectionner la bonne spécialité
       if( this.subskill ) {
         this.actor.rollSkill(`${this.skill}.subSkills.${this.subskill}`, {event: event, skipDialog: true});
@@ -213,7 +213,7 @@ class MacrosPF1SkillChecksDialog extends FormApplication {
   }
 
   activateListeners(html) {
-    super.activateListeners(html);
+    //super.activateListeners(html);
     html.find('.check').click(event => this._onTest(event));
   }
   
