@@ -61,7 +61,7 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
             if( collection in packIndexes ) {
               const entry = packIndexes[collection].find(f => f.name === name)
               if(entry) {
-                d.data.description.value = d.data.description.value.replace(str, `@Compendium[${collection}.${entry._id}]`)
+                d.data.description.value = d.data.description.value.replace(str, `@Compendium[${collection}.${entry._id}]{${name}}`)
               }
               else {
                 console.log(`PF1-FR | ${name} couldn't be found in compendium ${collection}!`)
