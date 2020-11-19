@@ -267,6 +267,54 @@ Importer.createAttack = function(name, description, source, ismelee, stat, damag
       proficient: true,
       primaryAttack: true
     },
-    img: "modules/pf1-fr/icons/actions/" + (ismelee ? "melee-attack.svg" : "ranged-attack.svg")
+    img: "icons/weapons/" + (ismelee ? "swords/shortsword-guard-worn.webp" : "bows/shortbow-recurve-red.webp")
   }
+}
+
+
+Importer.parseAttacks = function(attack, ismelee) {
+  let attackStr = attack
+  let attackList = []
+  let count = 0;
+  while(count++ < 10) {
+    const data = attackStr.match(/^(.*?) ([\+-][\+0-9/]+) (contact )?\((.*?)\)/)
+    if(data) {
+      attackStr = attackStr.substring(data[0].length)
+      const name = data[1].replace(/,/g, '').trim()
+      const dmg = data[4].match(/([\d\+d]+)(\/\d+-20)?(\/x\d)?/)
+      let bonusStr = data[2]
+      
+      // convert bonus +13/+8 into [13,8]
+      let bonusList = []
+      let countB = 0;
+      while(countB++ < 10) {
+        bonus = bonusStr.match(/^\/?([\+\d]+)/)
+        if(bonus) {
+          bonusStr = bonusStr.substring(bonus[0].length)
+          bonusList.push(Number(bonus[1]))
+        } else { break; }
+      }
+      
+      if(bonusList.length > 0 && dmg) {
+        const damages = dmg[1]
+        const crit = dmg[2] ? dmg[2].match(/\/(\d+)-20/)[1] : 20
+        const mult = dmg[3] ? Number(dmg[3].match(/\/x(\d)/)[1]) : 2
+        itemData = Importer.createAttack(
+          name, 
+          attack, 
+          "",     // no source
+          ismelee, 
+          "",     // no stat
+          damages, 
+          "?",
+          bonusList, 
+          crit, 
+          mult,
+          0);
+        itemData.data.attackType = "weapon"
+        attackList.push(itemData)
+      }
+    } else { break; }
+  }
+  return attackList;
 }
