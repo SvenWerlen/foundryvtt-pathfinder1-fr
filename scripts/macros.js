@@ -256,16 +256,16 @@ MacrosPF1.extractCharacter = function (text) {
   data.name = text.split('\n')[0].trim()
   
   // abilities
-  let res = Array.from(line.matchAll(/For (.*?), Dex (.*?), Con (.*?), Int (.*?), Sag (.*?), Cha (.*?) /g))
+  let res = Array.from(line.matchAll(/For ([+-]?\d+).*?, Dex ([+-]?\d+).*?, Con ([+-]?\d+).*?, Int ([+-]?\d+).*?, Sag ([+-]?\d+).*?, Cha ([+-]?\d+)/g))
   if( res.length > 0 ) {
     res = res[0]
     data.abilities = {}
-    data.abilities.str = Number(res[1].match(/\d+/)[0])
-    data.abilities.dex = Number(res[2].match(/\d+/)[0])
-    data.abilities.con = Number(res[3].match(/\d+/)[0])
-    data.abilities.int = Number(res[4].match(/\d+/)[0])
-    data.abilities.wis = Number(res[5].match(/\d+/)[0])
-    data.abilities.cha = Number(res[6].match(/\d+/)[0])
+    data.abilities.str = Number(res[1])
+    data.abilities.dex = Number(res[2])
+    data.abilities.con = Number(res[3])
+    data.abilities.int = Number(res[4])
+    data.abilities.wis = Number(res[5])
+    data.abilities.cha = Number(res[6])
   }
   // hit points
   res = Array.from(line.matchAll(/pv (\d+) \( ?(\d+?)d/g))
@@ -276,20 +276,20 @@ MacrosPF1.extractCharacter = function (text) {
     data.hp.level = Number(res[2])
   }
   // saving throws
-  res = Array.from(line.matchAll(/Réf (.*?), Vig (.*?), Vol (.*?) /g))
+  res = Array.from(line.matchAll(/Réf ([+-]?\d+).*?, Vig ([+-]?\d+).*?, Vol ([+-]?\d+)/g))
   if( res.length > 0 ) {
     res = res[0]
     data.savingThrows = {}
-    data.savingThrows.ref = Number(res[1].match(/[-+]\d+/)[0])
-    data.savingThrows.fort = Number(res[2].match(/[-+]\d+/)[0])
-    data.savingThrows.will = Number(res[3].match(/[-+]\d+/)[0])
+    data.savingThrows.ref = Number(res[1])
+    data.savingThrows.fort = Number(res[2])
+    data.savingThrows.will = Number(res[3])
   }
   // armor class
   res = Array.from(line.matchAll(/CA (\d+),.*?\((.+?)\)/g))
   if( res.length > 0 ) {
     res = res[0]
     data.ac = {}
-    data.ac.value = Number(res[1].match(/\d+/)[0])
+    data.ac.value = Number(res[1])
     data.ac.notes= res[2]
   }
   // initiative
@@ -298,6 +298,15 @@ MacrosPF1.extractCharacter = function (text) {
     res = res[0]
     data.init = {}
     data.init.value = Number(res[1])
+  }
+  // attack bonuses
+  res = Array.from(line.matchAll(/BBA ([+-]?\d+).*?, BMO ([+-]?\d+).*?, DMD ([+-]?\d+)/g))
+  if( res.length > 0 ) {
+    res = res[0]
+    data.attBonus = {}
+    data.attBonus.bba = Number(res[1])
+    data.attBonus.bmo = Number(res[2])
+    data.attBonus.dmd = Number(res[3])
   }
   // attacks
   res = Array.from(text.matchAll(/^Corps à corps (.*)/gm))
@@ -372,6 +381,7 @@ MacrosPF1.importCharacter = async function (data) {
     c.data.abilities.int.value = data.abilities.int
     c.data.abilities.wis.value = data.abilities.wis
     c.data.abilities.cha.value = data.abilities.cha
+    modStr = Math.floor((data.abilities.str-10)/2)
     modDex = Math.floor((data.abilities.dex-10)/2)
     modCon = Math.floor((data.abilities.con-10)/2)
     modWis = Math.floor((data.abilities.wis-10)/2)
@@ -432,7 +442,23 @@ MacrosPF1.importCharacter = async function (data) {
           "target": "ac",
           "subTarget": "ac",
           "modifier": "racial",
-        }
+        },
+        {
+          "_id": "1b2ddaav",
+          "formula": data.attBonus ? (data.attBonus.bmo - modStr).toString() : "0",
+          "operator": "add",
+          "target": "misc",
+          "subTarget": "cmb",
+          "modifier": "racial",
+        },
+        {
+          "_id": "tuc1br8h",
+          "formula": data.attBonus ? (data.attBonus.dmd - modDex - modStr - 10).toString() : "0",
+          "operator": "add",
+          "target": "misc",
+          "subTarget": "cmd",
+          "modifier": "racial",
+        },
       ],
       buffType: "perm",
       active: true,

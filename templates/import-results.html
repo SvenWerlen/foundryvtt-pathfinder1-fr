@@ -42,6 +42,15 @@
   {{/unless}}
 </div>
 <div class="form-group">
+  <label>Bonus de combat</label>
+  {{#if attBonus}}
+    <div><i class="fas fa-check-circle"></i> BBA {{ attBonus.bba }}, BMO {{ attBonus.bmo }}, DMD {{ attBonus.dmd }}</div>
+  {{/if}}
+  {{#unless attBonus}}
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> Les bonus doivent respecter le format suivant "BBA +7, BMO +15, DMD 24". Vérifiez la présence des virgules.</div>
+  {{/unless}}
+</div>
+<div class="form-group">
   <label>Classe d'armure (CA)</label>
   {{#if ac}}
     <div><i class="fas fa-check-circle"></i> CA {{ ac.value }} ({{ ac.notes }})</div>
