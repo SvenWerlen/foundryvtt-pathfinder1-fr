@@ -320,6 +320,7 @@ MacrosPF1.extractCharacter = function (text) {
     res = res[0]
     data.rattack = res[1]
   }
+  // skills
   res = Array.from(text.matchAll(/^Compétences (.*)/gm))
   if( res.length > 0 ) {
     data.skills = {}
@@ -340,6 +341,19 @@ MacrosPF1.extractCharacter = function (text) {
       }
     });
   }
+  // spells
+  res = Array.from(text.matchAll(/^##(.*)$/gm))
+  if( res.length > 0 ) {
+    data.spells = []
+    res.forEach( s => {
+      let elements = s[1].split(",")
+      elements.forEach( e => {
+        let name = e.match(/[^\(]+/g)[0].trim()
+        data.spells.push( name )
+      });
+    })
+  }
+  
   return data
 
 }
@@ -475,6 +489,26 @@ MacrosPF1.importCharacter = async function (data) {
     Array.prototype.push.apply(items, Importer.parseAttacks( data.rattack, false ))
   }
   
+  if( data.spells ) {
+    data.spellsOK = []
+    data.spellsNOK = []
+    c.data.attributes.spells = { usedSpellbooks: [ "primary" ] }
+    
+    const pack = game.packs.get("pf1-fr.spellsfr");
+    await pack.getIndex()
+    for( let i=0; i<data.spells.length; i++ ) {
+      const sName = data.spells[i]
+      const spell = pack.index.find(e => e.name.toLowerCase() === sName.toLowerCase() );
+      if( spell ) {
+        const spellData = await pack.getEntity(spell._id)
+        items.push( spellData )
+        data.spellsOK.push(sName)
+      } else {
+        data.spellsNOK.push(sName)
+      }
+    }
+  }
+  
   renderTemplate("modules/pf1-fr/templates/import-results.html", data).then(dlg => {
     new Dialog({
       title: "Résultats de l'import",
@@ -482,7 +516,7 @@ MacrosPF1.importCharacter = async function (data) {
       buttons: {},
     }, { width: 600 }).render(true);
   })
-    
+  
   let actor = await Actor.create(c);
   await actor.createEmbeddedEntity("OwnedItem", items)
   await actor.update({})

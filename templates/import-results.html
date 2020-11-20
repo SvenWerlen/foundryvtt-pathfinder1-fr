@@ -79,7 +79,7 @@
 </div>
 <div class="form-group">
   <label>Attaques à distance</label>
-  {{#if mattack}}
+  {{#if rattack}}
     <div><i class="fas fa-check-circle"></i> {{ rattack }}</div>
   {{/if}}
   {{#unless rattack}}
@@ -95,6 +95,26 @@
   {{/if}}
   {{#unless skills}}
     <div class="imperror"><i class="fas fa-exclamation-circle"></i> La ligne doit commencer par "Compétences". Assurez-vous également que toutes les compétences soient sur la même ligne (sans retour à la ligne)</div>
+  {{/unless}}
+</div>
+<div class="form-group">
+  <label>Sorts ou pouvoirs</label>
+  {{#if spells}}
+    <div><i class="fas fa-check-circle"></i> 
+    {{#if spellsOK}}
+    <span>
+    {{#each spellsOK as |spell sid|}}{{#if @index}}, {{/if}}{{spell}}{{/each}}
+    </span>
+    {{/if}}
+    {{#if spellsNOK}}
+    <span class="imperror">
+    {{#each spellsNOK as |spell sid|}}{{#if @index}}, {{/if}}{{spell}}{{/each}}
+    </span>
+    {{/if}}
+    </div>
+  {{/if}}
+  {{#unless spells}}
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> Vous devez ajouter "##" <b>manuellement</b> au début de chaque ligne contenant une liste de sorts</div>
   {{/unless}}
 </div>
 </form>

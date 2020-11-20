@@ -16,7 +16,7 @@ Icon: icons/environment/people/commoner.webp
 ///// CONFIGURATION
 
 //// SCRIPT
-let html = `<textarea id="pf1frImport" placeholder="Copier le bloc de texte ici" rows="15"></textarea>`
+let html = `<textarea id="pf1frImport" placeholder="Copier le bloc de texte ici\n\nRappel: vous devez ajouter ## devant chaque ligne contenant une liste de sorts à importer!!" rows="15"></textarea>`
 
 let buttons = { import: {
   icon: '<i class="fas fa-file-import fa-fw"></i>',
