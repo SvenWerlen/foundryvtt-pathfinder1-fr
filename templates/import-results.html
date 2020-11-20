@@ -53,10 +53,10 @@
 <div class="form-group">
   <label>Classe d'armure (CA)</label>
   {{#if ac}}
-    <div><i class="fas fa-check-circle"></i> CA {{ ac.value }} ({{ ac.notes }})</div>
+    <div><i class="fas fa-check-circle"></i> CA {{ ac.value }}, contact {{ ac.contact }} ({{ ac.notes }})</div>
   {{/if}}
   {{#unless ac}}
-    <div class="imperror"><i class="fas fa-exclamation-circle"></i> La CA doit respecter le format "CA 21 (...)". Vérifiez la présence des parenthèses après.</div>
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> La CA doit respecter le format "CA 21, contact 14... (...)". Vérifiez la présence des parenthèses après.</div>
   {{/unless}}
 </div>
 <div class="form-group">

@@ -285,12 +285,13 @@ MacrosPF1.extractCharacter = function (text) {
     data.savingThrows.will = Number(res[3])
   }
   // armor class
-  res = Array.from(line.matchAll(/CA (\d+),.*?\((.+?)\)/g))
+  res = Array.from(line.matchAll(/CA (\d+), contact (\d+).*?\((.+?)\)/g))
   if( res.length > 0 ) {
     res = res[0]
     data.ac = {}
     data.ac.value = Number(res[1])
-    data.ac.notes= res[2]
+    data.ac.contact = Number(res[2])
+    data.ac.notes= res[3]
   }
   // initiative
   res = Array.from(line.matchAll(/Init ([-+]\d+?)/g))
@@ -366,6 +367,7 @@ MacrosPF1.importCharacter = async function (data) {
       attributes: {
         hpAbility: "",  // avoid having to compute the impact of constitution on total HP
         acNotes: data.ac ? data.ac.notes : "",
+        naturalAC: data.ac ? data.ac.value - data.ac.contact : 0,
       },
     }
   }
@@ -437,7 +439,7 @@ MacrosPF1.importCharacter = async function (data) {
         },
         {
           "_id": "r4vCnt93",
-          "formula": data.ac ? (data.ac.value - modDex - 10).toString() : "0",
+          "formula": data.ac ? (data.ac.contact - modDex - 10).toString() : "0",
           "operator": "add",
           "target": "ac",
           "subTarget": "ac",
@@ -480,7 +482,7 @@ MacrosPF1.importCharacter = async function (data) {
       buttons: {},
     }, { width: 600 }).render(true);
   })
-  
+    
   let actor = await Actor.create(c);
   await actor.createEmbeddedEntity("OwnedItem", items)
   await actor.update({})
