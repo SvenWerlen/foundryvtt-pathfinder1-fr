@@ -1,0 +1,95 @@
+<form>
+<p>
+  <em>
+    Les sections ci-dessous présentent si les données ont pu être extraites.
+  </em>
+</p>
+
+<div class="form-group">
+  <label>Nom</label>
+  {{#if name}}
+    <div><i class="fas fa-check-circle"></i> {{ name }}</div>
+  {{/if}}
+  {{#unless name}}
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> La première ligne du bloc de texte correspond au nom à importer.</div>
+  {{/unless}}
+</div>
+<div class="form-group">
+  <label>Caractéristiques</label>
+  {{#if abilities}}
+    <div><i class="fas fa-check-circle"></i> For {{ abilities.str }}, Dex {{ abilities.dex }}, Con {{ abilities.con }}, Int {{ abilities.int }}, Sag {{ abilities.wis }}, Cha {{ abilities.cha }}</div>
+  {{/if}}
+  {{#unless abilities}}
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> Les caractéristiques doivent respecter le format suivant "For 25, Dex 8, Con 19, Int 6, Sag 10, Cha 7". Vérifiez la présence de chaque caractéristique, de la majuscule au début et de la virgule entre chacune.</div>
+  {{/unless}}
+</div>
+<div class="form-group">
+  <label>Jets de sauvegarde</label>
+  {{#if savingThrows}}
+    <div><i class="fas fa-check-circle"></i> Réf {{ savingThrows.ref }}, Vig {{ savingThrows.fort }}, Vol {{ savingThrows.will }}</div>
+  {{/if}}
+  {{#unless abilities}}
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> Les caractéristiques doivent respecter le format suivant "Réf +2, Vig +11, Vol -3". Vérifiez la présence de chaque jet de sauvegarde, de la majuscule au début et de la virgule entre chacune.</div>
+  {{/unless}}
+</div>
+<div class="form-group">
+  <label>Initiative</label>
+  {{#if init}}
+    <div><i class="fas fa-check-circle"></i> Init {{ init.value }}</div>
+  {{/if}}
+  {{#unless init}}
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> L'initiative doit respecter le format suivant "Init +4". Vérifiez la présence du signe (même pour +0).</div>
+  {{/unless}}
+</div>
+<div class="form-group">
+  <label>Classe d'armure (CA)</label>
+  {{#if ac}}
+    <div><i class="fas fa-check-circle"></i> CA {{ ac.value }} ({{ ac.notes }})</div>
+  {{/if}}
+  {{#unless ac}}
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> La CA doit respecter le format "CA 21 (...)". Vérifiez la présence des parenthèses après.</div>
+  {{/unless}}
+</div>
+<div class="form-group">
+  <label>Points de vie (pv)</label>
+  {{#if hp}}
+    <div><i class="fas fa-check-circle"></i> pv {{ hp.hitpoints }} ({{ hp.level }} DV)</div>
+  {{/if}}
+  {{#unless hp}}
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> Les pv doivent respecter le format "pv 33 (5d...)". Vérifiez l'ortographe de <i>pv</i> et la présence des dés entre parenthèses.</div>
+  {{/unless}}
+</div>
+<div class="form-group">
+  <label>Attaques au corps-à-corps</label>
+  {{#if mattack}}
+    <div><i class="fas fa-check-circle"></i> {{ mattack }}</div>
+  {{/if}}
+  {{#unless mattack}}
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> Aucune attaque trouvée. La ligne doit commencer par "Corps à corps". Assurez-vous également que toutes les attaques soient sur la même ligne (sans retour à la ligne)</div>
+  {{/unless}}
+</div>
+<div class="form-group">
+  <label>Attaques à distance</label>
+  {{#if mattack}}
+    <div><i class="fas fa-check-circle"></i> {{ rattack }}</div>
+  {{/if}}
+  {{#unless rattack}}
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> Aucune attaque trouvée. La ligne doit commencer par "Distance" ou "À distance". Assurez-vous également que toutes les attaques soient sur la même ligne (sans retour à la ligne)</div>
+  {{/unless}}
+</div>
+<div class="form-group">
+  <label>Compétences</label>
+  {{#if skills}}
+    <div><i class="fas fa-check-circle"></i> 
+    {{#each skills as |skill sid|}}{{#if @index}}, {{/if}}{{skill.name}} {{skill.value}}{{/each}}
+    </div>
+  {{/if}}
+  {{#unless skills}}
+    <div class="imperror"><i class="fas fa-exclamation-circle"></i> La ligne doit commencer par "Compétences". Assurez-vous également que toutes les compétences soient sur la même ligne (sans retour à la ligne)</div>
+  {{/unless}}
+</div>
+</form>
+
+<style>
+  .imperror { color: darkred; }
+</style>

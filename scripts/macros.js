@@ -268,11 +268,12 @@ MacrosPF1.extractCharacter = function (text) {
     data.abilities.cha = Number(res[6].match(/\d+/)[0])
   }
   // hit points
-  res = Array.from(line.matchAll(/pv (\d+) \(.?(\d+?)d/g))
+  res = Array.from(line.matchAll(/pv (\d+) \( ?(\d+?)d/g))
   if( res.length > 0 ) {
     res = res[0]
-    data.hitpoints = Number(res[1])
-    data.level = Number(res[2])
+    data.hp = {}
+    data.hp.hitpoints = Number(res[1])
+    data.hp.level = Number(res[2])
   }
   // saving throws
   res = Array.from(line.matchAll(/Réf (.*?), Vig (.*?), Vol (.*?) /g))
@@ -287,27 +288,47 @@ MacrosPF1.extractCharacter = function (text) {
   res = Array.from(line.matchAll(/CA (\d+),.*?\((.+?)\)/g))
   if( res.length > 0 ) {
     res = res[0]
-    data.ac = Number(res[1].match(/\d+/)[0])
-    data.acNotes= res[2]
+    data.ac = {}
+    data.ac.value = Number(res[1].match(/\d+/)[0])
+    data.ac.notes= res[2]
   }
   // initiative
   res = Array.from(line.matchAll(/Init ([-+]\d+?)/g))
   if( res.length > 0 ) {
     res = res[0]
-    data.init = Number(res[1])
+    data.init = {}
+    data.init.value = Number(res[1])
   }
   // attacks
   res = Array.from(text.matchAll(/^Corps à corps (.*)/gm))
   if( res.length > 0 ) {
     res = res[0]
     data.mattack = res[1]
-    console.log(data.mattack)
   }
   res = Array.from(text.matchAll(/^À? ?[Dd]istance (.*)/gm))
   if( res.length > 0 ) {
     res = res[0]
     data.rattack = res[1]
-    console.log(data.rattack)
+  }
+  res = Array.from(text.matchAll(/^Compétences (.*)/gm))
+  if( res.length > 0 ) {
+    data.skills = {}
+    res = res[0]
+    skills = res[1]
+    Object.keys(CONFIG.PF1.skills).forEach( s => {
+      let skillname
+      if( s == "umd" ) { skillname = game.i18n.localize("PF1.SkillUMD") }
+      else if( s.startsWith("k") ) {
+        skillname = game.i18n.localize("PF1.Skill" + s.slice(0,2).toUpperCase() + s.charAt(2))
+      } else {
+        skillname = game.i18n.localize("PF1.Skill" + s.charAt(0).toUpperCase() + s.slice(1))
+      }
+      
+      res = Array.from(skills.matchAll(new RegExp(skillname + " +([-+]?\\d+)", "g")))
+      if( res.length > 0 ) {
+        data.skills[s] = { value : Number(res[0][1]), name : skillname }
+      }
+    });
   }
   return data
 
@@ -335,7 +356,7 @@ MacrosPF1.importCharacter = async function (data) {
       },
       attributes: {
         hpAbility: "",  // avoid having to compute the impact of constitution on total HP
-        acNotes: data.acNotes ? data.acNotes : "",
+        acNotes: data.ac ? data.ac.notes : "",
       },
     }
   }
@@ -355,7 +376,7 @@ MacrosPF1.importCharacter = async function (data) {
     modCon = Math.floor((data.abilities.con-10)/2)
     modWis = Math.floor((data.abilities.wis-10)/2)
   }
-  
+    
   items = []
   
   items.push({
@@ -366,7 +387,7 @@ MacrosPF1.importCharacter = async function (data) {
       changes: [
         {
           "_id": "5l6m1em3",
-          "formula": data.init ? (data.init - modDex).toString() : "0",
+          "formula": data.init ? (data.init.value - modDex).toString() : "0",
           "operator": "add",
           "target": "misc",
           "subTarget": "init",
@@ -374,7 +395,7 @@ MacrosPF1.importCharacter = async function (data) {
         },
         {
           "_id": "lw2mmzhh",
-          "formula": data.hitpoints ? data.hitpoints.toString() : "0",
+          "formula": data.hp ? data.hp.hitpoints.toString() : "0",
           "operator": "add",
           "target": "misc",
           "subTarget": "mhp",
@@ -406,7 +427,7 @@ MacrosPF1.importCharacter = async function (data) {
         },
         {
           "_id": "r4vCnt93",
-          "formula": data.ac ? (data.ac - modDex - 10).toString() : "0",
+          "formula": data.ac ? (data.ac.value - modDex - 10).toString() : "0",
           "operator": "add",
           "target": "ac",
           "subTarget": "ac",
@@ -426,9 +447,30 @@ MacrosPF1.importCharacter = async function (data) {
     Array.prototype.push.apply(items, Importer.parseAttacks( data.rattack, false ))
   }
   
+  renderTemplate("modules/pf1-fr/templates/import-results.html", data).then(dlg => {
+    new Dialog({
+      title: "Résultats de l'import",
+      content: dlg,
+      buttons: {},
+    }, { width: 600 }).render(true);
+  })
+  
   let actor = await Actor.create(c);
-  actor.createEmbeddedEntity("OwnedItem", items)
+  await actor.createEmbeddedEntity("OwnedItem", items)
+  await actor.update({})
   ui.sidebar.activateTab("actors");
+
+  // update skills  
+  if( data.skills ) {
+    update = {}
+    Object.keys(data.skills).forEach( s => {
+      const curVal = actor.data.data.skills[s].mod
+      let desiredVal = data.skills[s].value
+      update[s] = { rank: Number(desiredVal-curVal) }
+    })
+    actor.update( { data: { skills: update } } )
+  }
+
 }
 
 
