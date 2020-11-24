@@ -18,14 +18,25 @@ Icon: icons/environment/people/commoner.webp
 //// SCRIPT
 let html = `<textarea id="pf1frImport" placeholder="Copier le bloc de texte ici\n\nRappel: vous devez ajouter ## devant chaque ligne contenant une liste de sorts à importer!!" rows="15"></textarea>`
 
-let buttons = { import: {
-  icon: '<i class="fas fa-file-import fa-fw"></i>',
-  label: "Importer",
-  callback: () => {
-    const data = MacrosPF1.extractCharacter(document.getElementById("pf1frImport").value)
-    console.log(data)
-    MacrosPF1.importCharacter(data)
-  } }
+let buttons = { 
+  test: {
+    icon: '<i class="fas fa-vial fa-fw"></i>',
+    label: "Tester (simulation)",
+    callback: () => {
+      console.log("L'erreur qui suit est normale! Elle permet d'éviter que la fenêtre de dialogue se ferme ;-)")
+      const data = MacrosPF1.extractCharacter(document.getElementById("pf1frImport").value)
+      MacrosPF1.importCharacter(data, true)
+      throw "N'oubliez pas d'importer!"
+    }
+  },
+  import: {
+    icon: '<i class="fas fa-file-import fa-fw"></i>',
+    label: "Importer",
+    callback: () => {
+      const data = MacrosPF1.extractCharacter(document.getElementById("pf1frImport").value)
+      MacrosPF1.importCharacter(data)
+    }
+  }
 }
 
 new Dialog({

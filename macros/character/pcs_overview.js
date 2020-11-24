@@ -6,8 +6,8 @@ Icon: systems/pf1/icons/items/inventory/tabard-blue.jpg
 //
 // Cette macro présente une vue d'ensemble des PJs
 //
-// Base : Foundry VTT (0.6.6)
-// Système : Pathfinder 1 (0.73.7)
+// Base : Foundry VTT (0.7.7)
+// Système : Pathfinder 1 (0.76.4)
 // Module(s) nécessaire(s) : -
 // Auteur(s) : Sven Werlen (Dorgendubal#3348)
 
@@ -19,34 +19,70 @@ const SKILLS = [ "Acr", "Spl", "Blf", "KDu", "KLo", "KGe", "KHi", "KEn", "KAr", 
 
 SKILLS.sort(function(a,b) { return game.i18n.localize("PF1.Skill" + a).localeCompare(game.i18n.localize("PF1.Skill" + b));  })
 
+// affichage par défaut
+function formatSolo(actor, val) {
+  return val[0].toString()
+}
+
+// affichage par défaut
+function formatSoloWithSign(actor, val) {
+  return (val[0] >= 0 ? "+" : "") + val[0].toString()
+}
+
+// fonction pour afficher les pv
+function formatPv(actor, val) {
+  return `${val[0]}/${val[1]}`
+}
+
+// fonction pour afficher la classe d'armure
+function formatCA(actor, val) {
+  return `${val[0]}, ${val[1]}, ${val[2]}`
+}
+
+// fonction pour afficher les statistiques au format "12 (+1)"
+function formatAbilities(actor, val) {
+  const mod = (val[1] >= 0 ? "+" : "") + val[1].toString()
+  return `${val[0].toString()} (${mod})`
+}
+
+// fonction pour afficher les compétences au format "+3 (2)"
+function formatSkill(actor, val) {
+  const sk = val[0]
+  if( !sk || (sk.rt && !sk.rank) ) return ""
+  const rank = sk.rank > 0 ? sk.rank.toString() : "-"
+  const mod = (sk.mod >= 0 ? "+" : "") + sk.mod.toString()
+  return `${mod} (${rank})`
+}
+
 const DISPLAY = [
-  { label: '', path: 'name', th: true },
-  { label: "XP", path: 'data.data.details.xp.value' },
+  { label: '', path: ['name'], th: true, format: formatSolo },
+  { label: "XP", path: ['data.data.details.xp.value'], format: formatSolo },
   
-  { label: game.i18n.localize("PF1.Attributes"), path: '', th: true },
-  { label: game.i18n.localize("PF1.AbilityShortStr"), path: ['data.data.abilities.str.total', 'data.data.abilities.str.mod'] },
-  { label: game.i18n.localize("PF1.AbilityShortDex"), path: ['data.data.abilities.dex.total', 'data.data.abilities.dex.mod'] },
-  { label: game.i18n.localize("PF1.AbilityShortCon"), path: ['data.data.abilities.con.total', 'data.data.abilities.con.mod'] },
-  { label: game.i18n.localize("PF1.AbilityShortInt"), path: ['data.data.abilities.int.total', 'data.data.abilities.int.mod'] },
-  { label: game.i18n.localize("PF1.AbilityShortWis"), path: ['data.data.abilities.wis.total', 'data.data.abilities.wis.mod'] },
-  { label: game.i18n.localize("PF1.AbilityShortCha"), path: ['data.data.abilities.cha.total', 'data.data.abilities.cha.mod'] },
+  { label: game.i18n.localize("PF1.Attributes"), th: true },
+  { label: game.i18n.localize("PF1.AbilityShortStr"), path: ['data.data.abilities.str.total', 'data.data.abilities.str.mod'], format: formatAbilities },
+  { label: game.i18n.localize("PF1.AbilityShortDex"), path: ['data.data.abilities.dex.total', 'data.data.abilities.dex.mod'], format: formatAbilities },
+  { label: game.i18n.localize("PF1.AbilityShortCon"), path: ['data.data.abilities.con.total', 'data.data.abilities.con.mod'], format: formatAbilities },
+  { label: game.i18n.localize("PF1.AbilityShortInt"), path: ['data.data.abilities.int.total', 'data.data.abilities.int.mod'], format: formatAbilities },
+  { label: game.i18n.localize("PF1.AbilityShortWis"), path: ['data.data.abilities.wis.total', 'data.data.abilities.wis.mod'], format: formatAbilities },
+  { label: game.i18n.localize("PF1.AbilityShortCha"), path: ['data.data.abilities.cha.total', 'data.data.abilities.cha.mod'], format: formatAbilities },
 
-  { label: game.i18n.localize("PF1.ItemTypeAttack"), path: '', th: true },
-  { label: game.i18n.localize("PF1.Initiative"), path: 'data.data.attributes.init.total' },
-  { label: game.i18n.localize("PF1.CMBAbbr"), path: 'data.data.attributes.cmb.total' },
+  { label: game.i18n.localize("PF1.ItemTypeAttack"), th: true },
+  { label: game.i18n.localize("PF1.Initiative"), path: ['data.data.attributes.init.total'], format: formatSoloWithSign },
+  { label: game.i18n.localize("PF1.CMBAbbr"), path: ['data.data.attributes.cmb.total'], format: formatSoloWithSign },
 
-  { label: game.i18n.localize("PF1.Defenses"), path: '', th: true },
-  { label: game.i18n.localize("PF1.HPShort"), path: ['data.data.attributes.hp.value', 'data.data.attributes.hp.max'] },
-  { label: game.i18n.localize("PF1.ACNormal"), path: ['data.data.attributes.ac.normal.total', 'data.data.attributes.ac.touch.total', 'data.data.attributes.ac.flatFooted.total'] },
-  { label: game.i18n.localize("PF1.SavingThrowRef"), path: 'data.data.attributes.savingThrows.ref.total' },
-  { label: game.i18n.localize("PF1.SavingThrowFort"), path: 'data.data.attributes.savingThrows.fort.total' },
-  { label: game.i18n.localize("PF1.SavingThrowWill"), path: 'data.data.attributes.savingThrows.will.total' },
-  { label: game.i18n.localize("PF1.CMDAbbr"), path: 'data.data.attributes.cmd.total' },
+  { label: game.i18n.localize("PF1.Defenses"), th: true },
+  { label: game.i18n.localize("PF1.HPShort"), path: ['data.data.attributes.hp.value', 'data.data.attributes.hp.max'], format: formatPv },
+  { label: game.i18n.localize("PF1.ACNormal"), path: ['data.data.attributes.ac.normal.total', 'data.data.attributes.ac.touch.total', 'data.data.attributes.ac.flatFooted.total'], format: formatCA },
+  { label: game.i18n.localize("PF1.SavingThrowRef"), path: ['data.data.attributes.savingThrows.ref.total'], format: formatSoloWithSign },
+  { label: game.i18n.localize("PF1.SavingThrowFort"), path: ['data.data.attributes.savingThrows.fort.total'], format: formatSoloWithSign },
+  { label: game.i18n.localize("PF1.SavingThrowWill"), path: ['data.data.attributes.savingThrows.will.total'], format: formatSoloWithSign },
+  { label: game.i18n.localize("PF1.CMDAbbr"), path: ['data.data.attributes.cmd.total'], format: formatSolo },
 
-  { label: game.i18n.localize("PF1.Skills"), path: '', th: true },
+  { label: game.i18n.localize("PF1.Skills"), th: true },
 ]
 
-SKILLS.forEach( s => DISPLAY.push( { label: game.i18n.localize("PF1.Skill" + s), path: [`data.data.skills.${s.toLowerCase()}.rank`, `data.data.skills.${s.toLowerCase()}.mod`] } ));
+
+SKILLS.forEach( s => DISPLAY.push( { label: game.i18n.localize("PF1.Skill" + s), path: [`data.data.skills.${s.toLowerCase()}`], format: formatSkill } ));
 
 // SCRIPT
 // Do NOT change unless you know what you're doing!
@@ -61,18 +97,17 @@ let template = "<table id=\"stats\">"
 DISPLAY.forEach( d => {
   const tag = d.th ? 'th' : 'td'
   template += `<tr><${tag} class="label">${d.label}</${tag}>`
-  actors.forEach( a => { 
-    if( Array.isArray( d.path ) ) {
-      let value = ""
-      d.path.forEach( p => {
-        value += " / " + (hasProperty(a, p) ? getProperty(a, p) : "")
+  actors.forEach( a => {
+    let values = []
+    let output = ""
+    if( d.path && d.format ) {
+      d.path.forEach( p => { 
+        const val = getProperty(a, p)
+        values.push( val ? val : 0 )
       });
-      template += `<${tag}>${value.substring(3)}</${tag}>` 
+      output = d.format(a, values)
     }
-    else {
-      const value = hasProperty(a, d.path) ? getProperty(a, d.path) : ""
-      template += `<${tag}>${value}</${tag}>` 
-    }
+    template += `<${tag}>${output}</${tag}>` 
   });
   template += "</tr>"
 });

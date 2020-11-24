@@ -301,7 +301,7 @@ MacrosPF1.extractCharacter = function (text) {
     data.init.value = Number(res[1])
   }
   // attack bonuses
-  res = Array.from(line.matchAll(/BBA ([+-]?\d+).*?, BMO ([+-]?\d+).*?, DMD ([+-]?\d+)/g))
+  res = Array.from(line.matchAll(/BBA ([+-]?\d+).*?[,;] ?BMO ([+-]?\d+).*?[,;] ?DMD ([+-]?\d+)/g))
   if( res.length > 0 ) {
     res = res[0]
     data.attBonus = {}
@@ -363,7 +363,7 @@ MacrosPF1.extractCharacter = function (text) {
  * Utility for importing a character based on extracted text
  ************************************************/
 
-MacrosPF1.importCharacter = async function (data) {
+MacrosPF1.importCharacter = async function (data, simulate = false) {
   let c =
   {
     name: data.name && data.name.length > 0 ? data.name : "Imported",
@@ -517,22 +517,23 @@ MacrosPF1.importCharacter = async function (data) {
     }, { width: 600 }).render(true);
   })
   
-  let actor = await Actor.create(c);
-  await actor.createEmbeddedEntity("OwnedItem", items)
-  await actor.update({})
-  ui.sidebar.activateTab("actors");
+  if( !simulate ) {
+    let actor = await Actor.create(c);
+    await actor.createEmbeddedEntity("OwnedItem", items)
+    await actor.update({})
+    ui.sidebar.activateTab("actors");
 
-  // update skills  
-  if( data.skills ) {
-    update = {}
-    Object.keys(data.skills).forEach( s => {
-      const curVal = actor.data.data.skills[s].mod
-      let desiredVal = data.skills[s].value
-      update[s] = { rank: Number(desiredVal-curVal) }
-    })
-    actor.update( { data: { skills: update } } )
+    // update skills  
+    if( data.skills ) {
+      update = {}
+      Object.keys(data.skills).forEach( s => {
+        const curVal = actor.data.data.skills[s].mod
+        let desiredVal = data.skills[s].value
+        update[s] = { rank: Number(desiredVal-curVal) }
+      })
+      actor.update( { data: { skills: update } } )
+    }
   }
-
 }
 
 
