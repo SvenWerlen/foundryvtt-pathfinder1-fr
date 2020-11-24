@@ -36,13 +36,13 @@ function formatPv(actor, val) {
 
 // fonction pour afficher la classe d'armure
 function formatCA(actor, val) {
-  return `${val[0]}, ${val[1]}, ${val[2]}`
+  return `${val[0]} (${val[1]}/${val[2]})`
 }
 
 // fonction pour afficher les statistiques au format "12 (+1)"
 function formatAbilities(actor, val) {
   const mod = (val[1] >= 0 ? "+" : "") + val[1].toString()
-  return `${val[0].toString()} (${mod})`
+  return `${mod} (${val[0].toString()})`
 }
 
 // fonction pour afficher les compétences au format "+3 (2)"
