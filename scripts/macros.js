@@ -537,4 +537,72 @@ MacrosPF1.importCharacter = async function (data, simulate = false) {
 }
 
 
+/************************************************
+ * Form application for NPC view
+ ************************************************/
 
+class NPCOverview extends FormApplication {
+  
+  constructor(object, options) {
+    super(object, options);
+    
+    this.actors = []
+    this.display = []
+    
+    if(options && options.actors) {
+      this.actors = options.actors
+    }
+    
+    if(options && options.display) {
+      this.display = options.display
+    }
+  }
+  
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      id: "npcoverview",
+      classes: ["dialog", "overview"],
+      title: game.i18n.localize("PF1.QuickInfo"),
+      template: "modules/pf1-fr/templates/npc-overview.html",
+      width: 1000,
+      height: "auto",
+      closeOnSubmit: false,
+      submitOnClose: false,
+    });
+  }
+  
+  getData() {
+    
+    this.display.forEach( d => {
+      d.outputs = []
+      this.actors.forEach( a => {
+        let values = []
+        let output = ""
+        if( d.path && d.format ) {
+          d.path.forEach( p => { 
+            const val = getProperty(a, p)
+            values.push( val ? val : 0 )
+          });
+          output = d.format(a, values)
+        }
+        d.outputs.push(output)
+      });
+    });
+    
+    return { display: this.display }
+  }
+  
+  activateListeners(html) {
+    html.find('tr').click(event => this._onAction(event));
+  }
+  
+  _onAction(event) {
+    const itemId = event.currentTarget.closest(".display").dataset.displayId;
+    if(itemId >= 0 && itemId < this.display.length) {
+      const action = this.display[itemId].action
+      if( action ) {
+        action( this.actors, this.display[itemId] )
+      }
+    }
+  }
+}

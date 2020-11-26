@@ -8,7 +8,7 @@ Icon: systems/pf1/icons/items/inventory/tabard-blue.jpg
 //
 // Base : Foundry VTT (0.7.7)
 // Système : Pathfinder 1 (0.76.4)
-// Module(s) nécessaire(s) : -
+// Module(s) nécessaire(s) : pf1-fr
 // Auteur(s) : Sven Werlen (Dorgendubal#3348)
 
 // CONFIGURATION
@@ -54,17 +54,44 @@ function formatSkill(actor, val) {
   return `${mod} (${rank})`
 }
 
+// action pour les jets de caractéristiques
+async function rollAbility(actors, row) {
+  for (let a = 0; a < actors.length; a++) {
+    let o = actors[a];
+    await o.rollAbility(row.ability, { event: new MouseEvent({}), noSound: a > 0, });
+  }
+}
+
+// action pour les compétences
+async function rollSkill(actors, row) {
+  for (let a = 0; a < actors.length; a++) {
+    let o = actors[a];
+    let info = o.getSkillInfo(row.skill);
+    if (!info || row.outputs[a].length == 0) continue;
+    await o.rollSkill(row.skill, { event: new MouseEvent({}), skipDialog: true, noSound: a > 0, });
+  }
+}
+
+// action pour les jets de sauvegarde
+async function rollSaving(actors, row) {
+  for (let a = 0; a < actors.length; a++) {
+    let o = actors[a];
+    await o.rollSavingThrow(row.saving, { event: new MouseEvent({}), noSound: a > 0, });
+  }
+}
+
+
 const DISPLAY = [
   { label: '', path: ['name'], th: true, format: formatSolo },
   { label: "XP", path: ['data.data.details.xp.value'], format: formatSolo },
   
   { label: game.i18n.localize("PF1.Attributes"), th: true },
-  { label: game.i18n.localize("PF1.AbilityShortStr"), path: ['data.data.abilities.str.total', 'data.data.abilities.str.mod'], format: formatAbilities },
-  { label: game.i18n.localize("PF1.AbilityShortDex"), path: ['data.data.abilities.dex.total', 'data.data.abilities.dex.mod'], format: formatAbilities },
-  { label: game.i18n.localize("PF1.AbilityShortCon"), path: ['data.data.abilities.con.total', 'data.data.abilities.con.mod'], format: formatAbilities },
-  { label: game.i18n.localize("PF1.AbilityShortInt"), path: ['data.data.abilities.int.total', 'data.data.abilities.int.mod'], format: formatAbilities },
-  { label: game.i18n.localize("PF1.AbilityShortWis"), path: ['data.data.abilities.wis.total', 'data.data.abilities.wis.mod'], format: formatAbilities },
-  { label: game.i18n.localize("PF1.AbilityShortCha"), path: ['data.data.abilities.cha.total', 'data.data.abilities.cha.mod'], format: formatAbilities },
+  { label: game.i18n.localize("PF1.AbilityShortStr"), path: ['data.data.abilities.str.total', 'data.data.abilities.str.mod'], format: formatAbilities, ability: 'str', action: rollAbility },
+  { label: game.i18n.localize("PF1.AbilityShortDex"), path: ['data.data.abilities.dex.total', 'data.data.abilities.dex.mod'], format: formatAbilities, ability: 'dex', action: rollAbility },
+  { label: game.i18n.localize("PF1.AbilityShortCon"), path: ['data.data.abilities.con.total', 'data.data.abilities.con.mod'], format: formatAbilities, ability: 'con', action: rollAbility },
+  { label: game.i18n.localize("PF1.AbilityShortInt"), path: ['data.data.abilities.int.total', 'data.data.abilities.int.mod'], format: formatAbilities, ability: 'int', action: rollAbility },
+  { label: game.i18n.localize("PF1.AbilityShortWis"), path: ['data.data.abilities.wis.total', 'data.data.abilities.wis.mod'], format: formatAbilities, ability: 'wis', action: rollAbility },
+  { label: game.i18n.localize("PF1.AbilityShortCha"), path: ['data.data.abilities.cha.total', 'data.data.abilities.cha.mod'], format: formatAbilities, ability: 'cha', action: rollAbility },
 
   { label: game.i18n.localize("PF1.ItemTypeAttack"), th: true },
   { label: game.i18n.localize("PF1.Initiative"), path: ['data.data.attributes.init.total'], format: formatSoloWithSign },
@@ -73,16 +100,23 @@ const DISPLAY = [
   { label: game.i18n.localize("PF1.Defenses"), th: true },
   { label: game.i18n.localize("PF1.HPShort"), path: ['data.data.attributes.hp.value', 'data.data.attributes.hp.max'], format: formatPv },
   { label: game.i18n.localize("PF1.ACNormal"), path: ['data.data.attributes.ac.normal.total', 'data.data.attributes.ac.touch.total', 'data.data.attributes.ac.flatFooted.total'], format: formatCA },
-  { label: game.i18n.localize("PF1.SavingThrowRef"), path: ['data.data.attributes.savingThrows.ref.total'], format: formatSoloWithSign },
-  { label: game.i18n.localize("PF1.SavingThrowFort"), path: ['data.data.attributes.savingThrows.fort.total'], format: formatSoloWithSign },
-  { label: game.i18n.localize("PF1.SavingThrowWill"), path: ['data.data.attributes.savingThrows.will.total'], format: formatSoloWithSign },
+  { label: game.i18n.localize("PF1.SavingThrowRef"), path: ['data.data.attributes.savingThrows.ref.total'], format: formatSoloWithSign, saving: "ref", action: rollSaving },
+  { label: game.i18n.localize("PF1.SavingThrowFort"), path: ['data.data.attributes.savingThrows.fort.total'], format: formatSoloWithSign, saving: "fort", action: rollSaving },
+  { label: game.i18n.localize("PF1.SavingThrowWill"), path: ['data.data.attributes.savingThrows.will.total'], format: formatSoloWithSign, saving: "will", action: rollSaving },
   { label: game.i18n.localize("PF1.CMDAbbr"), path: ['data.data.attributes.cmd.total'], format: formatSolo },
 
   { label: game.i18n.localize("PF1.Skills"), th: true },
 ]
 
 
-SKILLS.forEach( s => DISPLAY.push( { label: game.i18n.localize("PF1.Skill" + s), path: [`data.data.skills.${s.toLowerCase()}`], format: formatSkill } ));
+SKILLS.forEach( s => DISPLAY.push( 
+  { 
+    label: game.i18n.localize("PF1.Skill" + s), 
+    path: [`data.data.skills.${s.toLowerCase()}`], 
+    format: formatSkill, skill: s.toLowerCase(), 
+    action: rollSkill 
+  } 
+));
 
 // SCRIPT
 // Do NOT change unless you know what you're doing!
@@ -91,42 +125,4 @@ let actorIds = []
 game.users.forEach( function(u) { if( !u.isGM ) { actorIds.push(u.data.character) } } )
 const actors = game.actors.filter( a => actorIds.indexOf( a.id ) >= 0 )
 
-let template = "<table id=\"stats\">"
-
-// characters names
-DISPLAY.forEach( d => {
-  const tag = d.th ? 'th' : 'td'
-  template += `<tr><${tag} class="label">${d.label}</${tag}>`
-  actors.forEach( a => {
-    let values = []
-    let output = ""
-    if( d.path && d.format ) {
-      d.path.forEach( p => { 
-        const val = getProperty(a, p)
-        values.push( val ? val : 0 )
-      });
-      output = d.format(a, values)
-    }
-    template += `<${tag}>${output}</${tag}>` 
-  });
-  template += "</tr>"
-});
-template += "</table>"
-template += `<style>
-  #stats th, #stats td { width: 150px; }
-  #stats td { text-align: center}
-  #stats td.label, #stats th.label { width: 350px; text-align: left; padding-left: 15px }
-  #stats th.label { padding-left: 10px }
-  #stats tr th { background-color: #333; color: #fff; }
-  #stats tr:first-child th { background-color: #522; color: #fff }
-  #stats tr:nth-child(even) { background-color: rgba(170, 170, 170, 0.3) }
-  #stats tr:hover { background-color: #733; color: #fff }
-</style>`
-
-let buttons = {};
-
-new Dialog({
-    title: game.i18n.localize("PF1.QuickInfo"),
-    content: template,
-    buttons: buttons,
-  }, { width: 1000 }).render(true);
+new NPCOverview(null, { actors: actors, display: DISPLAY }).render(true)
