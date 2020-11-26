@@ -575,6 +575,7 @@ class PCOverview extends FormApplication {
     
     this.display.forEach( d => {
       d.outputs = []
+      d.actionClass = d.action ? "action" : ""
       this.actors.forEach( a => {
         let values = []
         let output = ""

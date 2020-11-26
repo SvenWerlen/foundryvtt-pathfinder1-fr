@@ -1,6 +1,6 @@
 <table id="stats">
   {{#each display as |d i|}}
-  <tr class="display" data-display-id="{{i}}">
+  <tr class="display {{actionClass}}" data-display-id="{{i}}">
       {{#if d.th}}<th class="label">{{d.label}}</th>{{/if}}
       {{#unless d.th}}<td class="label">{{d.label}}</td>{{/unless}}
       
@@ -21,4 +21,5 @@
   #stats tr:first-child th { background-color: #522; color: #fff }
   #stats tr:nth-child(even) { background-color: rgba(170, 170, 170, 0.3) }
   #stats tr:hover { background-color: #733; color: #fff;  }
+  #stats tr.action:hover { cursor: pointer;  }
 </style>
