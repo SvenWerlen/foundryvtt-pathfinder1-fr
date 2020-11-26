@@ -541,7 +541,7 @@ MacrosPF1.importCharacter = async function (data, simulate = false) {
  * Form application for NPC view
  ************************************************/
 
-class NPCOverview extends FormApplication {
+class PCOverview extends FormApplication {
   
   constructor(object, options) {
     super(object, options);
@@ -563,7 +563,7 @@ class NPCOverview extends FormApplication {
       id: "npcoverview",
       classes: ["dialog", "overview"],
       title: game.i18n.localize("PF1.QuickInfo"),
-      template: "modules/pf1-fr/templates/npc-overview.html",
+      template: "modules/pf1-fr/templates/pc-overview.html",
       width: 1000,
       height: "auto",
       closeOnSubmit: false,

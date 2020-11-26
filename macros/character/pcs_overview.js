@@ -125,4 +125,4 @@ let actorIds = []
 game.users.forEach( function(u) { if( !u.isGM ) { actorIds.push(u.data.character) } } )
 const actors = game.actors.filter( a => actorIds.indexOf( a.id ) >= 0 )
 
-new NPCOverview(null, { actors: actors, display: DISPLAY }).render(true)
+new PCOverview(null, { actors: actors, display: DISPLAY }).render(true)
