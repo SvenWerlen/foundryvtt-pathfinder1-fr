@@ -67,7 +67,7 @@ async function rollSkill(actors, row) {
   for (let a = 0; a < actors.length; a++) {
     let o = actors[a];
     let info = o.getSkillInfo(row.skill);
-    if (!info || row.outputs[a].length == 0) continue;
+    if (!info || (info.rt && !info.rank)) continue;
     await o.rollSkill(row.skill, { event: new MouseEvent({}), skipDialog: true, noSound: a > 0, });
   }
 }

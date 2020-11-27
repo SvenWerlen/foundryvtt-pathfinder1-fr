@@ -594,15 +594,22 @@ class PCOverview extends FormApplication {
   }
   
   activateListeners(html) {
-    html.find('tr').click(event => this._onAction(event));
+    html.find('td').click(event => this._onAction(event));
+    html.find('th').click(event => this._onAction(event));
   }
   
   _onAction(event) {
     const itemId = event.currentTarget.closest(".display").dataset.displayId;
+    const actorId = event.currentTarget.dataset.actorId;
     if(itemId >= 0 && itemId < this.display.length) {
       const action = this.display[itemId].action
       if( action ) {
-        action( this.actors, this.display[itemId] )
+        if( actorId >= 0 && actorId < this.actors.length ) {
+          action( [ this.actors[actorId] ], this.display[itemId] )
+        }
+        else {
+          action( this.actors, this.display[itemId] )
+        }
       }
     }
   }

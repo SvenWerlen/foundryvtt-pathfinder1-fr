@@ -1,12 +1,12 @@
 <table id="stats">
   {{#each display as |d i|}}
   <tr class="display {{actionClass}}" data-display-id="{{i}}">
-      {{#if d.th}}<th class="label">{{d.label}}</th>{{/if}}
-      {{#unless d.th}}<td class="label">{{d.label}}</td>{{/unless}}
+      {{#if d.th}}<th class="label" data-actor-id="-1">{{d.label}}</th>{{/if}}
+      {{#unless d.th}}<td class="label" data-actor-id="-1">{{d.label}}</td>{{/unless}}
       
-      {{#each outputs as |out i|}}
-        {{#if d.th}}<th class="label">{{out}}</th>{{/if}}
-        {{#unless d.th}}<td class="label">{{out}}</td>{{/unless}}
+      {{#each outputs as |out j|}}
+        {{#if d.th}}<th data-actor-id="{{j}}">{{out}}</th>{{/if}}
+        {{#unless d.th}}<td data-actor-id="{{j}}">{{out}}</td>{{/unless}}
       {{/each}}
   </tr>
   {{/each}}
