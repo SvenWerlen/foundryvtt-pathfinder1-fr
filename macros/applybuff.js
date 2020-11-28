@@ -168,6 +168,7 @@ catch (err) {
 	console.log(err, "Votre commande n'a pas fonctionné");
 }
 function buffFound(buff) {
+	if (!buff) { return ui.notifications.warn("Effet introuvable!") }
 	if (typeof levelOverride != 'undefined') buff.data.data.level = levelOverride;
 	if (typeof altName != 'undefined') buff.data.name = altName;
 	targetActors.forEach(act => {
