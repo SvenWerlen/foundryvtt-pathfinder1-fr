@@ -614,3 +614,71 @@ class PCOverview extends FormApplication {
     }
   }
 }
+
+
+/************************************************
+ * Form application for effects
+ ************************************************/
+
+class ManageBuffs extends FormApplication {
+  
+  constructor(object, options) {
+    super(object, options);
+    
+  }
+  
+  static get defaultOptions() {
+    return mergeObject(super.defaultOptions, {
+      id: "managebuffs",
+      title: "Gestion des effets",
+      template: "modules/pf1-fr/templates/manage-buffs.html",
+      width: 400,
+      height: 600,
+      closeOnSubmit: false,
+      submitOnClose: false,
+    });
+  }
+  
+  
+  async getData() {
+    let data = {}
+  
+    const actors = MacrosPF1.getActors()
+    const actor = actors.length > 0 ? actors[0] : null
+    
+    if( !actor ) return {}
+    this.actor = actor
+    
+    const buffs = actor.items.filter( i => i.data.type == "buff" )
+      
+    return { buffs: buffs }
+  }
+
+  activateListeners(html) {
+    //super.activateListeners(html);
+    //html.find('.buff').click(event => this._onControl(event));
+    html.find('.buff').mouseup(this._onControl.bind(this));
+  }
+  
+  async _onControl(event) {
+    event.preventDefault();
+    
+    const id = event.currentTarget.closest(".buff").dataset.id;
+    let buff = this.actor.items.find( i => i._id == id && i.type == "buff" );
+    
+    const dialog = this
+    if (buff != null) {
+      if(event.which == 3) {
+        await this.actor.deleteEmbeddedEntity("OwnedItem", id);
+        setTimeout(function(){ dialog.render() }, 1000);
+      }
+      else {
+        let active = getProperty(buff.data, "data.active");
+        if (active == null) active = false;
+        await buff.update({ "data.active": !active });
+        this.render()
+      }
+    }
+  }
+    
+}

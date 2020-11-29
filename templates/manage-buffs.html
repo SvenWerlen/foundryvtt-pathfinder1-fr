@@ -1,0 +1,27 @@
+<p class="descr"><b>Clic gauche</b> pour activer/désactiver. <b>Clic droit</b> pour supprimer.</p>
+<div class="overview">
+  <table class="buffs">
+  <tr><th>Effets</th></tr>
+  {{#each buffs as |b i|}}
+  <tr class="buff" data-id="{{b._id}}">
+    <td><img class="image" title="{{b.name}}" src="{{ b.img }}"> {{b.name}} 
+      <span class="enabled">
+      {{#if b.data.data.active}}<i class="fas fa-check"></i>{{/if}}
+      </span>
+    </td>
+  </tr>
+  {{/each}}
+  </table>
+</div>
+
+<style>
+  #managebuffs .descr { max-height: 14px; }
+  #managebuffs .buffs { float: left; width: 98%; margin: 5px }
+  #managebuffs .buffs tr:first-child { background-color: #333; color: #fff }
+  #managebuffs .buffs tr:not(:first-child):hover { cursor: pointer; background-color: #555; color: #fff }
+  #managebuffs .buffs td { padding-left: 5px }
+  #managebuffs .buffs tr:nth-child(even) { background-color: rgba(170, 170, 170, 0.3) }
+  #managebuffs .buffs img { width: 25px; vertical-align: middle; }
+  #managebuffs .buffs .enabled { float: right; padding: 0 10px }
+  #managebuffs .overview:after { content: ""; display: table; clear: both; }
+</style>
