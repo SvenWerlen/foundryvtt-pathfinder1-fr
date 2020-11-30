@@ -1,36 +1,87 @@
 # Changelog
-All notable changes to this project will be documented in this file.
 
-The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
-and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+Changements apportés au module `pf1-fr`.
+Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
+Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.2.0] - 2020-07-10
-### Added
-- Configuration to hide packs from pf1 (in English)
-- Configuration to improve CompendiumDirectory display
-### Changed
-- Data update from pathfinder-fr.org
-- Independent conditionnal buffs removed (now integrated as context notes in feats)
+## [1.4.0] - 2020-11-29
+### Ajouté
+- Gestion des changements (écran + notification)
 
+---
+
+*Les versions antérieures à 1.4+ sont anciennes et n'ont pas été maintenues selon les règles de l'art. Seuls les changements les plus pertinents ont été mentionnés et les numéros de version ne respectent pas toujours le [Semantic Versioning](https://semver.org/spec/v2.0.0.html)*
+
+---
+
+## [1.3.55] - 2020-11-28
+### Fixé
+- Macro d'effet ajouté dans les sorts non-fonctionnelle
+
+## [1.3.53] - 2020-11-28
+### Ajouté
+- Nouvelle macro pour gérer les effets
+
+## [1.3.52] - 2020-11-28
+### Ajouté
+- Nouveaux effets : Peau d'écorce, Résistance, Endurance de l'ours, Aide, Splendeur de l'aigle, Inspiration vaillante, Bouclier de la foi, Force de taureau
+
+## [1.3.51] - 2020-11-26
+### Changé
+- Ajout du lancer individuel à la macro "Aperçu des PJs"
+
+## [1.3.50] - 2020-11-25
+### Changé
+- Refonte de la macro "Aperçu des PJs" pour permettre le lancer de dés pour tous
+
+## [1.3.33] - 2020-09-26
+### Ajouté
+- Macros pour les comptéences
+
+## [1.3.15] - 2020-08-04
+### Ajouté
+- Support pour le système métrique (kg/m)
+
+## [1.3.10] - 2020-07-17
+### Ajouté
+- Compendium pour les races
+
+## [1.3.9] - 2020-07-17
+### Ajouté
+- Compendiums pour les armes et armures magiques
+
+## [1.3.6] - 2020-07-13
+### Changé
+- Description HTML (affichage amélioré)
+
+## [1.3.3] - 2020-07-10
+### Ajouté
+- Compendium pour les compétences
+
+## [1.3.0] - 2020-07-10
+### Ajouté
+- Configuration pour masquer les compendiums anglophones (pf1)
+- Configuration pour un affichage plus compact des compendiums
+### Changé
+- Mise à jour des données depuis pathfinder-fr.org
+- Retrait des effets conditionnels (remplacés par des notes de contexte)
 
 ## [1.2.0] - 2020-06-30
-### Added
-- Independent conditionnal buffs (macros) for feats
-
+### Ajouté
+- Effets conditionnels (macros) pour les dons
 
 ## [1.1.0] - 2020-06-28
-### Added
-- Buffs for feats (first example: Discret)
+### Ajouté
+- Effets pour les dons (ex: Discret)
 
 ## [1.0.1] - 2020-06-22 
-### Added
-- First official release on FoundryVTT.com
+### Ajouté
+- Première release officielle sur FoundryVTT.com
 
-### Fixed
-- Missing CHANGELOG for 
-- Missing .gitattributes
+### Fixé
+- CHANGELOG manquant
 
 ## [1.0.0] - 2020-06-14 
-### Added
-- Packs: classes, class features, feats, spells, equipment, creatures
-- Import (beta): import characters from Android application (https://play.google.com/store/apps/details?id=org.pathfinderfr)
+### Ajouté
+- Compendiums: classes, aptitudes de classe, dons, sorts, équipement, créatures
+- Import (beta): import de personnages exportés avec l'application Android (https://play.google.com/store/apps/details?id=org.pathfinderfr)

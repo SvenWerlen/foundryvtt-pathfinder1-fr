@@ -1,3 +1,6 @@
+import { SemanticVersion } from "/systems/pf1/module/semver.js";
+import { ChangeLogWindow } from "./scripts/change-log.js";
+
 Hooks.once("init", () => {
 
   console.log("PF1-fr | Init")
@@ -19,6 +22,37 @@ Hooks.once("init", () => {
     default: true,
     type: Boolean,
     onChange: () => ui.compendium.render() });
+  
+  /**
+   * Track when the last changelog was shown
+   */
+  game.settings.register("pf1-fr", "changelogVersion", {
+    name: "Changelog Version",
+    scope: "client",
+    config: false,
+    type: String,
+    default: "1.3.53",
+  });
+  
+  game.settings.register("pf1-fr", "dontShowChangelog", {
+    name: "Don't Automatically Show Changelog",
+    scope: "client",
+    config: false,
+    type: Boolean,
+    default: false,
+  });
+});
+
+// Render Sidebar
+Hooks.on("renderSidebarTab", (app, html) => {
+  if (app instanceof Settings) {
+    // Add changelog button
+    let button = $(`<button>Changements PF1-fr</button>`);
+    html.find("#game-details").append(button);
+    button.click(() => {
+      new ChangeLogWindow().render(true);
+    });
+  }
 });
 
 /** Remplace les liens vers les compétences **/
@@ -32,7 +66,22 @@ Hooks.once("ready", () => {
         CONFIG.PF1.skillCompendiumEntries[id] = `pf1-fr.skillsfr.${skill._id}`
       }
     });
-  })  
+  })
+
+  // Show changelog
+  if (!game.settings.get("pf1-fr", "dontShowChangelog")) {
+    const v = game.settings.get("pf1-fr", "changelogVersion") || "0.0.1";
+    const changelogVersion = SemanticVersion.fromString(v);
+    
+    const curVersion = SemanticVersion.fromString(game.modules.get("pf1-fr").data.version);
+
+    if (curVersion.isHigherThan(changelogVersion)) {
+      const app = new ChangeLogWindow(changelogVersion);
+      app.render(true);
+      game.settings.set("pf1-fr", "changelogVersion", curVersion.toString());
+    }
+  }
+  
 });
 
 Hooks.on("canvasInit", async function() {
