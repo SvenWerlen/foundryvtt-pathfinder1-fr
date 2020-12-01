@@ -4,6 +4,15 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.5.1] - 2020-11-30
+### Fixed
+- Changelog mis à jour
+
+## [1.5.0] - 2020-11-30
+### Changé
+- Mise à jour des données et retrait des doublons 
+- Affichage optimisé des cartes dans le chat. Description complète en passant la souris dessus.
+
 ## [1.4.0] - 2020-11-29
 ### Ajouté
 - Gestion des changements (écran + notification)
