@@ -4,8 +4,18 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.6.0] - 2020-12-05
+### Ajouté
+- Nouvelle macro pour automatiquement mettre à jour la description des éléments d'un acteur
+
+### Changed
+- Les effets (modifications) des monstres du bestiaire sont désormais masquées du token (par défaut)
+
+### Fixé
+- #8 ajustements des pnj du bestiaire
+
 ## [1.5.1] - 2020-11-30
-### Fixed
+### Fixé
 - Changelog mis à jour
 
 ## [1.5.0] - 2020-11-30
