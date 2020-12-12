@@ -149,7 +149,7 @@ class MacrosPF1SkillChecksDialog extends FormApplication {
   constructor(object, options) {
     super(object, options);
     
-    this.rollMode = null
+    this.rollMode = game.settings.get("core", "rollMode");
     
     if(options) {
       this.rollMode = options.rollMode
