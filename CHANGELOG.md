@@ -4,11 +4,20 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.0] - 2020-12-12
+### Ajouté
+- Intégration des contributions de Almarane et Chibi Zaké (aptitudes/sorts)
+
+## [1.6.1] - 2020-12-12
+### Fixé
+- Correction des expressions invalides dans les compendiums (ex: D8 => 1d8)
+- Macro "Jets de compétence" corrigée pour permettre de prendre le mode de lancer sélectionné
+
 ## [1.6.0] - 2020-12-05
 ### Ajouté
 - Nouvelle macro pour automatiquement mettre à jour la description des éléments d'un acteur
 
-### Changed
+### Changé
 - Les effets (modifications) des monstres du bestiaire sont désormais masquées du token (par défaut)
 
 ### Fixé
