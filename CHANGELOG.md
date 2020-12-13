@@ -4,6 +4,11 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.7.1] - 2020-12-13
+### Fixé
+- La couleur dégradée pour les descriptions dans les messages n'est pas adaptée au mode de jet
+- Les macros dans la description ne sont pas cliquables (ex: 3d6)
+
 ## [1.7.0] - 2020-12-12
 ### Ajouté
 - Intégration des contributions de Almarane et Chibi Zaké (aptitudes/sorts)
