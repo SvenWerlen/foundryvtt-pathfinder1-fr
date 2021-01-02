@@ -4,6 +4,10 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.9.0] - 2021-01-01
+### Ajouté
+- Ajout des gemmes dans les produits de consommation
+
 ## [1.8.0] - 2020-12-31
 ### Changé
 - Mise à jour des compendiums incluant les récentes contributions (Lets'Contribute)
