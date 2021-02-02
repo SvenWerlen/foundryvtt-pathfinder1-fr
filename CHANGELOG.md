@@ -4,6 +4,11 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.0] - 2021-01-31
+### Ajouté
+- Nouveau bestiaire (merci à gobbhile#41770)
+- Macro pour configurer les images (non-incluses)
+
 ## [1.10.0] - 2021-01-16
 ### Ajouté
 - Mise à jour des compendiums incluant les récentes contributions (Lets'Contribute)
