@@ -23,6 +23,14 @@ Hooks.once("init", () => {
     type: Boolean,
     onChange: () => ui.compendium.render() });
   
+  game.settings.register("pf1-fr", "pf1frHighlightCombatant", {
+    name: "Couleur de mise en évidence (combat)", 
+    hint: "Met en évidence le jeton à qui c'est le tour de jouer (requiert le module Token Magic FX). Spécifiez la couleur souhaitée ou laisser vide pour désactiver cette fonctionnalité.", 
+    scope: "world",
+    config: true,
+    default: "0x3535bf",
+    type: String });
+  
   /**
    * Track when the last changelog was shown
    */
@@ -100,6 +108,41 @@ Hooks.on("renderCompendiumDirectoryPF", function(app, html, data) {
     html.find('footer.compendium-footer').show();
   }
 });
+
+Hooks.on("updateCombat", async function (data, delta) {
+  const color = game.settings.get("pf1-fr", "pf1frHighlightCombatant")
+  if (color && typeof TokenMagic !== "undefined") { 
+    // remove existing glow select
+    for( let token of canvas.tokens.placeables.filter( t => t.TMFXhasFilterId("nextCombatant") ) ) {
+      await token.TMFXdeleteFilters("nextCombatant");
+    }
+      
+    // glow select current
+    if( !game.combats.active ) return;
+    const c = game.combats.active.combatant
+    if( c && c.tokenId) {
+      let combatant = canvas.tokens.placeables.find( t => t.id === c.tokenId )
+      let params =
+        [{
+            filterType: "glow",
+            filterId: "nextCombatant",
+            color: color,
+            animated: null
+        }];
+        await combatant.TMFXaddUpdateFilters(params);
+    }
+  }
+})
+
+Hooks.on("deleteCombat", async function (data, delta) {
+  const color = game.settings.get("pf1-fr", "pf1frHighlightCombatant")
+  if (color && typeof TokenMagic !== "undefined") { 
+    // remove existing glow select
+    for( let token of canvas.tokens.placeables.filter( t => t.TMFXhasFilterId("nextCombatant") ) ) {
+      await token.TMFXdeleteFilters("nextCombatant");
+    }
+  }
+})
 
 /**
  * Once the entire VTT framework is initialized, overwrite existing functions

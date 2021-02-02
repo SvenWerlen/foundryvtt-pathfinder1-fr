@@ -8,6 +8,7 @@ Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec
 ### Ajouté
 - Nouveau bestiaire (merci à gobbhile#41770)
 - Macro pour configurer les images (non-incluses)
+- Mise en évidence du jeton du combatant à qui c'est le tour (piste d'initiative)
 
 ## [1.10.0] - 2021-01-16
 ### Ajouté
