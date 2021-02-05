@@ -28,7 +28,7 @@ Hooks.once("init", () => {
     hint: "Met en évidence le jeton à qui c'est le tour de jouer (requiert le module Token Magic FX). Spécifiez la couleur souhaitée ou laisser vide pour désactiver cette fonctionnalité.", 
     scope: "world",
     config: true,
-    default: "0x3535bf",
+    default: "0xf9d907",
     type: String });
   
   /**
@@ -110,6 +110,8 @@ Hooks.on("renderCompendiumDirectoryPF", function(app, html, data) {
 });
 
 Hooks.on("updateCombat", async function (data, delta) {
+  if(!game.user.isGM) return;
+         
   const color = game.settings.get("pf1-fr", "pf1frHighlightCombatant")
   if (color && typeof TokenMagic !== "undefined") { 
     // remove existing glow select
@@ -135,6 +137,8 @@ Hooks.on("updateCombat", async function (data, delta) {
 })
 
 Hooks.on("deleteCombat", async function (data, delta) {
+  if(!game.user.isGM) return;
+         
   const color = game.settings.get("pf1-fr", "pf1frHighlightCombatant")
   if (color && typeof TokenMagic !== "undefined") { 
     // remove existing glow select

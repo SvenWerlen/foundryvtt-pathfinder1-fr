@@ -4,6 +4,10 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.11.1] - 2021-02-04
+### Fixé
+- Erreur d'accès durant les combats en raison de la mise en évidence
+
 ## [1.11.0] - 2021-02-01
 ### Ajouté
 - Nouveau bestiaire (merci à gobbhile#41770)
