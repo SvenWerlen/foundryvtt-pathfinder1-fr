@@ -8,6 +8,11 @@ Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec
 ### Fixé
 - Erreur d'accès durant les combats en raison de la mise en évidence
 
+## [1.12.0] - 2021-02-05
+### Changé
+- Bestiaire avec images (merci à gobbhile#41770)
+- Configuration pour basculer entre le compendium avec/sans images
+
 ## [1.11.0] - 2021-02-01
 ### Ajouté
 - Nouveau bestiaire (merci à gobbhile#41770)

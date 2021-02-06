@@ -31,6 +31,15 @@ Hooks.once("init", () => {
     default: "0xf9d907",
     type: String });
   
+  game.settings.register("pf1-fr", "pf1frBestiary2", {
+    name: "Bestiaire avec images", 
+    hint: "Utiliser le bestiaire avec images (non-incluses!)", 
+    scope: "world",
+    config: true,
+    default: false,
+    type: Boolean,
+    onChange: () => window.location.reload() });
+  
   /**
    * Track when the last changelog was shown
    */
@@ -98,6 +107,12 @@ Hooks.on("canvasInit", async function() {
     await game.packs.forEach(function(p) { if( p.collection.startsWith("pf1.") ) { toRemove.push(p.collection) } });
     await toRemove.forEach( p => game.packs.delete(p))
     console.log("PF1-fr | Packs d'orgine (PF1) ont été retirés!")
+  }
+  
+  if( game.settings.get("pf1-fr", "pf1frBestiary2") ) {
+    await game.packs.delete(game.packs.get("pf1-fr.bestiaryfr").collection)
+  } else {
+    await game.packs.delete(game.packs.get("pf1-fr.bestiary2fr").collection)
   }
 });
 
