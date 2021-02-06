@@ -113,3 +113,42 @@
 #chat-log .pf1frDescr:hover::after {
     display: none;
 }
+
+/** Styles empruntés de www.pathfinder-fr.org 
+.BD {
+  font-family: corbel, trebuchet ms, verdana, sans-serif;
+  font-size: 13px;
+  text-align: left;
+}
+
+.BD img {
+  border: 0;
+}
+
+.BD .BDtitre {
+  background-color: #4b3124;
+  color: #fff;
+  font-weight: bold;
+  padding: 1px 3px 1px 3px;
+  text-indent: 0;
+  font-size: large;
+}
+
+.BD .BDsoustitre {
+  background-color: #f3efe2;
+  color: black;
+  padding: 0 1px 0 1px;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  text-indent: 0;
+  margin: 1px 0;
+}
+
+.BD .BDtexte {
+  padding: 1px 0 1px 8px;
+  text-indent: -8px;
+  text-align: left;
+}
+**/
