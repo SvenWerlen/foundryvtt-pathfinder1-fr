@@ -4,7 +4,9 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.12.1] - 2021-02-05
+## [1.12.2] - 2021-02-06
+### Ajouté
+- Styles CSS de www.pathfinder-fr.org pour améliorer l'affichage des descriptions (bestiaire)
 ### Changé
 - Bestiaire avec images (merci à gobbhile#41770)
 - Configuration pour basculer entre le compendium avec/sans images
