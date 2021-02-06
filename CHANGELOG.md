@@ -4,14 +4,15 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [1.11.1] - 2021-02-04
-### Fixé
-- Erreur d'accès durant les combats en raison de la mise en évidence
-
-## [1.12.0] - 2021-02-05
+## [1.12.1] - 2021-02-05
 ### Changé
 - Bestiaire avec images (merci à gobbhile#41770)
 - Configuration pour basculer entre le compendium avec/sans images
+- Retrait de la macro qui servait à mettre à jour le compendium
+
+## [1.11.1] - 2021-02-04
+### Fixé
+- Erreur d'accès durant les combats en raison de la mise en évidence
 
 ## [1.11.0] - 2021-02-01
 ### Ajouté
