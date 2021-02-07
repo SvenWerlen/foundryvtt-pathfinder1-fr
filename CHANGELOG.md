@@ -4,6 +4,10 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.13.0] - 2021-02-07
+### Changé
+- Mise à jour des compendiums incluant les récentes contributions (Lets'Contribute)
+
 ## [1.12.3] - 2021-02-06
 ### Ajouté
 - Styles CSS de www.pathfinder-fr.org pour améliorer l'affichage des descriptions (bestiaire)
