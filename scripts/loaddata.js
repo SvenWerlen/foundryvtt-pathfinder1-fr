@@ -8,8 +8,8 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
   ui.notifications.info("Import started ... please wait!!")
   
   const DATA = { 
-    classes: "Item", feats: "Item", classfeatures: "Item", classfeaturesarch: "Item", spells: "Item", 
-    weapons: "Item", armors: "Item", magic: "Item", bestiary: "Actor",
+    feats: "Item", classfeatures: "Item", classfeaturesarch: "Item", spells: "Item", classes: "Item",
+    weapons: "Item", armors: "Item", magic: "Item", //bestiary: "Actor",
     equip_transport: "Item",
     equip_alchTools: "Item",
     equip_adventurer: "Item",
@@ -28,7 +28,7 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
     weaponsAlch: "Item"
   }
   
-  const DATA_LOAD = ["pf1-fr.racesfr"]
+  const DATA_LOAD = ["pf1-fr.racesfr", "pf1-fr.classfeaturesfr"]
   
   let packs = {}
   let packIndexes = {}
@@ -50,10 +50,21 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
       if( deleteOnly ) { continue }
       await Compendium.create({label: packName, entity: DATA[d]})
       const jsonData   = await fetch(`${path}/${d}.json`).then(r => r.json()) 
-      // replace refereces (##Compendium|Name##)
-      jsonData.forEach( d => {
-        if( d.data && d.data.description ) {
-          const array = [...d.data.description.value.matchAll(/##(.*?)##/g)];
+      // replace references (##Compendium|Name##)
+      jsonData.forEach( e => {
+        // classes => replace references from associations
+        if( d == "classes") {
+          e.data.links.classAssociations.forEach( a => {
+            const feature = packIndexes["pf1-fr.classfeaturesfr"].find(f => f.name === a.name)
+            if(feature) {
+              a.id = a.id.replace("XXXX", feature._id)
+            } else {
+              console.log("Import | Couldn't find feature", a)
+            }
+          })
+        }
+        if( e.data && e.data.description ) {
+          const array = [...e.data.description.value.matchAll(/##(.*?)##/g)];
           array.forEach( e => {
             const str = e[0]
             const collection = "pf1-fr." + e[1].split('|')[0]
@@ -61,7 +72,7 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
             if( collection in packIndexes ) {
               const entry = packIndexes[collection].find(f => f.name === name)
               if(entry) {
-                d.data.description.value = d.data.description.value.replace(str, `@Compendium[${collection}.${entry._id}]{${name}}`)
+                e.data.description.value = e.data.description.value.replace(str, `@Compendium[${collection}.${entry._id}]{${name}}`)
               }
               else {
                 console.log(`PF1-FR | ${name} couldn't be found in compendium ${collection}!`)
