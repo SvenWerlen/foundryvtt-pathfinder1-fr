@@ -40,6 +40,16 @@ Hooks.once("init", () => {
     type: Boolean,
     onChange: () => window.location.reload() });
   
+  game.settings.register("pf1-fr", "pf1frClassesAssociations", {
+    name: "Classes avec associations", 
+    hint: "Ajoute automatiquement les associations aux classes. Les aptitudes seront ainsi automatiquement retirées/ajoutées au personnage lors d'un changement de niveau.", 
+    scope: "world",
+    config: true,
+    default: "all",
+    type: String,
+    choices: { "always": "Toujours", "pc": "PJ uniquement", "npc": "PNJ uniquement", "never": "Jamais" }
+  });
+  
   /**
    * Track when the last changelog was shown
    */
@@ -123,6 +133,23 @@ Hooks.on("renderCompendiumDirectoryPF", function(app, html, data) {
     html.find('footer.compendium-footer').show();
   }
 });
+
+/**
+ * On create class => ask
+ */
+Hooks.on('preCreateOwnedItem', (actor, item, data) => {
+
+  if( item.type == "class" ) {
+    const config = game.settings.get("pf1-fr", "pf1frClassesAssociations")
+    const isPC = actor.data.type == "character"
+    console.log(`PF1-fr | Adding class ${item.name} on ${actor.name} (${isPC ? 'pc' : 'npc' }) with config '${config}'`)
+    if( config == "never" || ( config == "pc" && !isPC ) || ( config == "npc" && isPC ) ) {
+      delete(item.data.links)
+    }
+  }
+
+});
+
 
 Hooks.on("updateCombat", async function (data, delta) {
   if(!game.user.isGM) return;
