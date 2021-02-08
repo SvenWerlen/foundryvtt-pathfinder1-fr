@@ -4,6 +4,13 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.14.0] - 2021-02-07
+### Ajouté
+- Classes : associations des aptitudes par niveau
+- Configuration pour permettre de choisir quand les associations doivent être ajoutées ou non
+### Fixé
+- Macro "Importer un PNJ" brisée suite à la mise à jour `0.77.7` de `pf1`.
+
 ## [1.13.0] - 2021-02-07
 ### Changé
 - Mise à jour des compendiums incluant les récentes contributions (Lets'Contribute)
