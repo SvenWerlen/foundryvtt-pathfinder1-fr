@@ -143,6 +143,13 @@
       "entity": "Item"
     },
     {
+      "name": "gemsfr",
+      "label": "Gemmes",
+      "system": "pf1",
+      "path": "./packs/gems-fr.db",
+      "entity": "Item"
+    },
+    {
       "name": "potionsfr",
       "label": "Potions",
       "system": "pf1",
