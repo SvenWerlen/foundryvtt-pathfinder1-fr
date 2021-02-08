@@ -4,6 +4,10 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.0] - 2021-02-07
+### Ajouté
+- Compendium : gemmes (pierres précieuses)
+
 ## [1.15.0] - 2021-02-07
 ### Ajouté
 - Effet de rage : berserker
