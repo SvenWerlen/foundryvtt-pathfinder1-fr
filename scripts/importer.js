@@ -252,6 +252,7 @@ Importer.createAttack = function(name, description, source, ismelee, stat, damag
         ]
       },
       attackParts: Importer.createAttackParts(bonus),
+      formula: "",
       ability: {
         attack: stat,
         damage: "",
@@ -260,9 +261,9 @@ Importer.createAttack = function(name, description, source, ismelee, stat, damag
         critMult: Number(critMult)
       },
       range: {
-        value: ismelee ? null : range,
+        value: ismelee ? null : range.toString(),
         units: ismelee ? "touch" : "ft"
-      },
+      },      
       attackType: "weapon",
       proficient: true,
       primaryAttack: true
