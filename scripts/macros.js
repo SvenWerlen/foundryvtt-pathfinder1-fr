@@ -389,6 +389,7 @@ MacrosPF1.importCharacter = async function (data, simulate = false) {
   let modDex = 0;
   let modCon = 0;
   let modWis = 0;
+  let modStr = 0;
   
   if( data.abilities ) {
     c.data.abilities.str.value = data.abilities.str
