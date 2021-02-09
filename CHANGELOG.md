@@ -4,6 +4,11 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.1] - 2021-02-09
+### Fixed
+- Retrait des gemmes du compendium des biens de consommation (car déjà dans compendium séparé)
+- Problème avec la macro d'importation de personnages (bogue)
+
 ## [1.16.0] - 2021-02-07
 ### Ajouté
 - Compendium : gemmes (pierres précieuses)
