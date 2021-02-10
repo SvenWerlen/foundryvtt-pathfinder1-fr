@@ -4,6 +4,10 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.16.2] - 2021-02-10
+### Fixed
+- Impossible d'ouvrir la fiche de certains monstres suite à la mise à jour de `pf1` (ex: cambion)
+
 ## [1.16.1] - 2021-02-09
 ### Fixed
 - Retrait des gemmes du compendium des biens de consommation (car déjà dans compendium séparé)
