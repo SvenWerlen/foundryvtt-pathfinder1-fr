@@ -278,7 +278,7 @@ Importer.parseAttacks = function(attack, ismelee) {
   let attackList = []
   let count = 0;
   while(count++ < 10) {
-    const data = attackStr.match(/^(.*?) ([\+-][\+0-9/]+) (contact )?\((.*?)\)/)
+    const data = attackStr.match(/^(.*?) ([\+-][0-9/]+) (contact )?\((.*?)\)/)
     if(data) {
       attackStr = attackStr.substring(data[0].length)
       const name = data[1].replace(/,/g, '').trim()
@@ -289,7 +289,7 @@ Importer.parseAttacks = function(attack, ismelee) {
       let bonusList = []
       let countB = 0;
       while(countB++ < 10) {
-        bonus = bonusStr.match(/^\/?([\+\d]+)/)
+        bonus = bonusStr.match(/^\/?([\+-\d]+)/)
         if(bonus) {
           bonusStr = bonusStr.substring(bonus[0].length)
           bonusList.push(Number(bonus[1]))

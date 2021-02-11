@@ -294,7 +294,7 @@ MacrosPF1.extractCharacter = function (text) {
     data.ac.notes= res[3]
   }
   // initiative
-  res = Array.from(line.matchAll(/Init ([-+]\d+?)/g))
+  res = Array.from(line.matchAll(/Init ([+-]\d+?)/g))
   if( res.length > 0 ) {
     res = res[0]
     data.init = {}
@@ -335,7 +335,7 @@ MacrosPF1.extractCharacter = function (text) {
         skillname = game.i18n.localize("PF1.Skill" + s.charAt(0).toUpperCase() + s.slice(1))
       }
       
-      res = Array.from(skills.matchAll(new RegExp(skillname + " +([-+]?\\d+)", "g")))
+      res = Array.from(skills.matchAll(new RegExp(skillname.replace("(", "\\(").replace(")", "\\)") + " +([+-]?\\d+)", "gi")))
       if( res.length > 0 ) {
         data.skills[s] = { value : Number(res[0][1]), name : skillname }
       }
