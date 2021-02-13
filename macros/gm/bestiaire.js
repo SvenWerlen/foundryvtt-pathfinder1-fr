@@ -25,11 +25,11 @@ async function process(withImages = true) {
 
   let response = await fetch(URL);
   if (response.ok) { // if HTTP-status is 200-299
-    let list = []
     let pack = game.packs.find(p => p.metadata.label === PACKNAME);
     // create compendium if doesn't exist
     if(!pack) { 
       pack = await Compendium.create({ collection: PACKCOLL, label: PACKNAME, entity: PACKTYPE })
+      MacrosPF1.hideENCompendiums()
     }
     const index = await pack.getIndex()
 
@@ -38,6 +38,7 @@ async function process(withImages = true) {
     const text = await response.text()
     const lines = text.split("\n");
     let idx = 0;
+    let list = {}
     for(const line of lines) { 
       SceneNavigation._onLoadProgress(MSG, Math.round((idx++ / lines.length)*100));
       if(line.length == 0) continue
@@ -46,6 +47,10 @@ async function process(withImages = true) {
         if(data.img) data.img = "icons/svg/mystery-man.svg"
         if(data.img && data.token && data.token.img) data.token.img = "icons/svg/mystery-man.svg"
       }
+      list[data._id] = data
+    }
+    for(const k of Object.keys(list)) {
+      const data = list[k]
       const found = index.find(e => e.name === data.name);
       if(found) {
         data._id = found._id
@@ -59,7 +64,6 @@ async function process(withImages = true) {
       }
     }
     SceneNavigation._onLoadProgress("Import complété!", 100);
-    MacrosPF1.hideENCompendiums()
     
   } else {
     alert("HTTP-Error: " + response.status);
