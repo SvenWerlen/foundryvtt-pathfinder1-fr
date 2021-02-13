@@ -8,7 +8,7 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
   ui.notifications.info("Import started ... please wait!!")
   
   const DATA = { 
-    feats: "Item", classfeatures: "Item", classfeaturesarch: "Item", spells: "Item", classes: "Item",
+    feats: "Item", classfeatures: "Item", classfeaturesarch: "Item", spells: "Item", classes: "Item", classesarch: "Item",
     weapons: "Item", armors: "Item", magic: "Item", //bestiary: "Actor",
     equip_transport: "Item",
     equip_alchTools: "Item",
@@ -28,7 +28,7 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
     weaponsAlch: "Item"
   }
   
-  const DATA_LOAD = ["pf1-fr.racesfr", "pf1-fr.classfeaturesfr"]
+  const DATA_LOAD = ["pf1-fr.racesfr", "pf1-fr.classfeaturesfr", "pf1-fr.classfeaturesarchfr"]
   
   let packs = {}
   let packIndexes = {}
@@ -53,13 +53,14 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
       // replace references (##Compendium|Name##)
       jsonData.forEach( e => {
         // classes => replace references from associations
-        if( d == "classes") {
+        if( d == "classes" || d == "classesarch") {
           e.data.links.classAssociations.forEach( a => {
-            const feature = packIndexes["pf1-fr.classfeaturesfr"].find(f => f.name === a.name)
+            let feature = packIndexes["pf1-fr.classfeaturesfr"].find(f => f.name === a.name)
+            if(!feature) feature = packIndexes["pf1-fr.classfeaturesarchfr"].find(f => f.name === a.name)
             if(feature) {
               a.id = a.id.replace("XXXX", feature._id)
             } else {
-              console.log("Import | Couldn't find feature", a)
+              console.log("Import | Couldn't find feature", a.name)
             }
           })
         }

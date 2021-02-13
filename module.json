@@ -17,6 +17,13 @@
       "entity": "Item"
     },
     {
+      "name": "classesarchfr",
+      "label": "Classes (archétypes)",
+      "system": "pf1",
+      "path": "./packs/classesarch-fr.db",
+      "entity": "Item"
+    },
+    {
       "name": "spellsfr",
       "label": "Sorts",
       "system": "pf1",
