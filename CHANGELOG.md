@@ -4,6 +4,10 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.17.0] - 2021-02-12
+### Ajouté
+- Compendium pour les archétypes de classe
+
 ## [1.16.3] - 2021-02-10
 ### Fixed
 - Importer un PNJ : lorsque le bonus est négatif, l'attaque n'était pas importé
