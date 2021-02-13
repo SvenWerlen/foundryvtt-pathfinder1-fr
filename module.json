@@ -2,7 +2,7 @@
   "name": "pf1-fr",
   "title": "Pathfinder 1 - Improvements for french",
   "description": "Improves the system for french speakers. Provides compendiums in French. <p> *** Rejoignez la communauté Discord FR :<a href='https://discord.gg/pPSDNJk'> https://discord.gg/pPSDNJk </a></p>",
-  "version": "1.17.0",
+  "version": "1.18.0",
   "author": "Sven Werlen",
   "scripts": ["scripts/yaml.min.js", "scripts/importer.js", "scripts/loaddata.js", "scripts/macros.js"],
   "esmodules": ["pf1-fr.js"],
@@ -221,7 +221,7 @@
     }
   ],
   "url": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr",
-  "download": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr/archive/v-1.17.0.zip",
+  "download": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr/archive/v-1.18.0.zip",
   "manifest": "https://raw.githubusercontent.com/SvenWerlen/foundryvtt-pathfinder1-fr/master/module.json",
   "minimumCoreVersion": "0.6.0",
   "compatibleCoreVersion": "1.0.0"
