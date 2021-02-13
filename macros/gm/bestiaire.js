@@ -40,7 +40,6 @@ async function process(withImages = true) {
     let idx = 0;
     let list = {}
     for(const line of lines) { 
-      SceneNavigation._onLoadProgress(MSG, Math.round((idx++ / lines.length)*100));
       if(line.length == 0) continue
       const data = JSON.parse(line)
       if(!withImages) {
@@ -50,6 +49,7 @@ async function process(withImages = true) {
       list[data._id] = data
     }
     for(const k of Object.keys(list)) {
+      SceneNavigation._onLoadProgress(MSG, Math.round((idx++ / lines.length)*100));
       const data = list[k]
       const found = index.find(e => e.name === data.name);
       if(found) {
