@@ -278,18 +278,19 @@ Importer.parseAttacks = function(attack, ismelee) {
   let attackList = []
   let count = 0;
   while(count++ < 10) {
-    const data = attackStr.match(/^(.*?) ([\+-][0-9/]+) (contact )?\((.*?)\)/)
+    const data = attackStr.match(/^(.*?) ([\+\-0-9/]+) (contact )?\((.*?)\)/)
     if(data) {
-      attackStr = attackStr.substring(data[0].length)
-      const name = data[1].replace(/,/g, '').trim()
-      const dmg = data[4].match(/([\d\+d]+)(\/\d+-20)?(\/x\d)?/)
+      attackStr = attackStr.substring(data[0].length).trim()
+      if(attackStr.startsWith("et")) attackStr = attackStr.substring(2).trim()
+      const name = data[1].replace(/,/g, '').trim()               // remove ',' chars
+      const dmg = data[4].match(/([\d\+\-d]+)(\/\d+-20)?(\/x\d)?/)  // 1d4+5/18-20/x3 => extract (1d4+5) and (18-20) and (/x3)
       let bonusStr = data[2]
       
       // convert bonus +13/+8 into [13,8]
       let bonusList = []
       let countB = 0;
       while(countB++ < 10) {
-        bonus = bonusStr.match(/^\/?([\+-\d]+)/)
+        bonus = bonusStr.match(/^\/?([\+\-\d]+)/)
         if(bonus) {
           bonusStr = bonusStr.substring(bonus[0].length)
           bonusList.push(Number(bonus[1]))
