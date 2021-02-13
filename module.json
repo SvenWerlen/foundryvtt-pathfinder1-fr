@@ -171,20 +171,6 @@
       "entity": "Item"
     },
     {
-      "name": "bestiaryfr",
-      "label": "Bestiaire",
-      "system": "pf1",
-      "path": "./packs/bestiary-fr.db",
-      "entity": "Actor"
-    },
-    {
-      "name": "bestiary2fr",
-      "label": "Bestiaire",
-      "system": "pf1",
-      "path": "./packs/bestiary2-fr.db",
-      "entity": "Actor"
-    },
-    {
       "name": "skillsfr",
       "label": "Compétences",
       "system": "pf1",

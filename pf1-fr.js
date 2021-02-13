@@ -12,7 +12,7 @@ Hooks.once("init", () => {
     config: true,
     default: true,
     type: Boolean,
-    onChange: () => window.location.reload() });
+    onChange: () => MacrosPF1.hideENCompendiums() });
   
   game.settings.register("pf1-fr", "pf1frHidePackDetails", {
     name: "Affichage compact", 
@@ -30,16 +30,7 @@ Hooks.once("init", () => {
     config: true,
     default: "0xf9d907",
     type: String });
-  
-  game.settings.register("pf1-fr", "pf1frBestiary2", {
-    name: "Bestiaire avec images", 
-    hint: "Utiliser le bestiaire avec images (non-incluses!)", 
-    scope: "world",
-    config: true,
-    default: false,
-    type: Boolean,
-    onChange: () => window.location.reload() });
-  
+    
   game.settings.register("pf1-fr", "pf1frClassesAssociations", {
     name: "Classes avec associations", 
     hint: "Ajoute automatiquement les associations aux classes. Les aptitudes seront ainsi automatiquement retirées/ajoutées au personnage lors d'un changement de niveau.", 
@@ -112,18 +103,7 @@ Hooks.once("ready", () => {
 });
 
 Hooks.on("canvasInit", async function() {
-  if( game.settings.get("pf1-fr", "pf1frDisableENPacks") ) {
-    let toRemove = []
-    await game.packs.forEach(function(p) { if( p.collection.startsWith("pf1.") ) { toRemove.push(p.collection) } });
-    await toRemove.forEach( p => game.packs.delete(p))
-    console.log("PF1-fr | Packs d'orgine (PF1) ont été retirés!")
-  }
-  
-  if( game.settings.get("pf1-fr", "pf1frBestiary2") ) {
-    await game.packs.delete(game.packs.get("pf1-fr.bestiaryfr").collection)
-  } else {
-    await game.packs.delete(game.packs.get("pf1-fr.bestiary2fr").collection)
-  }
+  MacrosPF1.hideENCompendiums()
 });
 
 Hooks.on("renderCompendiumDirectoryPF", function(app, html, data) {

@@ -35,6 +35,16 @@ MacrosPF1.applyBuff = function (command) {
   macro.execute();
 }
 
+MacrosPF1.hideENCompendiums = async function() {
+  if( game.settings.get("pf1-fr", "pf1frDisableENPacks") ) {
+    let toRemove = []
+    await game.packs.forEach(function(p) { if( p.collection.startsWith("pf1.") ) { toRemove.push(p.collection) } });
+    await toRemove.forEach( p => game.packs.delete(p))
+    ui.compendium.render()
+    console.log("PF1-fr | Packs d'orgine (PF1) ont été retirés!")
+  }
+}
+
 /**
  * Checks that required modules are available
  */
