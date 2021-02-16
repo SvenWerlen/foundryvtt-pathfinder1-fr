@@ -4,6 +4,10 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.19.0] - 2021-02-16
+### Ajouté
+- Compendium pour les DV raciaux (merci Almarane#8025!)
+
 ## [1.18.0] - 2021-02-13
 ### Ajouté
 - Macro pour générer/mettre à jour le compendium du bestiaire (a été externalisé)
