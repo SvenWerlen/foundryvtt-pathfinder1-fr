@@ -225,6 +225,13 @@
       "system": "pf1",
       "path": "./packs/dvs-raciaux-fr.db",
       "entity": "Item"
+    },
+    {
+      "name": "attaquesfr",
+      "label": "Templates (attaques naturelles)",
+      "system": "pf1",
+      "path": "./packs/attaques-fr.db",
+      "entity": "Item"
     }
   ],
   "url": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr",
