@@ -84,6 +84,17 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
           });
         }
       });
+      // fix changes (missing operator)
+      jsonData.forEach( e => {
+        if( e.data && e.data.changes ) {
+          for( c of e.data.changes ) {
+            if( c.operator == undefined ) {
+              console.log(`PF1-FR | ${e.name} changes fixed!`)
+              c.operator = "add"
+            }
+          }
+        }
+      });
       const pack = game.packs.find(p => p.metadata.label === packName); 
       await pack.createEntity(jsonData);
       ui.notifications.info(`${d} imported!`)

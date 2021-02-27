@@ -4,6 +4,27 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.20.1] - 2021-02-27
+### Fixé
+- Opérateur non-défini dans les changements de certains dons provoque des comportements inattendus dans la feuille de personnage
+- Acrobate des corniches
+- Adroit et rapide
+- Anonyme
+- Aptitude magique (mythique)
+- Armure de la Fosse
+- Armure naturelle supérieure
+- Art du bouclier
+- Art du bouclier (mythique)
+- Art du bouclier supérieur
+- Ascendance aquatique
+- Athlétisme
+- Athlétisme (mythique)
+- Autonome
+- Autonome (mythique)
+- Chair angélique
+- Discret
+- Robustesse
+
 ## [1.20.0] - 2021-02-21
 ### Ajouté
 - Let's contribute : Gnome, Aasimar, Repousser la mort, Toucher du bien
