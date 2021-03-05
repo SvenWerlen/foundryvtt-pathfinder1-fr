@@ -4,6 +4,11 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.0] - 2021-03-05
+### Changed
+- Harmonisation des races (merci @Sarès#1604!)
+- Renommage du module pour "Moulinette - Pathfinder 1 - Improvements for french" afin d'harmoniser les dépôts.
+
 ## [1.20.1] - 2021-02-27
 ### Fixé
 - Opérateur non-défini dans les changements de certains dons provoque des comportements inattendus dans la feuille de personnage

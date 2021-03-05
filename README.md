@@ -1,7 +1,9 @@
-# Module pathfinder 1 pour Foundry VTT
+# Moulinette Foundry VTT module for pathfinder1
 
 Ce dépôt est un module pour foundry VTT (https://foundryvtt.com/).
 Le module améliore le système pathfinder1 pour le français, en s'appuyant notamment sur les données du site www.pathfinder-fr.org.
+
+Ce module fait partie de la suite d'outils [Moulinette](https://github.com/SvenWerlen/moulinette).
 
 Compendiums supportés:
 * classes
@@ -10,18 +12,14 @@ Compendiums supportés:
 * équipements
 * bestiaire
 * modifications
+* aptitudes
+* races
+* ...
 
 _(Voir le projet [pathfinderfr-data](https://github.com/SvenWerlen/pathfinderfr-data/blob/master/foundryvtt/README.md) pour plus de détails)_
 
 ![Compendiums](/doc/img/compendiums.jpg)
 ![Armors](/doc/img/armors.jpg)
-
-(beta) Le module permet également l'import de personnages qui ont été créés à partir
-de l'application Android (https://github.com/SvenWerlen/pathfinderfr-android). 
-
-![Profil](/doc/img/character-profile.jpg)
-
-Voir documentation: [Importer un personnage](doc/importer-personnage.md)
 
 ## Pré-requis
 
