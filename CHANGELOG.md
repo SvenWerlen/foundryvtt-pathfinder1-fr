@@ -9,6 +9,8 @@ Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec
 - Harmonisation des races (merci @Sarès#1604!)
 - Renommage du module pour "Moulinette - Pathfinder 1 - Improvements for french" afin d'harmoniser les dépôts.
 - Ajout des dons de race pour les monstres: Férocité, Retenir son souffle, Besoin d'eau et Croc-en-jambe (merci @Sarès#1604!)
+- Mise à jour selon Let's contribute
+- Ajout du bestiaire avec instructions pour utilisation de la macro
 
 ## [1.20.1] - 2021-02-27
 ### Fixé

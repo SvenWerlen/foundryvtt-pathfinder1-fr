@@ -232,6 +232,13 @@
       "system": "pf1",
       "path": "./packs/attaques-fr.db",
       "entity": "Item"
+    },
+    {
+      "name": "bestiairefr",
+      "label": "Bestiaire (instructions)",
+      "system": "pf1",
+      "path": "./packs/bestiaire-fr.db",
+      "entity": "Actor"
     }
   ],
   "url": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr",
