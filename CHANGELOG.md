@@ -4,13 +4,17 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.1] - 2021-03-12
+### Changé
+- Retour arrière du renommage du module "Pathfinder 1 - Improvements for french".
+
 ## [1.21.0] - 2021-03-05
-### Changed
+### Changé
 - Harmonisation des races (merci @Sarès#1604!)
 - Renommage du module pour "Moulinette - Pathfinder 1 - Improvements for french" afin d'harmoniser les dépôts.
 - Ajout des dons de race pour les monstres: Férocité, Retenir son souffle, Besoin d'eau et Croc-en-jambe (merci @Sarès#1604!)
 - Mise à jour selon Let's contribute
-### Added
+### Ajouté
 - Ajout du bestiaire avec instructions pour utilisation de la macro
 - Ajout des 5 classes de PNJ (adepte, expert, homme du peuple, homme d'arme, noble)
 
