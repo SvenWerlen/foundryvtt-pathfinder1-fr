@@ -44,7 +44,7 @@ function macroCastMirrorImages() {
 
     // Lancer le sort et consommer l'emplacement
     const notifLength =  ui.notifications.active.length;
-    hero.useSpell(spell, {}, {skipDialog: true}).then(result => {
+    spell.use({}, {skipDialog: true}).then(result => {
 
         if (ui.notifications.active.length != notifLength) return;
         

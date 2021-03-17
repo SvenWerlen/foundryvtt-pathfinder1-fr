@@ -4,6 +4,10 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.21.3] - 2021-03-17
+### Fixé
+- Macro "Incanter le sort Image miroir" ne fonctionne plus
+
 ## [1.21.2] - 2021-03-17
 ### Fixé
 - Certains librairies (markdown, semver) ne se chargent plus depuis la plus récente version de `pf1`
