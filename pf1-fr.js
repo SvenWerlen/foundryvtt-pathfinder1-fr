@@ -1,4 +1,4 @@
-import { SemanticVersion } from "/systems/pf1/module/semver.js";
+import { SemanticVersion } from "./scripts/semver.js";
 import { ChangeLogWindow } from "./scripts/change-log.js";
 
 Hooks.once("init", () => {

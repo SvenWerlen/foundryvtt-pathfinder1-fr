@@ -1,5 +1,5 @@
-import "/systems/pf1/module/lib/markdown/markdown-it.js";
-import { SemanticVersion } from "/systems/pf1/module/semver.js";
+import "./markdown-it.js";
+import { SemanticVersion } from "./semver.js";
 
 export class ChangeLogWindow extends FormApplication {
   constructor(lastVersion) {
