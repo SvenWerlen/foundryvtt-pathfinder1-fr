@@ -66,14 +66,20 @@ async function pf1frLoadData(path = "/data", filter = [], deleteOnly = false) {
         }
         if( e.data && e.data.description ) {
           const array = [...e.data.description.value.matchAll(/##(.*?)##/g)];
-          array.forEach( e => {
-            const str = e[0]
-            const collection = "pf1-fr." + e[1].split('|')[0]
-            const name = e[1].split('|')[1]
+          array.forEach( a => {
+            const str = a[0]
+            const collection = "pf1-fr." + a[1].split('|')[0]
+            const name = a[1].split('|')[1]
             if( collection in packIndexes ) {
               const entry = packIndexes[collection].find(f => f.name === name)
               if(entry) {
-                e.data.description.value = e.data.description.value.replace(str, `@Compendium[${collection}.${entry._id}]{${name}}`)
+                if(!e.data) {
+                  console.log(`PF1-FR | Invalid entry ${name}!`)
+                  console.log(e)
+                }
+                else {
+                  e.data.description.value = e.data.description.value.replace(str, `@Compendium[${collection}.${entry._id}]{${name}}`)
+                }
               }
               else {
                 console.log(`PF1-FR | ${name} couldn't be found in compendium ${collection}!`)
