@@ -4,6 +4,12 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.23.0] - 2021-04-03
+### Changé
+- Mise à jour selon Let's contribute
+### Fixé
+- Lien vers Bestiaire (https plutôt que http)
+
 ## [1.22.0] - 2021-03-23
 ### Changé
 - Mise à jour selon Let's contribute
