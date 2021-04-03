@@ -16,7 +16,7 @@ Icon: icons/environment/creatures/gargoyle-grey-stone.webp
 const PACKNAME = "Bestiaire"
 const PACKTYPE = "Actor"
 const PACKCOLL = "world.bestiaire"
-const URL      = "http://boisdechet.org/fvtt/data/bestiary-fr.txt"
+const URL      = "https://boisdechet.org/fvtt/data/bestiary-fr.txt"
 
 //// SCRIPT
 
