@@ -11,8 +11,8 @@ function MacrosPF1 () {}
 MacrosPF1.getActors = function () {
   const tokens = canvas.tokens.controlled;
   let actors = tokens.map(o => o.actor);
-  if (!actors.length) actors = game.actors.entities.filter(o => o.hasPerm(game.user, "OWNER"));
-  actors = actors.filter(o => o.hasPerm(game.user, "OWNER"));
+  if (!actors.length) actors = game.actors.entities.filter(o => o.testUserPermission(game.user, "OWNER"));
+  actors = actors.filter(o => o.testUserPermission(game.user, "OWNER"));
   return actors
 }
 
@@ -54,8 +54,7 @@ MacrosPF1.macroExec = function (macroName) {
     console.log(macroName)
     const macro = pack.index.find(e => e.name === macroName);
     if( macro ) {
-      console.log(macro._id)
-      pack.getEntity(macro._id).then( m => m.execute() );
+      pack.getDocument(macro._id).then( m => m.execute() );
     }
   })
 }
@@ -93,6 +92,7 @@ class MacrosPF1SkillCheckDialog extends FormApplication {
   async getData() {
     let data = {}
     data.actor = this.actor
+    console.log("here")
     // sélectionner le bon bonus basé sur la spécialité
     if( this.subskill ) {
       data.skillbonus = this.actor.data.data.skills[this.skill].subSkills[this.subskill].mod
@@ -172,7 +172,7 @@ class MacrosPF1SkillChecksDialog extends FormApplication {
       title: "Test de compétence",
       template: "modules/pf1-fr/templates/skillchecks-dialog.html",
       width: 720,
-      height: 685,
+      height: 800,
       closeOnSubmit: false,
       submitOnClose: false,
     });
@@ -189,33 +189,35 @@ class MacrosPF1SkillChecksDialog extends FormApplication {
     
     const actors = MacrosPF1.getActors()
     const actor = actors.length > 0 ? actors[0] : null
-    
-    for( let i = 0; i < pack.index.length; i++ ) {
-      if( pack.index[i].name.startsWith("Test : ") ) {
-        const macro = await pack.getEntry(pack.index[i]._id)
-        const abbr = pack.index[i].name.slice(7)
-        const skill = Object.keys(CONFIG.PF1.skills).find(key => abbr.toLowerCase().startsWith(CONFIG.PF1.skills[key].toLowerCase()))
+    for( const p of pack.index.values() ) {
+      if( p.name.startsWith("Test : ") ) {
+        const macro = (await pack.getDocument(p._id)).data
+        const abbr = p.name.slice(7)
+        let skill = Object.keys(CONFIG.PF1.skills).find(key => abbr.toLowerCase() == CONFIG.PF1.skills[key].toLowerCase())
+        if( !skill ) {
+          skill = Object.keys(CONFIG.PF1.skills).find(key => abbr.toLowerCase().startsWith(CONFIG.PF1.skills[key].toLowerCase()))
+        }
         const bonus = skill && actor ? actor.data.data.skills[skill].mod : 0
         
         if( abbr.startsWith("Connaissance") ) {
           var regExp = /\(([^)]+)\)/;
           var matches = regExp.exec(abbr);
-          data.checksknow.push( { name: pack.index[i].name, abbr: matches[1], icon: macro.img, bonus: bonus } )
+          data.checksknow.push( { name: p.name, abbr: matches[1], icon: macro.img, bonus: bonus } )
         } else if( abbr.endsWith("*") ) {
           if( skill && actor ) {
             let hasSubSkill = false
             Object.keys(actor.data.data.skills[skill].subSkills).forEach( sk => {
               const subskill = actor.data.data.skills[skill].subSkills[sk]
-              data.checksspec.push( { name: pack.index[i].name, abbr: `${abbr.slice(0, -1)} : ${subskill.name}`, icon: macro.img, bonus: subskill.mod, specialty: sk } )
+              data.checksspec.push( { name: p.name, abbr: `${abbr.slice(0, -1)} : ${subskill.name}`, icon: macro.img, bonus: subskill.mod, specialty: sk } )
               hasSubSkill = true
             });
             if( !hasSubSkill ) {
-              data.checksspec.push( { name: pack.index[i].name, abbr: `Aucune spécialité en ${abbr.slice(0, -1)}`, icon: macro.img, bonus: bonus } )
+              data.checksspec.push( { name: p.name, abbr: `Aucune spécialité en ${abbr.slice(0, -1)}`, icon: macro.img, bonus: bonus } )
             }
           }
           
         } else {
-          data.checks.push( { name: pack.index[i].name, abbr: abbr, icon: macro.img, bonus: bonus } )
+          data.checks.push( { name: p.name, abbr: abbr, icon: macro.img, bonus: bonus } )
         }
       }
     }
@@ -511,7 +513,7 @@ MacrosPF1.importCharacter = async function (data, simulate = false) {
       const sName = data.spells[i]
       const spell = pack.index.find(e => e.name.toLowerCase() === sName.toLowerCase() );
       if( spell ) {
-        const spellData = await pack.getEntity(spell._id)
+        const spellData = (await pack.getDocument(spell._id)).data
         items.push( spellData )
         data.spellsOK.push(sName)
       } else {

@@ -108,9 +108,17 @@ Hooks.on("canvasInit", async function() {
 
 Hooks.on("renderCompendiumDirectoryPF", function(app, html, data) {
   if( game.settings.get("pf1-fr", "pf1frHidePackDetails") ) {
-    html.find('footer.compendium-footer').hide();
+    $('footer.compendium-footer').hide();
   } else {
-    html.find('footer.compendium-footer').show();
+    $('footer.compendium-footer').show();
+  }
+});
+
+Hooks.on("renderCompendiumDirectory", function(app, html, data) {
+  if( game.settings.get("pf1-fr", "pf1frHidePackDetails") ) {
+    $('footer.compendium-footer').hide();
+  } else {
+    $('footer.compendium-footer').show();
   }
 });
 

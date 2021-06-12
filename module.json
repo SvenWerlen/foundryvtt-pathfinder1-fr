@@ -244,6 +244,6 @@
   "url": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr",
   "download": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr/archive/v-1.23.0.zip",
   "manifest": "https://raw.githubusercontent.com/SvenWerlen/foundryvtt-pathfinder1-fr/master/module.json",
-  "minimumCoreVersion": "0.6.0",
-  "compatibleCoreVersion": "1.0.0"
+  "minimumCoreVersion": "0.8.6",
+  "compatibleCoreVersion": "0.8.6"
 }

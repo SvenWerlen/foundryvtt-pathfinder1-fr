@@ -1,3 +1,4 @@
+<form class="{{cssClass}}" autocomplete="off">
 {{{skillRef}}}
 <ul>
   <li><b>Acteur sélectionné :</b> {{actor.name}}</li>
@@ -16,6 +17,7 @@
   {{#unless c.name}} <tr class="break"><td colspan="2">&nbsp;</td></tr> {{/unless}}
 {{/each}}
 </table>
+</form>
 
 <style>
   #skillcheck .skills th { width: 150px }
