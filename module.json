@@ -2,248 +2,299 @@
   "name": "pf1-fr",
   "title": "Pathfinder 1 - Improvements for french",
   "description": "Improves the system for french speakers. Provides compendiums in French. <p> *** Rejoignez la communauté Discord FR :<a href='https://discord.gg/pPSDNJk'> https://discord.gg/pPSDNJk </a></p>",
-  "version": "1.24.0",
-  "author": "Sven Werlen",
-  "scripts": ["scripts/yaml.min.js", "scripts/importer.js", "scripts/loaddata.js", "scripts/macros.js"],
-  "esmodules": ["pf1-fr.js"],
-  "systems": ["pf1"],
-  "styles": ["style.css"],
+  "authors": ["Sven Werlen"],
+  "url": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr",
+  "flags": {},
+  "version": "1.24.1",
+  "minimumCoreVersion": "0.7.0",
+  "compatibleCoreVersion": "0.7.9",
+  "scripts": [
+    "scripts/yaml.min.js",
+    "scripts/importer.js",
+    "scripts/loaddata.js",
+    "scripts/macros.js"
+  ],
+  "esmodules": [
+    "pf1-fr.js"
+  ],
+  "styles": [
+    "style.css"
+  ],
+  "languages": [],
   "packs": [
     {
       "name": "classesfr",
       "label": "Classes",
       "system": "pf1",
       "path": "./packs/classes-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "classesarchfr",
       "label": "Classes (archétypes)",
       "system": "pf1",
       "path": "./packs/classesarch-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "spellsfr",
       "label": "Sorts",
       "system": "pf1",
       "path": "./packs/spells-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "featsfr",
       "label": "Dons",
       "system": "pf1",
       "path": "./packs/feats-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "traitsfr",
       "label": "Traits",
       "system": "pf1",
       "path": "./packs/traits-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "classfeaturesfr",
       "label": "Aptitudes",
       "system": "pf1",
       "path": "./packs/classfeatures-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "classfeaturesarchfr",
       "label": "Aptitudes (archétypes)",
       "system": "pf1",
       "path": "./packs/classfeaturesarch-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "weaponsfr",
       "label": "Armes",
       "system": "pf1",
       "path": "./packs/weapons-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "weaponsAlchfr",
       "label": "Armes alchimiques",
       "system": "pf1",
       "path": "./packs/weaponsalch-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "armorsfr",
       "label": "Armures et boucliers",
       "system": "pf1",
       "path": "./packs/armors-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "equipAdventurerfr",
       "label": "Équipement d'aventurier",
       "system": "pf1",
       "path": "./packs/equipAdventurer-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "equipAlchCuresfr",
       "label": "Remèdes alchimiques",
       "system": "pf1",
       "path": "./packs/equipAlchCures-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "equipAlchToolsfr",
       "label": "Outils alchimiques",
       "system": "pf1",
       "path": "./packs/equipAlchTools-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "equipAnimalsfr",
       "label": "Animaux, montures et leur équipement",
       "system": "pf1",
       "path": "./packs/equipAnimals-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "equipClothesfr",
       "label": "Vêtements",
       "system": "pf1",
       "path": "./packs/equipClothes-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "equipFoodfr",
       "label": "Nourriture et Boissons",
       "system": "pf1",
       "path": "./packs/equipFood-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "equipGamesfr",
       "label": "Jeux",
       "system": "pf1",
       "path": "./packs/equipGames-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "equipToolsfr",
       "label": "Trousses d’outils et de compétences",
       "system": "pf1",
       "path": "./packs/equipTools-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "equipTransportfr",
       "label": "Moyens de transport",
       "system": "pf1",
       "path": "./packs/equipTransport-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "tradegoodsfr",
       "label": "Produits de consommation",
       "system": "pf1",
       "path": "./packs/tradegoods-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "gemsfr",
       "label": "Gemmes",
       "system": "pf1",
       "path": "./packs/gems-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "potionsfr",
       "label": "Potions",
       "system": "pf1",
       "path": "./packs/potions-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "magicfr",
       "label": "Objets magiques",
       "system": "pf1",
       "path": "./packs/magic-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "skillsfr",
       "label": "Compétences",
       "system": "pf1",
       "path": "./packs/skills-fr.db",
-      "entity": "JournalEntry"
+      "entity": "JournalEntry",
+      "private": false
     },
     {
       "name": "magicweaponsfr",
       "label": "Armes magiques",
       "system": "pf1",
       "path": "./packs/magicweapons-fr.db",
-      "entity": "JournalEntry"
+      "entity": "JournalEntry",
+      "private": false
     },
     {
       "name": "magicarmorsfr",
       "label": "Armures magiques",
       "system": "pf1",
       "path": "./packs/magicarmors-fr.db",
-      "entity": "JournalEntry"
+      "entity": "JournalEntry",
+      "private": false
     },
     {
       "name": "conditionsfr",
       "label": "États préjudiciables",
       "system": "pf1",
       "path": "./packs/conditions-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "racesfr",
       "label": "Races",
       "system": "pf1",
       "path": "./packs/races-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "buffsfr",
       "label": "Effets",
       "system": "pf1",
       "path": "./packs/buffs-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "macrosfr",
       "label": "Macros PF1",
       "system": "pf1",
       "path": "./packs/macros-fr.db",
-      "entity": "Macro"
+      "entity": "Macro",
+      "private": false
     },
     {
       "name": "dvsraciauxfr",
       "label": "DVs raciaux",
       "system": "pf1",
       "path": "./packs/dvs-raciaux-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "attaquesfr",
       "label": "Templates (attaques naturelles)",
       "system": "pf1",
       "path": "./packs/attaques-fr.db",
-      "entity": "Item"
+      "entity": "Item",
+      "private": false
     },
     {
       "name": "bestiairefr",
       "label": "Bestiaire (instructions)",
       "system": "pf1",
       "path": "./packs/bestiaire-fr.db",
-      "entity": "Actor"
+      "entity": "Actor",
+      "private": false
     }
   ],
-  "url": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr",
-  "download": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr/archive/v-1.24.0.zip",
+  "system": [
+    "pf1"
+  ],
+  "dependencies": [],
+  "socket": false,
   "manifest": "https://raw.githubusercontent.com/SvenWerlen/foundryvtt-pathfinder1-fr/master/module.json",
-  "minimumCoreVersion": "0.8.6",
-  "compatibleCoreVersion": "0.8.6"
+  "download": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr/archive/v-1.24.1.zip",
+  "protected": false,
+  "coreTranslation": false,
+  "library": false
 }
