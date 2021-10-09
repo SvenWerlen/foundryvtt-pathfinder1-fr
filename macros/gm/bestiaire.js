@@ -1,3 +1,7 @@
+Id: 9dfM0ZZ87QjUZY2l
+Name: Compendium - Bestiaire
+Icon: icons/environment/creatures/gargoyle-grey-stone.webp
+------------
 ///// INFORMATIONS
 //
 // Cette macro permet de créer ou mettre à jour les données du bestiaire
@@ -31,7 +35,6 @@ async function process(withImages = true) {
     // create compendium if doesn't exist
     if(!pack) {
       pack = await CompendiumCollection.createCompendium({ collection: PACKCOLL, label: PACKNAME, entity: PACKTYPE })
-
       MacrosPF1.hideENCompendiums()
     }
     const index = await pack.getIndex()
