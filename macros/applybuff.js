@@ -4,7 +4,10 @@ Icon: systems/pf1/icons/spells/air-burst-sky-1.jpg
 ------------
 // Macro utilitaire qui ne doit pas être utilisée individuellement
 //
-//
+/*- EXEMPLES -*/
+// MacrosPF1.applyBuff('Permuter "Défense totale"')
+// MacrosPF1.applyBuff('Activer "Défense totale"')
+// MacrosPF1.applyBuff('Permuter "Bouclier de la foi"')
 //
 /*- DOCUMENTATION -*/
 // Adaptation francophone de: https://gitlab.com/JusticeNoon/foundry-macros/-/blob/master/PF1E%20Entity-Link/Utilities/Force%20Update%20All.js
@@ -153,7 +156,7 @@ var isEvent = typeof event.srcElement.closest === "function"
 				if (pack) {
 					let search = await pack.getIndex().then(p => p.find(o => o.name == buffName));
 					if (search)
-						pack.getEntity(search._id).then(bItem => resolve(bItem));
+						pack.getDocument(search._id).then(bItem => resolve(bItem));
 					else
 						 resolve(false);
 				}
@@ -172,7 +175,7 @@ function buffFound(buff) {
 	if (typeof levelOverride != 'undefined') buff.data.data.level = levelOverride;
 	if (typeof altName != 'undefined') buff.data.name = altName;
 	targetActors.forEach(act => {
-		if (act && act.hasPerm(game.user, 'OWNER')) {
+		if (act && act.testUserPermission(game.user, 'OWNER')) {
 			let presentBuff = act.items.find(o => {return o.data.type == 'buff' && (o.name == buffName || o.name == altName);});
 			let updateArgs = [];
 			switch(operator.toLowerCase()) {
@@ -183,7 +186,7 @@ function buffFound(buff) {
 					if (presentBuff)
 						presentBuff.update({'data.active': true, 'data.level': buff.data.data.level, 'name': buff.data.name});
 					else
-						act.createOwnedItem(buff);			
+						act.createEmbeddedDocuments('Item', [buff.toObject()]);
 					break;
 				case 'retirer':
 					if (presentBuff)
@@ -196,7 +199,7 @@ function buffFound(buff) {
 						if (!buff.data.data.active)
 							buff.data.data.active = true;
 						
-						act.createOwnedItem(buff);
+						act.createEmbeddedDocuments('Item', [buff.toObject()]);
 					}
 					break;
 				case 'activer':
@@ -207,7 +210,7 @@ function buffFound(buff) {
 					if (presentBuff)
 						presentBuff.update({'data.active': false, 'data.level': buff.data.data.level, 'name': buff.data.name});
 					else
-						act.createOwnedItem(buff);
+						act.createEmbeddedDocuments('Item', [buff.toObject()]);
 					break;
 				case 'changer':
 					if (presentBuff && typeof levelOverride != 'undefined')
