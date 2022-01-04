@@ -7,9 +7,9 @@
   ],
   "url": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr",
   "flags": {},
-  "version": "1.24.3",
-  "minimumCoreVersion": "0.6.0",
-  "compatibleCoreVersion": "1.0.0",
+  "version": "2.0.0",
+  "minimumCoreVersion": "9",
+  "compatibleCoreVersion": "9",
   "scripts": [
     "scripts/yaml.min.js",
     "scripts/importer.js",
@@ -295,7 +295,7 @@
   "dependencies": [],
   "socket": false,
   "manifest": "https://raw.githubusercontent.com/SvenWerlen/foundryvtt-pathfinder1-fr/master/module.json",
-  "download": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr/archive/v-1.24.3.zip",
+  "download": "https://github.com/SvenWerlen/foundryvtt-pathfinder1-fr/archive/v-2.0.0.zip",
   "protected": false,
   "coreTranslation": false,
   "library": false

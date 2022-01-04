@@ -4,6 +4,10 @@ Changements apportés au module `pf1-fr`.
 Le format est basé sur [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 Ce projet adhère aux principes du [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [2.0.0] - 2022-01-03
+### Ajouté
+- Support pour V9
+
 ## [1.24.3] - 2021-10-11
 ### Fixé
 - Macro "Compendium - Bestiaire" ne fonctionne pas avec 0.8.x

@@ -11,7 +11,7 @@ function MacrosPF1 () {}
 MacrosPF1.getActors = function () {
   const tokens = canvas.tokens.controlled;
   let actors = tokens.map(o => o.actor);
-  if (!actors.length) actors = game.actors.entities.filter(o => o.testUserPermission(game.user, "OWNER"));
+  if (!actors.length) actors = game.actors.filter(o => o.testUserPermission(game.user, "OWNER"));
   actors = actors.filter(o => o.testUserPermission(game.user, "OWNER"));
   return actors
 }
