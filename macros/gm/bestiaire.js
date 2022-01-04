@@ -40,7 +40,7 @@ async function process(withImages = true) {
     const index = await pack.getIndex()
 
     // get the response body & import
-    SceneNavigation._onLoadProgress("Téléchargement",0);
+    SceneNavigation.displayProgressBar({label: "Téléchargement", pct: 0})
     const text = await response.text()
     const lines = text.split("\n");
     let idx = 0;
@@ -55,13 +55,13 @@ async function process(withImages = true) {
       list[data._id] = data
     }
     for(const k of Object.keys(list)) {
-      SceneNavigation._onLoadProgress(MSG, Math.round((idx++ / lines.length)*100));
+      SceneNavigation.displayProgressBar({label: MSG, pct: Math.round((idx++ / lines.length)*100)})
       const data = list[k]
       const found = index.find(e => e.name === data.name);
       if(found) {
-        data._id = found._id
-        await pack.updateEntity(data);
-        console.log(`PF1-fr | Mise à jour de ${data.name}`)
+        //data._id = found._id
+        //await pack.importDocument(data);
+        console.log(`PF1-fr | ${data.name} existant. Ignoré!`)
       }
       else {
         const actor = await new actorClass(data, {pack: pack})
@@ -69,14 +69,14 @@ async function process(withImages = true) {
         console.log(`PF1-fr | Ajout de ${data.name}`)
       }
     }
-    SceneNavigation._onLoadProgress("Import complété!", 100);
+    SceneNavigation.displayProgressBar({label: "Import complété!", pct: 100})
 
   } else {
     alert("HTTP-Error: " + response.status);
   }
 }
 
-const html = `<p>Cette macro génère un compendium <em>${PACKNAME}</em> dans votre monde. Les données sont téléchargées depuis Internet.<ul><li>Si le compendium existe déjà, les données seront mises à jour. La correspondance sera établie par le nom du monstre.</li><li>Si le compendium n'existe déjà, il sera créé automatiquement.</li><li>Les images NE sont PAS fournies (pour des raisons de droits d'auteur). Vous devez vous les procurer vous-même. Renseignez-vous sur <a href="https://discord.gg/pPSDNJk">Discord</a>. En cas de doute, choisissez l'option "Sans images".</li><li>Le processus peut prendre plusieurs minutes. Attendre la fin de l'import avant d'accéder au compendium ou relancer la macro!</li></ul></p>`
+const html = `<p>Cette macro génère un compendium <em>${PACKNAME}</em> dans votre monde. Les données sont téléchargées depuis Internet.<ul><li>Si le compendium existe déjà, les monstres manquants seront ajoutés. Les monstres existants seront ignorés.</li><li>Si le compendium n'existe déjà, il sera créé automatiquement.</li><li>Les images NE sont PAS fournies (pour des raisons de droits d'auteur). Vous devez vous les procurer vous-même. Renseignez-vous sur <a href="https://discord.gg/pPSDNJk">Discord</a>. En cas de doute, choisissez l'option "Sans images".</li><li>Le processus peut prendre plusieurs minutes. Attendre la fin de l'import avant d'accéder au compendium ou relancer la macro!</li></ul></p>`
 
 let buttons = {
   withImg: {
